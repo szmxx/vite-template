@@ -1,0 +1,9 @@
+{
+  "title": "vue3-ts-template",
+  "development": {
+    "BASEURL": {
+      "host": "localhost",
+      "port": 3000
+    }
+  }
+}

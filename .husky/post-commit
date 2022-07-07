@@ -1,0 +1,23 @@
+###
+ # @Author: cola
+ # @Date: 2022-07-04 18:53:52
+ # @LastEditors: cola
+ # @Description:
+###
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+branch=$(git symbolic-ref --short -q HEAD)
+git pull origin $branch
+if [ "$?" == "0" ]; then
+    git push origin $branch
+    if [ "$?" == "0" ]; then
+        echo "✨✨✨ 推送成功！"
+    else
+        echo '推送代码失败！'
+        exit 1
+    fi
+else
+    echo '拉取代码失败！'
+    exit 1
+fi

@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "Vue.volar",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "antfu.vite",
+    "antfu.unocss"
+    "znck.grammarly",
+    "usernamehw.errorlens",
+    "antfu.where-am-i",
+  ]
+}
