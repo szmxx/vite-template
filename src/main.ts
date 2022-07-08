@@ -11,9 +11,18 @@ import 'uno.css'
 import install from '@/register'
 import initConfig from './config'
 import '@/style/index.scss'
+
 const app = createApp(App)
 install(app)
 ;(async () => {
-  await initConfig()
-  app.mount('#app')
+  try {
+    await initConfig()
+    app.mount('#app')
+  } catch {
+    ElNotification({
+      title: '系统错误',
+      message: '加载配置文件失败！',
+      type: 'error',
+    })
+  }
 })()

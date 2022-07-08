@@ -7,7 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    App: typeof import('./src/App.vue')['default']
+    DemoPage: typeof import('./src/views/demo/DemoPage.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElInput: typeof import('element-plus/es')['ElInput']
+    ErrorPage: typeof import('./src/views/error/ErrorPage.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    HomePage: typeof import('./src/views/home/HomePage.vue')['default']
+    LayoutPage: typeof import('./src/layout/LayoutPage.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/SvgIcon.vue')['default']
