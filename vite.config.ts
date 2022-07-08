@@ -14,6 +14,7 @@ import Inspect from 'vite-plugin-inspect'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -43,12 +44,14 @@ export default defineConfig({
     VueJsx(),
     DefineOptions(),
     Components({
-      dirs: ['src/components'],
+      resolvers: [ElementPlusResolver()],
+      dirs: ['src/components', 'main.ts'],
       extensions: ['vue'],
       deep: true,
       dts: true,
     }),
     AutoImport({
+      resolvers: [ElementPlusResolver()],
       imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vitest'],
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       dirs: [],

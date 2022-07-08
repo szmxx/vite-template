@@ -4,7 +4,11 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["unplugin-vue-define-options", "vitest/importMeta"],
+    "types": [
+      "element-plus/global",
+      "unplugin-vue-define-options",
+      "vitest/importMeta"
+    ],
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
