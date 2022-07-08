@@ -2,6 +2,9 @@
 export {}
 declare global {
   const EffectScope: typeof import('vue')['EffectScope']
+  const VanDialog: typeof import('vant/es')['Dialog']
+  const VanNotify: typeof import('vant/es')['Notify']
+  const VanToast: typeof import('vant/es')['Toast']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const afterAll: typeof import('vitest')['afterAll']
   const afterEach: typeof import('vitest')['afterEach']

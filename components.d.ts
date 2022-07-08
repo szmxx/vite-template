@@ -11,5 +11,10 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/SvgIcon.vue')['default']
+    VanButton: typeof import('vant/es')['Button']
+    VanInp: typeof import('vant/es')['Inp']
+    VanInput: typeof import('vant/es')['Input']
+    VanNumberKeyboard: typeof import('vant/es')['NumberKeyboard']
+    VanPasswordInput: typeof import('vant/es')['PasswordInput']
   }
 }

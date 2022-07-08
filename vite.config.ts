@@ -14,6 +14,8 @@ import Inspect from 'vite-plugin-inspect'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { VantResolver } from 'unplugin-vue-components/resolvers'
+import { createStyleImportPlugin, VantResolve } from 'vite-plugin-style-import'
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -43,12 +45,14 @@ export default defineConfig({
     VueJsx(),
     DefineOptions(),
     Components({
+      resolvers: [VantResolver()],
       dirs: ['src/components'],
       extensions: ['vue'],
       deep: true,
       dts: true,
     }),
     AutoImport({
+      resolvers: [VantResolver()],
       imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vitest'],
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       dirs: [],
@@ -56,6 +60,19 @@ export default defineConfig({
         enabled: false,
         globalsPropValue: true,
       },
+    }),
+    createStyleImportPlugin({
+      resolves: [VantResolve()],
+      // vant 配置应该有问题，esModule 本来应该为 true 的
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: false,
+          resolveStyle: (name) => {
+            return `vant/es/${name}/style`
+          },
+        },
+      ],
     }),
     Unocss(),
     createSvgIconsPlugin({

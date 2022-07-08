@@ -32,6 +32,7 @@
   const { proxy } = getCurrentInstance() as ComponentInternalInstance
   onBeforeMount(async () => {
     await fetchData()
+    proxy?.$toast('这是一个提示')
     console.log(proxy?.$http)
   })
 </script>

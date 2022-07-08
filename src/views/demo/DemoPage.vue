@@ -9,6 +9,10 @@
     {{ x }}
     {{ y }}
   </div>
+  <div>
+    <van-button type="primary">按钮</van-button>
+    <van-number-keyboard></van-number-keyboard>
+  </div>
 </template>
 
 <script setup lang="ts">

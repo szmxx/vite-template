@@ -20,6 +20,7 @@
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.0-rc.10",
+    "vant": "^3.5.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },
@@ -64,6 +65,7 @@
     "unplugin-vue-define-options": "^0.6.1",
     "vite": "^2.9.9",
     "vite-plugin-inspect": "^0.5.1",
+    "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-svg-icons": "^2.0.1",
     "vitest": "^0.17.0",
     "vue-tsc": "^0.34.7"
