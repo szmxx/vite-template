@@ -11,9 +11,16 @@ import 'uno.css'
 import install from '@/register'
 import initConfig from './config'
 import '@/style/index.scss'
+import { notification } from 'ant-design-vue'
 const app = createApp(App)
 install(app)
 ;(async () => {
-  await initConfig()
-  app.mount('#app')
+  try {
+    await initConfig()
+    app.mount('#app')
+  } catch {
+    notification.error({
+      message: '加载配置失败！',
+    })
+  }
 })()

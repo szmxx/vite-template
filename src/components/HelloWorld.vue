@@ -24,5 +24,6 @@
 <style scoped lang="scss">
   div {
     color: $black;
+    background: var(--primary-color);
   }
 </style>

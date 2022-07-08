@@ -1,4 +1,11 @@
+/*
+ * @Author: cola
+ * @Date: 2022-07-04 16:13:38
+ * @LastEditors: cola
+ * @Description:
+ */
 /// <reference types="vite/client" />
+import { message, notification } from 'ant-design-vue'
 import Http from '@/utils/Http'
 declare module '*.vue' {
   import type { DefineComponent } from 'vue'
@@ -10,5 +17,7 @@ declare module '*.vue' {
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     $http: typeof Http
+    $message: typeof message
+    $notice: typeof notification
   }
 }

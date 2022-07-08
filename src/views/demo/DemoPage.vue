@@ -9,6 +9,10 @@
     {{ x }}
     {{ y }}
   </div>
+  <div>
+    <a-button type="primary">按钮</a-button>
+    <a-input></a-input>
+  </div>
 </template>
 
 <script setup lang="ts">

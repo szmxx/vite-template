@@ -13,7 +13,17 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import Inspect from 'vite-plugin-inspect'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import AutoImport from 'unplugin-auto-import/vite'
+import {
+  createStyleImportPlugin,
+  AndDesignVueResolve,
+} from 'vite-plugin-style-import'
+import { readFileSync } from 'fs'
+import LessToJS from 'less-vars-to-js'
+const themeVariables = LessToJS(
+  readFileSync(resolve(__dirname, 'src/theme/theme.less'), 'utf8')
+)
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -26,6 +36,11 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `@import '@/style/variables.scss';`,
+      },
+      // 必须设置，不然报错
+      less: {
+        javascriptEnabled: true,
+        modifyVars: themeVariables,
       },
     },
   },
@@ -43,12 +58,16 @@ export default defineConfig({
     VueJsx(),
     DefineOptions(),
     Components({
+      // 如果需要改变主题，导入需是less
+      resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       dirs: ['src/components'],
       extensions: ['vue'],
       deep: true,
       dts: true,
     }),
     AutoImport({
+      // 如果需要改变主题，导入需是less
+      resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
       imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vitest'],
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
       dirs: [],
@@ -56,6 +75,18 @@ export default defineConfig({
         enabled: false,
         globalsPropValue: true,
       },
+    }),
+    createStyleImportPlugin({
+      resolves: [AndDesignVueResolve()],
+      libs: [
+        {
+          libraryName: 'ant-design-vue',
+          esModule: true,
+          resolveStyle: (name) => {
+            return `ant-design-vue/es/${name}/style/index`
+          },
+        },
+      ],
     }),
     Unocss(),
     createSvgIconsPlugin({
