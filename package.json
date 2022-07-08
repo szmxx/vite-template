@@ -50,9 +50,12 @@
     "prettier": "^2.7.1",
     "sass": "^1.53.0",
     "stylelint": "^14.9.1",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "stylelint-config-standard": "^26.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-prettier": "^2.0.0",
     "typescript": "^4.5.4",
     "unocss": "^0.43.2",
     "unocss-preset-scrollbar": "^0.2.1",
@@ -66,10 +69,10 @@
     "vue-tsc": "^0.34.7"
   },
   "lint-staged": {
-    "*.{ts,tsx,vue}": "npm run lint --fix",
-    "*.{css,scss,vue}": "npm run style --fix",
-    "src/**/*.{json,md,css,scss}": "prettier -w -u",
-    "docs/**/*.{json,md,css,scss}": "prettier -w -u"
+    "*.{js,jsx,ts,tsx,vue}": "npm run lint --fix",
+    "*.{less,sass,css,scss,vue}": "npm run style --fix",
+    "src/**/*.{json,md,vue}": "prettier -w -u",
+    "docs/**/*.{json,md,vue}": "prettier -w -u"
   },
   "config": {
     "commitizen": {

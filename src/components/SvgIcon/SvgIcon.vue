@@ -1,12 +1,9 @@
 <!--
- * @Author: weicong
+ * @Author: cola
+ * @Date: 2022-07-06 16:21:44
  * @LastEditors: cola
  * @Description:
- * @Date: 2021-12-12 13:19:36
- * @LastEditTime: 2022-07-06 16:57:41
- * @FilePath: \vite-project\src\components\SvgIcon\SvgIcon.vue
 -->
-
 <template>
   <svg aria-hidden="true">
     <use :href="symbolId" />
