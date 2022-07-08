@@ -9,7 +9,9 @@ import { install as installRouter } from '@/route'
 import { install as installStore } from '@/store'
 import installComponent from './registerComponent'
 import installProperty from './registerProperty'
+import i18n from '@/locales'
 export default (app: App) => {
+  app.use(i18n)
   installRouter(app)
   installStore(app)
   installComponent(app)

@@ -23,7 +23,8 @@
     "pinia": "^2.0.16",
     "vue": "^3.2.37",
     "vue-request": "^2.0.0-rc.3",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "vue-i18n": "^9.2.0-beta.36"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

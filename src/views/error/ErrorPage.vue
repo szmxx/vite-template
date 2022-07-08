@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-  <div>this is a error page</div>
+  <div>{{ $t('global.error.error_page') }}</div>
 </template>
 
 <script setup lang="ts">

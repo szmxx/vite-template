@@ -31,6 +31,8 @@
   <div class="text-primary-light-3 bg-fill-default border-primary-light-3">
     {{ msg }}
   </div>
+  <div>{{ msg }}</div>
+  <div>{{ $t('common.chinese') }}</div>
   <div>
     <button @click="greet">greet</button>
   </div>

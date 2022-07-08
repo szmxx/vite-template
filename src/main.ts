@@ -12,6 +12,7 @@ import install from '@/register'
 import initConfig from './config'
 import '@/style/index.scss'
 useTheme('default')
+import './permission'
 const app = createApp(App)
 install(app)
 ;(async () => {
