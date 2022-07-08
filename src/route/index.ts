@@ -27,13 +27,15 @@ const ConstantRoutes: RouteRecordRaw[] = [
   },
   ...routes,
 ]
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: ConstantRoutes,
+})
 export function install(app?: App) {
-  const router = createRouter({
-    history: createWebHashHistory(),
-    routes: ConstantRoutes,
-  })
   if (app) {
     app.use(router)
   }
   return router
 }
+
+export default router

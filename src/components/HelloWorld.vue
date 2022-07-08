@@ -6,6 +6,7 @@
 -->
 <template>
   <div>{{ msg }}</div>
+  <div>{{ $t('common.chinese') }}</div>
   <div>
     <button @click="greet">greet</button>
   </div>
