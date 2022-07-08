@@ -1,5 +1,4 @@
 import { createI18n } from 'vue-i18n'
-import { nextTick } from 'vue'
 import zhCN from './lang/zh-CN'
 import { getUrlParams } from '@/utils'
 const files = import.meta.glob('./lang/*/index.ts')
@@ -7,9 +6,10 @@ export const SUPPORT_LOCALES = ['zh-CN', 'en-US']
 export type SUPPORT_LOCALE_TYPE = 'zh-CN' | 'en-US'
 
 const query = getUrlParams()
-export let defaultLang: string = query.lang || localStorage.getItem('lang')!
-if (!SUPPORT_LOCALES.includes(defaultLang)) {
-  defaultLang = SUPPORT_LOCALES[0]
+export const defaultLang = ref()
+defaultLang.value = query.lang || localStorage.getItem('lang')
+if (!SUPPORT_LOCALES.includes(defaultLang.value)) {
+  defaultLang.value = SUPPORT_LOCALES[0]
 }
 
 const messages = {
@@ -20,9 +20,9 @@ const messages = {
 const i18n = createI18n({
   mode: 'composition',
   legacy: false, // you must set `false`, to use Composition API
-  locale: defaultLang,
+  locale: defaultLang.value,
   allowComposition: true,
-  fallbackLocale: defaultLang,
+  fallbackLocale: defaultLang.value,
   messages: messages,
 })
 
@@ -34,6 +34,7 @@ export function setI18nLanguage(locale: any) {
   } else {
     i18n.global.locale.value = locale
   }
+  localStorage.setItem('lang', locale)
   // axios.defaults.headers.common['Accept-Language'] = locale
   document.querySelector('html')?.setAttribute('lang', locale)
 }

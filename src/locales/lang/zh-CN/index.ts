@@ -9,7 +9,6 @@ const bottomFiles = import.meta.globEager('./*/*.json')
 const modules: Record<string, any> = {}
 for (const [path, module] of Object.entries({ ...topFiles, ...bottomFiles })) {
   const name = path.replace(/^\.\//, '').replace(/\.json$/, '')
-  console.log(path, name)
   path_to_obj(name, module.default)
 }
 // 路径层级解析

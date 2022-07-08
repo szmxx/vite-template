@@ -4,8 +4,18 @@
  * @LastEditors: cola
  * @Description:
 -->
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  // import { defaultLang } from '@/locales'
+  // const locale = computed(() => {
+  //   const res = import.meta.globEager(
+  //     `element-plus/es/locale/lang/${defaultLang.value?.toLowerCase()}`
+  //   ).default
+  //   return res
+  // })
+</script>
 
 <template>
-  <router-view></router-view>
+  <el-config-provider>
+    <router-view></router-view>
+  </el-config-provider>
 </template>

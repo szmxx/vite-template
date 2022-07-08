@@ -11,6 +11,7 @@
     <div>
       <el-button type="primary">按钮</el-button>
       <el-input></el-input>
+      <el-pagination :total="100" />
     </div>
   </div>
 </template>

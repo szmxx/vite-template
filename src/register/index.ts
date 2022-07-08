@@ -10,6 +10,8 @@ import { install as installStore } from '@/store'
 import installComponent from './registerComponent'
 import installProperty from './registerProperty'
 import i18n from '@/locales'
+// ElementLocale.i18n((key: string, value: string) => i18n.global.t(key, value))
+
 export default (app: App) => {
   app.use(i18n)
   installRouter(app)
