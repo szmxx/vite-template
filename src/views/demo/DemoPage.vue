@@ -9,7 +9,7 @@
     {{ x }}
     {{ y }}
     <div>
-      <el-button>按钮</el-button>
+      <el-button type="primary">按钮</el-button>
       <el-input></el-input>
     </div>
   </div>
