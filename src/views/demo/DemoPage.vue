@@ -9,8 +9,9 @@
     {{ x }}
     {{ y }}
     <div>
-      <el-button type="primary">按钮</el-button>
+      <el-button type="primary">{{ $t('common.button') }}</el-button>
       <el-input></el-input>
+      <div>{{ $t('el.cascader.noData') }}</div>
       <el-pagination :total="100" />
     </div>
   </div>

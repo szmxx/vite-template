@@ -25,7 +25,6 @@ function path_to_obj(path: string, value: Record<string, unknown>) {
     obj = obj[pathList[i]] as Record<string, unknown>
   }
 }
-
 export default {
   ...modules,
 }

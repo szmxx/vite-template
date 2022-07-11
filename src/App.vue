@@ -5,17 +5,21 @@
  * @Description:
 -->
 <script lang="ts" setup>
-  // import { defaultLang } from '@/locales'
-  // const locale = computed(() => {
-  //   const res = import.meta.globEager(
-  //     `element-plus/es/locale/lang/${defaultLang.value?.toLowerCase()}`
-  //   ).default
-  //   return res
-  // })
+  import { activateLocale, getI18nComponent } from '@/locales'
+  const locale = ref()
+  watch(
+    () => activateLocale.value,
+    (newVal) => {
+      locale.value = getI18nComponent(newVal)
+    },
+    {
+      immediate: true,
+    }
+  )
 </script>
 
 <template>
-  <el-config-provider>
+  <el-config-provider :locale="locale">
     <router-view></router-view>
   </el-config-provider>
 </template>
