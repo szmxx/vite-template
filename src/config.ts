@@ -1,8 +1,14 @@
+/*
+ * @Author: cola
+ * @Date: 2022-07-05 17:41:15
+ * @LastEditors: cola
+ * @Description:
+ */
 import { initAxiosInstance, AxiosConfig } from './api/index'
-import { getAppConfig } from './api/public'
+import { getAppConfig, AppConfig } from './api/public'
 import useStore from '@/store/app'
 const envList = ['development', 'production']
-function getRestConfig(config: Record<string, unknown>) {
+function getRestConfig(config: AppConfig): AppConfig {
   const res = Object.keys(config).reduce(
     (acc: Record<string, unknown>, cur: string) => {
       if (!envList.includes(cur)) {
@@ -13,7 +19,7 @@ function getRestConfig(config: Record<string, unknown>) {
     {}
   )
   Object.assign(res, config[import.meta.env.MODE])
-  return res
+  return res as AppConfig
 }
 export default async () => {
   const store = useStore()

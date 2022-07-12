@@ -5,6 +5,7 @@
  * @Description:
 -->
 <template>
+  <HeaderPage></HeaderPage>
   <HelloWorld></HelloWorld>
   <SvgIcon name="user"></SvgIcon>
   <div>{{ counter }}</div>
@@ -15,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+  import HeaderPage from './components/HeaderPage.vue'
   import { getTodoList, TodoItem } from '@/api/public'
   import useStore from '@/store/counter'
   import { storeToRefs } from 'pinia'

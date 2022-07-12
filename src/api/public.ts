@@ -5,7 +5,7 @@
  * @Description:
  */
 import { originGet, AxiosConfig } from './index'
-interface AppConfig {
+export interface AppConfig {
   title: string
   development?: AxiosConfig
   production?: AxiosConfig
