@@ -4,9 +4,9 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "antfu.vite",
-    "antfu.unocss"
+    "antfu.unocss",
     "znck.grammarly",
     "usernamehw.errorlens",
-    "antfu.where-am-i",
+    "antfu.where-am-i"
   ]
 }

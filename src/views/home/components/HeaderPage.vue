@@ -21,11 +21,9 @@
   import useStore from '@/store/app'
   const { config } = useStore()
   const title = config?.title
-  const theme = ref('light')
-  const isDark = useDark()
-  const toggleDark = useToggle(isDark)
+  const theme = ref('default')
   function toggleTheme() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light'
-    toggleDark()
+    theme.value = theme.value === 'default' ? 'dark' : 'default'
+    useTheme(theme.value)
   }
 </script>

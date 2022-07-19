@@ -25,7 +25,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import '@/style/variables.scss';`,
+        additionalData: `@use '@/style/variables.scss' as *;`,
       },
     },
   },
@@ -51,7 +51,7 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vitest'],
       include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
-      dirs: [],
+      dirs: ['./src/composables'],
       eslintrc: {
         enabled: false,
         globalsPropValue: true,
@@ -59,7 +59,7 @@ export default defineConfig({
     }),
     Unocss(),
     createSvgIconsPlugin({
-      iconDirs: [resolve(process.cwd(), 'src/svg')],
+      iconDirs: [resolve(process.cwd(), 'src/icon/svg')],
       symbolId: 'icon-[name]',
       customDomId: '__svg__icons__dom__',
     }),

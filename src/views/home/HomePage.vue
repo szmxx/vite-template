@@ -13,6 +13,8 @@
   <div v-for="i in list" :key="i.name">
     {{ i.task }}
   </div>
+  <div class="iconfont iconbutongguo"></div>
+  <div i-carbon-3d-cursor></div>
 </template>
 
 <script setup lang="ts">

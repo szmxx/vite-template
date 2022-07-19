@@ -1,6 +1,7 @@
 {
   "extends": [
     "stylelint-config-standard",
+    "stylelint-config-standard-scss",
     "stylelint-config-recommended",
     "stylelint-config-recommended-vue/scss",
     "stylelint-prettier/recommended"
@@ -14,6 +15,20 @@
         "message": "Expected class selector to be kebab-case"
       }
     ],
+    "scss/at-function-pattern": [
+      "^[a-z][a-zA-Z0-9]+$",
+      {
+        "message": "Expected class selector to be camelCase"
+      }
+    ],
+    "function-name-case": [
+      "lower",
+      {
+        "ignoreFunctions": ["/^get.*$/"]
+      }
+    ],
+    "at-rule-no-unknown": null,
+    "function-no-unknown": null,
     "order/order": ["custom-properties", "declarations"],
     "order/properties-order": [
       "position",

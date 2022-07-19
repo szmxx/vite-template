@@ -7,6 +7,7 @@
 - 5、npm
 - 6、commitlint
 - 7、svg
+- 8、iconfont
 
 ### 插件
 - Volar

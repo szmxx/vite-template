@@ -16,7 +16,13 @@ export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetIcons(),
+    presetIcons({
+      scale: 1.2,
+      collections: {
+        carbon: () =>
+          import('@iconify-json/carbon').then((i) => i.icons as any),
+      },
+    }),
     presetScrollbar({
       scrollbarWidth: '6px',
       scrollbarHeight: '6px',

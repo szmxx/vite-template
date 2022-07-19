@@ -16,11 +16,13 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@iconify-json/carbon": "^1.1.6",
     "@vueuse/core": "^8.9.0",
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
     "pinia": "^2.0.0-rc.10",
     "vue": "^3.2.25",
+    "vue-request": "^2.0.0-rc.3",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
@@ -29,8 +31,10 @@
     "@commitlint/cz-commitlint": "^17.0.3",
     "@types/jsdom": "^16.2.14",
     "@types/node": "^18.0.1",
+    "@types/sass": "^1.43.1",
     "@typescript-eslint/eslint-plugin": "^5.30.4",
     "@typescript-eslint/parser": "^5.30.4",
+    "@unocss/preset-icons": "^0.43.2",
     "@vitejs/plugin-vue": "^2.3.3",
     "@vitejs/plugin-vue-jsx": "^1.3.10",
     "@vitest/ui": "^0.17.0",
@@ -54,6 +58,7 @@
     "stylelint-config-recommended-scss": "^6.0.0",
     "stylelint-config-recommended-vue": "^1.4.0",
     "stylelint-config-standard": "^26.0.0",
+    "stylelint-config-standard-scss": "^5.0.0",
     "stylelint-order": "^5.0.0",
     "stylelint-prettier": "^2.0.0",
     "typescript": "^4.5.4",
