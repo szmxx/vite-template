@@ -23,6 +23,6 @@
 
 <style scoped lang="scss">
   div {
-    color: $black;
+    color: var(--v-color-primary);
   }
 </style>

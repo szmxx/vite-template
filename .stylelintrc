@@ -7,6 +7,7 @@
     "stylelint-prettier/recommended"
   ],
   "plugins": ["stylelint-order"],
+  "customSyntax": "postcss-html",
   "rules": {
     "string-quotes": "single",
     "selector-class-pattern": [

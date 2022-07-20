@@ -1,0 +1,26 @@
+@use 'sass:map';
+@use 'config' as config;
+
+// zIndex
+$z-index: () !default;
+$z-index: map.merge(config.$z-index, $z-index);
+
+// Typography
+$font-family: () !default;
+$font-family: map.merge(config.$font-family, $font-family);
+$font-size: () !default;
+$font-size: map.merge(config.$font-size, $font-size);
+$font-weight: () !default;
+$font-weight: map.merge(config.$font-weight, $font-weight);
+$line-height: () !default;
+$line-height: map.merge(config.$line-height, $line-height);
+
+// Padding Margin
+$space: () !default;
+$space: map.merge(config.$space, $space);
+
+// Border
+$border-width: () !default;
+$border-width: map.merge(config.$border-width, $border-width);
+$border-radius: () !default;
+$border-radius: map.merge(config.$border-radius, $border-radius);
