@@ -9,11 +9,13 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import Unocss from 'unocss/vite'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import Inspect from 'vite-plugin-inspect'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -47,6 +49,14 @@ export default defineConfig({
       extensions: ['vue'],
       deep: true,
       dts: true,
+      resolvers: [
+        IconsResolver({
+          alias: {
+            park: 'icon-park',
+          },
+          customCollections: ['custom'],
+        }),
+      ],
     }),
     AutoImport({
       imports: ['vue', 'vue-router', '@vueuse/core', 'pinia', 'vitest'],
@@ -58,10 +68,20 @@ export default defineConfig({
       },
     }),
     Unocss(),
-    createSvgIconsPlugin({
-      iconDirs: [resolve(process.cwd(), 'src/icon/svg')],
-      symbolId: 'icon-[name]',
-      customDomId: '__svg__icons__dom__',
+    Icons({
+      autoInstall: true,
+      compiler: 'vue3',
+      customCollections: {
+        custom: FileSystemIconLoader('./src/icon/svg', (svg) =>
+          svg
+            .replace(/(width|height)=['"](\w+)['"]/g, '')
+            .replace(/^<svg /, '<svg fill="currentColor"')
+        ),
+      },
+      iconCustomizer(collection, icon, props) {
+        props.width = '1.2em'
+        props.height = '1.2em'
+      },
     }),
     Inspect(),
   ],

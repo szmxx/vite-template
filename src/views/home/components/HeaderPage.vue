@@ -9,11 +9,16 @@
     class="flex justify-between h-[60px] w-full box-border items-center px-4 border-b border-dark-100"
   >
     <div>{{ title }}</div>
-    <SvgIcon
-      :name="theme"
-      class="cursor-pointer"
+    <div
+      v-if="theme === 'dark'"
+      class="cursor-pointer i-carbon-light"
       @click="toggleTheme"
-    ></SvgIcon>
+    ></div>
+    <div
+      v-else
+      class="cursor-pointer i-carbon-asleep"
+      @click="toggleTheme"
+    ></div>
   </div>
 </template>
 

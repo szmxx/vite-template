@@ -4,7 +4,11 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["unplugin-vue-define-options", "vitest/importMeta"],
+    "types": [
+      "unplugin-vue-define-options",
+      "vitest/importMeta",
+      "unplugin-icons/types/vue"
+    ],
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",

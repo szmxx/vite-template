@@ -6,7 +6,6 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import 'virtual:svg-icons-register'
 import '@/icon/iconfont/iconfont.css'
 import 'uno.css'
 import install from '@/register'

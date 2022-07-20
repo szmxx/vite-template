@@ -7,7 +7,8 @@
 <template>
   <HeaderPage></HeaderPage>
   <HelloWorld></HelloWorld>
-  <SvgIcon name="user"></SvgIcon>
+  <i-custom-user></i-custom-user>
+  <i-mdi-account-circle />
   <div>{{ counter }}</div>
   <button @click="increment">add</button>
   <div v-for="i in list" :key="i.name">
@@ -25,7 +26,6 @@
   import { getTodoList, TodoItem } from '@/api/public'
   import useStore from '@/store/counter'
   import { storeToRefs } from 'pinia'
-  import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
   import { ComponentInternalInstance } from 'vue'
   const store = useStore()
   const { counter } = storeToRefs(store)
