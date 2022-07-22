@@ -6,8 +6,8 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@/icon/iconfont/iconfont.css'
 import 'uno.css'
+import '@/icon/iconfont/iconfont.css'
 import install from '@/register'
 import initConfig from './config'
 import '@/style/index.scss'

@@ -44,9 +44,6 @@ $bg-color: map.merge(config.$bg-color, $bg-color);
 $box-shadow: () !default;
 $box-shadow: map.merge(config.$box-shadow, $box-shadow);
 
-// Disable default
-$disabled: () !default;
-$disabled: map.merge(config.$disabled, $disabled);
 $fill-color: () !default;
 $fill-color: map.merge(config.$fill-color, $fill-color);
 @each $type in $types {

@@ -9,7 +9,6 @@
     "typescriptreact",
     "html",
     "vue",
-    "markdown",
     "json",
     "jsonc"
   ],
@@ -20,7 +19,6 @@
     "typescriptreact",
     "html",
     "vue",
-    "markdown",
     "json",
     "jsonc"
   ],
@@ -54,6 +52,5 @@
   },
   "[sass]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
-  },
-  "unocss.root": "./src"
+  }
 }

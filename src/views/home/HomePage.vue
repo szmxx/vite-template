@@ -18,7 +18,7 @@
   <div i-carbon-3d-cursor></div>
   <img src="@/assets/logo.png" />
   <div>000000</div>
-  <div>111111</div>
+  <div class="bg-primary-light-3">111111</div>
 </template>
 
 <script setup lang="ts">

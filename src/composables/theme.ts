@@ -6,7 +6,7 @@
  */
 let themes = import.meta.glob('@/theme/*/index.scss')
 themes = Object.keys(themes).reduce(
-  (acc: Record<string, () => Promise<{ [key: string]: any }>>, cur) => {
+  (acc: Record<string, () => Promise<unknown>>, cur) => {
     const name = cur.match(/.*\/(.*)\//)?.at(-1)
     if (name && !acc[name] && name !== 'common') {
       acc[name] = themes[cur]
