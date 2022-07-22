@@ -15,7 +15,7 @@ import {
 
 import { presetScrollbar } from 'unocss-preset-scrollbar'
 
-import theme from './config'
+import theme from './theme'
 import { getBaseRule, getDirection } from './src/utils/unocss'
 
 export default defineConfig({
