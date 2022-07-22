@@ -4,6 +4,9 @@ import zhCN from './lang/zh-CN'
 import { getUrlParams } from '@/utils'
 const files = import.meta.glob('./lang/*/index.ts')
 export const SUPPORT_LOCALES = ['zh-CN', 'en-US']
+export interface IModule {
+  default: Record<string, unknown>
+}
 export type SUPPORT_LOCALE_TYPE = 'zh-CN' | 'en-US'
 
 const query = getUrlParams()
@@ -39,7 +42,7 @@ export function setI18nLanguage(locale: any) {
 }
 export async function loadLocaleMessages(locale: string) {
   const module = files[`./lang/${locale}/index.ts`]
-  const messages = await module()
+  const messages = (await module()) as IModule
   i18n.global.setLocaleMessage(locale, messages.default)
   return nextTick()
 }

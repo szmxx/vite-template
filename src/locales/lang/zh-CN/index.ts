@@ -4,13 +4,13 @@
  * @LastEditors: cola
  * @Description:
  */
-const topFiles = import.meta.globEager('./*.json')
-const bottomFiles = import.meta.globEager('./*/*.json')
+const topFiles = import.meta.glob('./*.json', { eager: true })
+const bottomFiles = import.meta.glob('./*/*.json', { eager: true })
 const modules: Record<string, any> = {}
+import { IModule } from '@/locales/index'
 for (const [path, module] of Object.entries({ ...topFiles, ...bottomFiles })) {
   const name = path.replace(/^\.\//, '').replace(/\.json$/, '')
-  console.log(path, name)
-  path_to_obj(name, module.default)
+  path_to_obj(name, (module as IModule).default)
 }
 // 路径层级解析
 // eg: folder/package/hello.json -> {folder:{package:{hello:{}}}}
