@@ -3,14 +3,16 @@ import { nextTick } from 'vue'
 import zhCN from './lang/zh-CN'
 import { getUrlParams } from '@/utils'
 const files = import.meta.glob('./lang/*/index.ts')
-export const SUPPORT_LOCALES = ['zh-CN', 'en-US']
+
+export type SUPPORT_LOCALE_TYPE = 'zh-CN' | 'en-US'
+export const SUPPORT_LOCALES: SUPPORT_LOCALE_TYPE[] = ['zh-CN', 'en-US']
 export interface IModule {
   default: Record<string, unknown>
 }
-export type SUPPORT_LOCALE_TYPE = 'zh-CN' | 'en-US'
 
 const query = getUrlParams()
-export let defaultLang: string = query.lang || localStorage.getItem('lang')!
+export let defaultLang = (query.lang ||
+  localStorage.getItem('lang')) as SUPPORT_LOCALE_TYPE
 if (!SUPPORT_LOCALES.includes(defaultLang)) {
   defaultLang = SUPPORT_LOCALES[0]
 }
@@ -40,7 +42,7 @@ export function setI18nLanguage(locale: any) {
   // axios.defaults.headers.common['Accept-Language'] = locale
   document.querySelector('html')?.setAttribute('lang', locale)
 }
-export async function loadLocaleMessages(locale: string) {
+export async function loadLocaleMessages(locale: SUPPORT_LOCALE_TYPE) {
   const module = files[`./lang/${locale}/index.ts`]
   const messages = (await module()) as IModule
   i18n.global.setLocaleMessage(locale, messages.default)
