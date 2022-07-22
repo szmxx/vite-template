@@ -39,6 +39,7 @@ export function setI18nLanguage(locale: any) {
   } else {
     i18n.global.locale.value = locale
   }
+  localStorage.setItem('lang', locale)
   // axios.defaults.headers.common['Accept-Language'] = locale
   document.querySelector('html')?.setAttribute('lang', locale)
 }
