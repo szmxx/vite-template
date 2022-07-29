@@ -19,6 +19,7 @@
   <img src="@/assets/logo.png" />
   <div>000000</div>
   <div class="bg-primary-light-3">111111</div>
+  <div @click="routeHandler">Demo</div>
 </template>
 
 <script setup lang="ts">
@@ -41,4 +42,8 @@
     await fetchData()
     console.log(proxy?.$http)
   })
+  const router = useRouter()
+  function routeHandler() {
+    router.push('/demo')
+  }
 </script>

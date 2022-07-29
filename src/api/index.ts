@@ -1,8 +1,32 @@
+import { getRefreshToken, getToken, setToken } from '@/utils/auth'
 import Http from '@/utils/Http'
 import { AxiosError, AxiosInstance } from 'axios'
+import { refreshToken } from './auth'
 
-const errorHandler = (error: AxiosError) => {
-  console.error(error)
+const errorHandler = async (error: AxiosError, ctx?: AxiosInstance) => {
+  // !permission auth fail, but it's not refresh token request
+  if (
+    error?.response?.status === 401 &&
+    !error?.config?.url?.includes?.('/auth/refreshToken')
+  ) {
+    const { config } = error
+    try {
+      const token = await refreshToken({
+        token: getToken(),
+        refreshToken: getRefreshToken(),
+      })
+      setToken(token)
+      config.headers!['Authorization'] = `$token}`
+      // continue auth
+      return ctx?.(config)
+    } catch (err) {
+      const router = useRouter()
+      router.push('/login')
+      console.error('登录失效！')
+      return Promise.reject(err)
+    }
+  }
+  return Promise.reject(error)
 }
 
 interface InstanceMap {
@@ -35,6 +59,8 @@ export const initAxiosInstance = (config: AxiosConfig) => {
     BASEURL: BASEURL,
     errorHandler,
   }).instance
+  // set auth headers
+  instanceMap.base.defaults.headers.common['Authorization'] = `${getToken()}`
 }
 // 初始化后台实例
 export const initBusinessInstance = (config: AxiosConfig) => {
@@ -146,7 +172,7 @@ const del = <T>(
 export const GET = <T>(
   url: string,
   serviceName?: string,
-  options?: Record<string, unknown>
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.base) {
     throw new Error('instanceMap.base is null')
@@ -156,8 +182,8 @@ export const GET = <T>(
 export const POST = <T>(
   url: string,
   serviceName?: string,
-  data?: Record<string, unknown>,
-  options?: Record<string, unknown>
+  data?: Record<string, any>,
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.base) {
     throw new Error('instanceMap.base is null')
@@ -167,8 +193,8 @@ export const POST = <T>(
 export const PUT = <T>(
   url: string,
   serviceName?: string,
-  data?: Record<string, unknown>,
-  options?: Record<string, unknown>
+  data?: Record<string, any>,
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.base) {
     throw new Error('instanceMap.base is null')
@@ -178,8 +204,8 @@ export const PUT = <T>(
 export const DELETE = <T>(
   url: string,
   serviceName?: string,
-  data?: Record<string, unknown>,
-  options?: Record<string, unknown>
+  data?: Record<string, any>,
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.base) {
     throw new Error('instanceMap.base is null')
@@ -190,7 +216,7 @@ export const DELETE = <T>(
 export const originGet = <T>(
   url: string,
   serviceName?: string,
-  options?: Record<string, unknown>
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.origin) {
     throw new Error('instanceMap.origin is null')
@@ -201,8 +227,8 @@ export const originGet = <T>(
 export const originPost = <T>(
   url: string,
   serviceName?: string,
-  data?: Record<string, unknown>,
-  options?: Record<string, unknown>
+  data?: Record<string, any>,
+  options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.origin) {
     throw new Error('instanceMap.origin is null')

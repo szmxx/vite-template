@@ -27,3 +27,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
+.__custom_tooltip__{
+  @apply absolute p-small bg-[rgba(0,0,0,0.5)]
+}

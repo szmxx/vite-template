@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1",
+    "name": "Basic",
+    "path": "/basic",
+    "meta": {},
+    "children": [
+      {
+        "id": "11",
+        "name": "Button",
+        "path": "button"
+      }
+    ]
+  }
+]

@@ -8,7 +8,7 @@
   <div
     class="flex justify-between h-[60px] w-full box-border items-center px-4 border-b border-dark-100"
   >
-    <div>{{ title }}</div>
+    <div v-tooltip="title">{{ title }}</div>
     <div
       v-if="theme === 'dark'"
       class="cursor-pointer i-carbon-light"
@@ -26,9 +26,8 @@
   import useStore from '@/store/app'
   const { config } = useStore()
   const title = config?.title
-  const theme = ref('default')
+  const theme = computed(() => currentTheme.value)
   function toggleTheme() {
-    theme.value = theme.value === 'default' ? 'dark' : 'default'
-    useTheme(theme.value)
+    useTheme(theme.value === 'default' ? 'dark' : 'default')
   }
 </script>

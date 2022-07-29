@@ -12,7 +12,7 @@ import {
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
-
+import { FileSystemIconLoader } from '@iconify/utils/lib/loader/node-loaders'
 import { presetScrollbar } from 'unocss-preset-scrollbar'
 
 import theme from './theme'
@@ -23,10 +23,19 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetIcons({
+      prefix: 'i-',
       scale: 1.2,
       collections: {
         carbon: () =>
           import('@iconify-json/carbon').then((i) => i.icons as any),
+        mdi: () => import('@iconify-json/mdi').then((i) => i.icons as any),
+        custom: FileSystemIconLoader('./src/icon/svg', (svg) => {
+          svg.replace(/(width|height)=['"](\w+)['"]/g, '')
+          if ((svg?.match(/fill=/g)?.length || 0) <= 1) {
+            return svg.replace(/^<svg /, '<svg fill="currentColor" ')
+          }
+          return svg
+        }),
       },
     }),
     presetScrollbar({
@@ -39,7 +48,17 @@ export default defineConfig({
     }),
   ],
   theme: theme,
-  shortcuts: [],
+  shortcuts: [
+    {
+      center: 'flex justify-center items-center',
+      'i-center': 'inline-flex justify-center items-center',
+      fy: 'flex items-center',
+      'i-fy': 'inline-flex items-center',
+      fx: 'flex justify-center',
+      'i-fx': 'inline-flex justify-center',
+      'text-ellipsis': 'text-ellipsis whitespace-nowrap overflow-hidden',
+    },
+  ],
   rules: [
     [
       /^text-(.*)$/,

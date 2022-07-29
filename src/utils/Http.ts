@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2022-07-14 05:43:16
+ * @LastEditTime: 2022-07-24 13:54:42
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -16,7 +16,7 @@ const CancelToken = axios.CancelToken
 interface HttpParams {
   BASEURL?: string
   TIMEOUT?: number
-  errorHandler?: (error: AxiosError) => void
+  errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => void
   isCancel?: boolean
 }
 interface RequestConfig {
@@ -56,7 +56,7 @@ export default class Http {
       },
       (error: AxiosError) => {
         if (!axios.isCancel(error)) {
-          errorHandler(error)
+          errorHandler(error, this.instance)
           return Promise.reject(error)
         }
       }
@@ -74,7 +74,7 @@ export default class Http {
       },
       (error: AxiosError) => {
         if (!axios.isCancel(error)) {
-          errorHandler(error)
+          errorHandler(error, this.instance)
           return Promise.reject(error)
         }
       }
