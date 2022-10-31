@@ -1,7 +1,7 @@
 @use 'common/mixin' as *;
 @use 'common/var' as *;
 
-// !not use vite.config.ts additionalData way, its cause repeat import.
+// !Don't use vite.config.ts additionalData way, it will cause repeat import.
 :root {
   @include set-css-var-value('color-white', #fff);
   @include set-css-var-value('color-black', #000);

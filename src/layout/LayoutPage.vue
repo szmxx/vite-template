@@ -6,9 +6,11 @@
 -->
 <template>
   <div class="layout flex flex-nowrap h-full w-full">
-    <div class="w-[200px]"><slot>LAYOUT LEFT</slot></div>
-    <div class="flex flex-col flex-1 border-l border-dark-5">
-      <div class="flex items-center h-[60px] border-b">
+    <div class="w-[220px] bg-darker">
+      <LeftMenu></LeftMenu>
+    </div>
+    <div class="flex flex-col flex-1 border-l border-darker">
+      <div class="flex items-center h-[60px] border-b border-darker">
         <slot>LAYOUT HEADER</slot>
       </div>
       <div class="flex-1">
@@ -18,4 +20,6 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import LeftMenu from './components/LeftMenu.vue'
+</script>

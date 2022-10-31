@@ -1,9 +1,15 @@
 [
   {
-    "id": "0",
-    "name": "",
-    "path": "",
+    "id": "1",
+    "name": "Basic",
+    "path": "/basic",
     "meta": {},
-    "component": ""
+    "children": [
+      {
+        "id": "11",
+        "name": "Button",
+        "path": "button"
+      }
+    ]
   }
 ]

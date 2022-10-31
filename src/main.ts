@@ -6,15 +6,16 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@/icon/iconfont/iconfont.css'
-import 'uno.css'
 import install from '@/register'
 import initConfig from './config'
-import '@/style/index.scss'
-useTheme('default')
+import './permission'
 const app = createApp(App)
 install(app)
 ;(async () => {
-  await initConfig()
-  app.mount('#app')
+  try {
+    await initConfig()
+    app.mount('#app')
+  } catch {
+    console.error('加载配置文件失败！')
+  }
 })()

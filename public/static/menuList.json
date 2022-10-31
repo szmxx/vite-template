@@ -1,0 +1,134 @@
+[
+  {
+    "id": "0",
+    "title": "子节点-0",
+    "meta": {
+      "icon": "i-custom-dark"
+    }
+  },
+  {
+    "id": "1",
+    "title": "子节点-1",
+    "meta": {
+      "icon": "i-mdi-home"
+    },
+    "children": [
+      {
+        "id": "11",
+        "meta": {
+          "icon": "i-custom-dark"
+        },
+        "title": "子节点-11",
+        "children": [
+          {
+            "id": "111",
+            "meta": {
+              "icon": "i-custom-default"
+            },
+            "title": "子节点-111"
+          },
+          {
+            "id": "112",
+            "meta": {
+              "icon": "ii-mdi-message"
+            },
+            "title": "子节点-112",
+            "children": [
+              {
+                "id": "1121",
+                "meta": {
+                  "icon": "i-mdi-monitor-lock"
+                },
+                "title": "子节点-1121"
+              }
+            ]
+          },
+          {
+            "id": "113",
+            "meta": {
+              "icon": "i-custom-default"
+            },
+            "title": "子节点-113"
+          }
+        ]
+      },
+      {
+        "id": "12",
+        "meta": {
+          "icon": "i-custom-dark"
+        },
+        "title": "子节点-12",
+        "children": [
+          {
+            "id": "121",
+            "meta": {
+              "icon": "i-custom-default"
+            },
+            "title": "子节点-121"
+          },
+          {
+            "id": "122",
+            "meta": {
+              "icon": "ii-mdi-message"
+            },
+            "title": "子节点-122",
+            "children": [
+              {
+                "id": "1221",
+                "meta": {
+                  "icon": "i-mdi-monitor-lock"
+                },
+                "title": "子节点-1221"
+              }
+            ]
+          },
+          {
+            "id": "123",
+            "meta": {
+              "icon": "i-custom-default"
+            },
+            "title": "子节点-123"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "子节点-2",
+    "children": [
+      {
+        "id": "21",
+        "title": "子节点-21",
+        "meta": {
+          "icon": "i-mdi-alarm"
+        },
+        "children": [
+          {
+            "id": "211",
+            "title": "子节点-211",
+            "meta": {
+              "icon": "i-mdi-microphone-variant"
+            }
+          },
+          {
+            "id": "212",
+            "title": "子节点-212",
+            "meta": {
+              "icon": "i-mdi-microsoft-bing"
+            },
+            "children": [
+              {
+                "id": "2121",
+                "title": "子节点-2121",
+                "meta": {
+                  "icon": "i-mdi-microsoft"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

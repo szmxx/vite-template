@@ -12,10 +12,10 @@ $font-size: (
   'extra-small': 12px,
 );
 $font-weight: (
-  'large': 600,
-  'medium': 500,
+  'bolder': 600,
+  'bold': 500,
   '': 400,
-  'small': 300,
+  'light': 300,
 );
 $line-height: (
   'large': 1.8em,
@@ -46,5 +46,5 @@ $border-width: (
   'large': 3px,
   'medium': 2px,
   '': 1px,
-  'small': 0,
+  'none': 0,
 );

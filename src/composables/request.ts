@@ -11,7 +11,10 @@ interface IOptions {
   loadingDelay?: number
   minLoading?: number
 }
-export function useRequest(ajax: () => Promise<unknown>, options: IOptions) {
+export function useMockRequest(
+  ajax: () => Promise<unknown>,
+  options: IOptions
+) {
   const loading = ref(true)
   const data = ref()
   const error = ref()

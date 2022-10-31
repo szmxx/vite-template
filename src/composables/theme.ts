@@ -6,7 +6,7 @@
  */
 let themes = import.meta.glob('@/theme/*/index.scss')
 themes = Object.keys(themes).reduce(
-  (acc: Record<string, () => Promise<{ [key: string]: any }>>, cur) => {
+  (acc: Record<string, () => Promise<unknown>>, cur) => {
     const name = cur.match(/.*\/(.*)\//)?.at(-1)
     if (name && !acc[name] && name !== 'common') {
       acc[name] = themes[cur]
@@ -17,10 +17,17 @@ themes = Object.keys(themes).reduce(
 )
 const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 darkModeMediaQuery.addListener((e) => {
-  useTheme(e.matches ? 'dark' : 'light')
+  useTheme(e.matches ? 'dark' : 'default')
 })
 
+export const currentTheme = ref(localStorage.getItem('theme') || 'default')
+
 export async function useTheme(theme: string) {
+  if (!theme) {
+    theme = currentTheme.value
+  } else {
+    currentTheme.value = theme
+  }
   document.documentElement?.setAttribute('data-theme', theme)
   localStorage.setItem('theme', theme)
   await themes?.[theme]?.()

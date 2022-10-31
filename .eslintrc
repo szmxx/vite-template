@@ -67,6 +67,7 @@
   "rules": {
     "prettier/prettier": "error",
     "no-console": ["warn", { "allow": ["error"] }],
-    "no-debugger": "warn"
+    "no-debugger": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }
