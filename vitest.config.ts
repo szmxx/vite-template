@@ -1,3 +1,9 @@
+/*
+ * @Author: cola
+ * @Date: 2022-07-07 12:53:04
+ * @LastEditors: cola
+ * @Description:
+ */
 import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -12,7 +18,7 @@ export default defineConfig({
     disabled: true,
   },
   test: {
-    globals: false,
+    globals: true,
     clearMocks: true,
     environment: 'jsdom',
     setupFiles: ['./vitest.setup.ts'],

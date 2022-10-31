@@ -4,6 +4,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "allowJs": true,
     "types": [
       "unplugin-vue-define-options",
       "vitest/importMeta",
