@@ -1,0 +1,59 @@
+@use 'sass:map';
+@use '@/style/common/mixin' as *;
+@use '@/style/common/function' as *;
+@use '@/style/common/color' as *;
+@use 'config' as config;
+
+$types: primary, success, warning, error, info;
+$status: default, click, hover, active, focus, disable;
+$colors: () !default;
+@each $key, $value in config.$colors {
+  @if $key != 'white' and $key != 'black' {
+    $colors: map.deep-merge(
+      (
+        $key: (
+          base: $value,
+        ),
+      ),
+      $colors
+    ) !global;
+  } @else {
+    $colors: map.deep-merge(
+      (
+        $key: $value,
+      ),
+      $colors
+    ) !global;
+  }
+}
+
+$color-white: map.get($colors, 'white') !default;
+$color-black: map.get($colors, 'black') !default;
+$text-color: () !default;
+$text-color: map.merge(config.$text-color, $text-color);
+
+// Border
+$border-color-hover: getCssVar('text-color', 'disabled') !default;
+$border-color: () !default;
+$border-color: map.merge(config.$border-color, $border-color);
+
+// Background
+$bg-color: () !default;
+$bg-color: map.merge(config.$bg-color, $bg-color);
+
+// Box-shadow
+$box-shadow: () !default;
+$box-shadow: map.merge(config.$box-shadow, $box-shadow);
+
+$fill-color: () !default;
+$fill-color: map.merge(config.$fill-color, $fill-color);
+
+@each $type in $types {
+  @for $i from 1 through 9 {
+    @include set-color-mix-level($type, $i, 'light', map.get($bg-color, ''));
+  }
+}
+
+@each $type in $types {
+  @include set-color-mix-level($type, 2, 'dark', $color-black);
+}

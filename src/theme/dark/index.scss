@@ -1,0 +1,35 @@
+@use '@/style/common/mixin' as *;
+@use 'var' as *;
+
+$icon-filter: invert(100%);
+$icon-filter-hover: invert(40%);
+$img-filter: brightness(0.8) contrast(1.2);
+
+:root[data-theme='dark'] {
+  @each $type in $types {
+    @include set-css-color-type($colors, $type);
+  }
+  @include set-css-var-value('border-color-hover', $border-color-hover);
+  @include set-component-css-var('bg-color', $bg-color);
+  @include set-component-css-var('text-color', $text-color);
+  @include set-component-css-var('border-color', $border-color);
+  @include set-component-css-var('box-shadow', $box-shadow);
+  @include set-component-css-var('fill-color', $fill-color);
+
+  color-scheme: dark;
+}
+
+// global style
+html[data-theme='dark'] {
+  img:not([src*='.svg']) {
+    filter: $img-filter;
+  }
+
+  img[src*='.svg'] {
+    filter: $icon-filter;
+  }
+
+  img[src*='.svg']:hover {
+    filter: $icon-filter-hover;
+  }
+}

@@ -1,0 +1,50 @@
+$namespace: 'v' !default;
+$font-family: (
+  '':
+  "Roboto, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif",
+);
+$font-size: (
+  'extra-large': 20px,
+  'large': 18px,
+  'medium': 16px,
+  '': 14px,
+  'small': 13px,
+  'extra-small': 12px,
+);
+$font-weight: (
+  'bolder': 600,
+  'bold': 500,
+  '': 400,
+  'light': 300,
+);
+$line-height: (
+  'large': 1.8em,
+  'medium': 1.6em,
+  '': 1.4em,
+  'small': 1.2em,
+);
+$space: (
+  'extra-large': 44px,
+  'large': 32px,
+  'medium': 24px,
+  '': 16px,
+  'small': 8px,
+  'extra-small': 4px,
+);
+$z-index: (
+  '': 1,
+  'top': 1000,
+  'popper': 2000,
+);
+$border-radius: (
+  '': 4px,
+  'medium': 8px,
+  'round': 20px,
+  'circle': 100%,
+);
+$border-width: (
+  'large': 3px,
+  'medium': 2px,
+  '': 1px,
+  'none': 0,
+);

@@ -27,13 +27,24 @@ const ConstantRoutes: RouteRecordRaw[] = [
   },
   ...routes,
 ]
-export function install(app?: App) {
-  const router = createRouter({
-    history: createWebHashHistory(),
-    routes: ConstantRoutes,
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: ConstantRoutes,
+})
+
+export function resetRouter() {
+  router.getRoutes().forEach((route) => {
+    const { name } = route
+    if (name) {
+      router.hasRoute(name) && router.removeRoute(name)
+    }
   })
+}
+
+export function install(app?: App) {
   if (app) {
     app.use(router)
   }
-  return router
 }
+
+export default router

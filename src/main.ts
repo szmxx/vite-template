@@ -6,11 +6,9 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import 'virtual:svg-icons-register'
-import 'uno.css'
 import install from '@/register'
 import initConfig from './config'
-import '@/style/index.scss'
+import './permission'
 const app = createApp(App)
 install(app)
 ;(async () => {

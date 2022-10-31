@@ -1,3 +1,20 @@
+@use 'common/mixin' as *;
+@use 'common/var' as *;
+
+// !Don't use vite.config.ts additionalData way, it will cause repeat import.
 :root {
-  --primary-color: #1da57a;
+  @include set-css-var-value('color-white', #fff);
+  @include set-css-var-value('color-black', #000);
+
+  @include set-component-css-var('z-index', $z-index);
+
+  @include set-component-css-var('font-family', $font-family);
+  @include set-component-css-var('font-size', $font-size);
+  @include set-component-css-var('font-weight', $font-weight);
+  @include set-component-css-var('line-height', $line-height);
+
+  @include set-component-css-var('space', $space);
+
+  @include set-component-css-var('border-radius', $border-radius);
+  @include set-component-css-var('border-width', $border-width);
 }

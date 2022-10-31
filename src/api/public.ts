@@ -1,11 +1,13 @@
 /*
  * @Author: cola
- * @Date: 2022-07-05 17:42:32
+ * @Date: 2022-07-23 03:36:19
  * @LastEditors: cola
  * @Description:
  */
+import type { TreeItem } from '@/components/GlobalTree/types'
+
 import { originGet, AxiosConfig } from './index'
-interface AppConfig {
+export interface AppConfig {
   title: string
   development?: AxiosConfig
   production?: AxiosConfig
@@ -21,4 +23,8 @@ export function getAppConfig() {
 
 export function getTodoList() {
   return originGet<TodoItem[]>('static/todoList.json')
+}
+
+export function getMenuList() {
+  return originGet<TreeItem[]>('static/menuList.json')
 }

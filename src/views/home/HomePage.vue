@@ -5,20 +5,28 @@
  * @Description:
 -->
 <template>
+  <HeaderPage></HeaderPage>
   <HelloWorld></HelloWorld>
-  <SvgIcon name="user"></SvgIcon>
+  <i-custom-user></i-custom-user>
+  <i-mdi-account-circle />
   <div>{{ counter }}</div>
   <button @click="increment">add</button>
   <div v-for="i in list" :key="i.name">
     {{ i.task }}
   </div>
+  <div class="iconfont iconbutongguo"></div>
+  <div i-carbon-3d-cursor></div>
+  <img src="@/assets/logo.png" />
+  <div>000000</div>
+  <div class="bg-primary-light-3">111111</div>
+  <div @click="routeHandler">Demo</div>
 </template>
 
 <script setup lang="ts">
+  import HeaderPage from './components/HeaderPage.vue'
   import { getTodoList, TodoItem } from '@/api/public'
   import useStore from '@/store/counter'
   import { storeToRefs } from 'pinia'
-  import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
   import { ComponentInternalInstance } from 'vue'
   const store = useStore()
   const { counter } = storeToRefs(store)
@@ -35,4 +43,8 @@
     proxy?.$message?.success('这是一个提示')
     console.log(proxy?.$http)
   })
+  const router = useRouter()
+  function routeHandler() {
+    router.push('/demo')
+  }
 </script>

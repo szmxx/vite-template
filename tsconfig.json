@@ -4,10 +4,12 @@
     "paths": {
       "@/*": ["src/*"]
     },
+    "allowJs": true,
     "types": [
-      "element-plus/global",
       "unplugin-vue-define-options",
-      "vitest/importMeta"
+      "vitest/importMeta",
+      "unplugin-icons/types/vue",
+      "element-plus/global"
     ],
     "target": "esnext",
     "useDefineForClassFields": true,

@@ -1,0 +1,26 @@
+@use 'config';
+
+@function joinVarName($list) {
+  $name: '' !default;
+  @if config.$namespace != '' {
+    $name: '--' + config.$namespace;
+  } @else {
+    $name: '-' + config.$namespace;
+  }
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+
+// getCssVar('button', 'text-color') => var(--v-button-text-color)
+@function getCssVar($args...) {
+  @return var(#{joinVarName($args)});
+}
+
+// getCssVarName('button', 'text-color') => '--v-button-text-color'
+@function getCssVarName($args...) {
+  @return joinVarName($args);
+}

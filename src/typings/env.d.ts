@@ -1,3 +1,9 @@
+/*
+ * @Author: cola
+ * @Date: 2022-07-12 10:26:52
+ * @LastEditors: cola
+ * @Description:
+ */
 /// <reference types="vite/client" />
 import Http from '@/utils/Http'
 declare module '*.vue' {

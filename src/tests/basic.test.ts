@@ -6,13 +6,11 @@
  */
 import { mount } from '@vue/test-utils'
 import HelloWorld from '@/components/HelloWorld.vue'
+import { test, expect } from 'vitest'
 test('mount component', async () => {
-  expect(HelloWorld).toBeTruthy()
-
   const wrapper = mount(HelloWorld, {})
   expect(wrapper.text()).toContain('hello world')
   expect(wrapper.html()).toMatchSnapshot()
-
   await wrapper.get('button').trigger('click')
   expect(wrapper.text()).toContain('greeting')
 })
