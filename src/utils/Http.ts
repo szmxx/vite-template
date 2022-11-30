@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2022-07-24 13:54:42
+ * @LastEditTime: 2022-11-17 18:15:04
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -46,7 +46,7 @@ export default class Http {
           const key = uniqueKey(config)
           // if exists, abort it
           cancelHandler(key)
-          if (!config.cancelToken) {
+          if (!config.cancelToken && key) {
             config.cancelToken = new CancelToken((cancel) => {
               cancelMap.set(key, cancel)
             })
@@ -63,12 +63,15 @@ export default class Http {
     )
     // 拦截响应
     this.instance.interceptors.response.use(
-      ({ config, data }: AxiosResponse) => {
+      ({ config, data, headers }: AxiosResponse) => {
         if (isCancel) {
           const key = uniqueKey(config)
           if (cancelMap.has(key)) {
             cancelMap.delete(key)
           }
+        }
+        if (config.method === 'head') {
+          return Promise.resolve(headers)
         }
         return Promise.resolve(data)
       },
@@ -90,7 +93,8 @@ export default class Http {
   ) {
     return (await axios.post(url, data, config))?.data
   }
-  static cancel(config: RequestConfig) {
+
+  static cancel(config: AxiosRequestConfig) {
     const key = uniqueKey(config)
     cancelHandler(key)
   }
@@ -108,14 +112,27 @@ function obj2Str(obj: Record<string, unknown>) {
   return res
 }
 function uniqueKey(config: AxiosRequestConfig) {
-  return `${config.method}-${config.url}-${obj2Str(config.params)}-${obj2Str(
-    config.data
-  )}`
+  const bool = whiteList(config)
+  return bool
+    ? ''
+    : `${config.method}-${config.url}-${obj2Str(config.params)}-${obj2Str(
+        config.data
+      )}`
 }
 function cancelHandler(key: string) {
-  const cancel = cancelMap.get(key)
-  if (cancel) {
-    cancel()
-    cancelMap.delete(key)
+  if (key) {
+    const cancel = cancelMap.get(key)
+    if (cancel) {
+      cancel()
+      cancelMap.delete(key)
+    }
   }
+}
+
+function whiteList(config: AxiosRequestConfig) {
+  const { data, headers = {} } = config
+  if (data instanceof FormData || headers.range) {
+    return true
+  }
+  return false
 }

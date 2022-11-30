@@ -1,11 +1,10 @@
-import { TreeItem } from './../components/GlobalTree/types'
 /*
  * @Author: cola
- * @Date: 2022-07-24 12:59:21
+ * @Date: 2022-10-31 11:08:30
  * @LastEditors: cola
  * @Description:
  */
-import { RouteRecordRaw } from 'vue-router'
+import { TreeItem } from './../components/GlobalTree/types'
 import { defineStore } from 'pinia'
 import { getMenuList } from '@/api/public'
 export default defineStore('menu', {

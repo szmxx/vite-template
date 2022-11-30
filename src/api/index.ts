@@ -79,13 +79,15 @@ const get = <T>(
   instance: AxiosInstance,
   url: string,
   serviceName = '未知服务',
-  params = {}
+  params = {},
+  options = {}
 ) => {
   return new Promise<T>((resolve, reject) => {
     instance({
       url,
       method: 'get',
-      ...params,
+      params: params,
+      ...options,
     })
       .then((res) => {
         resolve(res?.data ? res.data : res)
@@ -169,15 +171,40 @@ const del = <T>(
   })
 }
 
+const head = <T>(
+  instance: AxiosInstance,
+  url: string,
+  serviceName = '未知服务',
+  params = {},
+  options = {}
+) => {
+  return new Promise<T>((resolve, reject) => {
+    instance({
+      url,
+      method: 'head',
+      params: params,
+      ...options,
+    })
+      .then((res) => {
+        resolve(res?.data ? res.data : res)
+      })
+      .catch((error) => {
+        reject(error)
+        console.error(`head请求---${serviceName}---接口失败！`)
+      })
+  })
+}
+
 export const GET = <T>(
   url: string,
   serviceName?: string,
+  params?: Record<string, any>,
   options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.base) {
     throw new Error('instanceMap.base is null')
   }
-  return get<T>(instanceMap.base, url, serviceName, options)
+  return get<T>(instanceMap.base, url, serviceName, params, options)
 }
 export const POST = <T>(
   url: string,
@@ -213,15 +240,64 @@ export const DELETE = <T>(
   return del<T>(instanceMap.base, url, serviceName, data, options)
 }
 
+export const HEAD = <T>(
+  url: string,
+  serviceName?: string,
+  params?: Record<string, any>,
+  options?: Record<string, any>
+): Promise<T> => {
+  if (!instanceMap.base) {
+    throw new Error('instanceMap.base is null')
+  }
+  return head<T>(instanceMap.base, url, serviceName, params, options)
+}
+
+export const BGET = <T>(
+  url: string,
+  serviceName?: string,
+  params?: Record<string, any>,
+  options?: Record<string, any>
+): Promise<T> => {
+  if (!instanceMap.business) {
+    throw new Error('instanceMap.business is null')
+  }
+  return get<T>(instanceMap.business, url, serviceName, params, options)
+}
+
+export const BPOST = <T>(
+  url: string,
+  serviceName?: string,
+  data?: Record<string, any>,
+  options?: Record<string, any>
+): Promise<T> => {
+  if (!instanceMap.business) {
+    throw new Error('instanceMap.business is null')
+  }
+  return post<T>(instanceMap.business, url, serviceName, data, options)
+}
+
+export const BHEAD = <T>(
+  url: string,
+  serviceName?: string,
+  params?: Record<string, any>,
+  options?: Record<string, any>
+): Promise<T> => {
+  if (!instanceMap.business) {
+    throw new Error('instanceMap.business is null')
+  }
+  return head<T>(instanceMap.business, url, serviceName, params, options)
+}
+
 export const originGet = <T>(
   url: string,
   serviceName?: string,
+  params?: Record<string, any>,
   options?: Record<string, any>
 ): Promise<T> => {
   if (!instanceMap.origin) {
     throw new Error('instanceMap.origin is null')
   }
-  return get<T>(instanceMap.origin, url, serviceName, options)
+  return get<T>(instanceMap.origin, url, serviceName, params, options)
 }
 
 export const originPost = <T>(

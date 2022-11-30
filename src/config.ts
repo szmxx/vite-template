@@ -4,7 +4,11 @@
  * @LastEditors: cola
  * @Description:
  */
-import { initAxiosInstance, AxiosConfig } from './api/index'
+import {
+  initAxiosInstance,
+  initBusinessInstance,
+  AxiosConfig,
+} from './api/index'
 import { getAppConfig, AppConfig } from './api/public'
 import useStore from '@/store/app'
 const envList = ['development', 'production']
@@ -26,6 +30,7 @@ export default async () => {
   const config = await getAppConfig()
   const envConfig = config[import.meta.env.MODE] as AxiosConfig
   initAxiosInstance(envConfig)
+  initBusinessInstance(envConfig)
   const restConfig = getRestConfig(config)
   store.setConfig(restConfig)
 }

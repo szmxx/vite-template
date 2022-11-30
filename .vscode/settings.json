@@ -1,4 +1,7 @@
 {
+  "css.validate": true,
+  "scss.validate": false,
+  "less.validate": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },

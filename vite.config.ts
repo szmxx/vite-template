@@ -46,12 +46,12 @@ export default defineConfig({
     VueJsx(),
     DefineOptions(),
     Components({
-      resolvers: [ElementPlusResolver()],
       dirs: ['src/components', 'main.ts'],
       extensions: ['vue'],
       deep: true,
       dts: true,
       resolvers: [
+        ElementPlusResolver(),
         IconsResolver({
           alias: {
             park: 'icon-park',
