@@ -114,7 +114,7 @@
     {
       "files": ["*.vue", "**/*.vue"],
       "rules": {
-        "unit-allowed-list": ["em", "rem", "px", "%", "s"]
+        "unit-allowed-list": ["em", "rem", "px", "%", "s", "vw", "vh"]
       }
     }
   ]

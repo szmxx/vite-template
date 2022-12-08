@@ -19,6 +19,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 // https://vitejs.dev/config/
 export default defineConfig({
+  assetsInclude: ['**/*.JPG'],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

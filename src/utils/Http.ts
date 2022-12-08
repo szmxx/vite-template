@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2022-11-17 18:15:04
+ * @LastEditTime: 2022-11-30 17:30:54
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -18,12 +18,6 @@ interface HttpParams {
   TIMEOUT?: number
   errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => void
   isCancel?: boolean
-}
-interface RequestConfig {
-  method: string
-  path: string
-  params: Record<string, unknown>
-  data: Record<string, unknown>
 }
 const cancelMap = new Map()
 export default class Http {

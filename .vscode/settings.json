@@ -53,5 +53,6 @@
   },
   "[sass]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
-  }
+  },
+  "testing.automaticallyOpenPeekView": "never"
 }

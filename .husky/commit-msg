@@ -1,4 +1,12 @@
+###
+ # @Author: cola szmintel@gmail.com
+ # @Date: 2022-07-04 17:45:06
+ # @LastEditors: cola szmintel@gmail.com
+ # @LastEditTime: 2022-12-08 20:00:58
+ # @FilePath: /vite-ts/.husky/commit-msg
+ # @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+###
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npx commitlint --edit $1
+# npx commitlint --edit $1

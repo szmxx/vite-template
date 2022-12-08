@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host",
     "prepare": "husky install",
     "lint": "eslint --ext .ts,vue,tsx --ignore-path .gitignore .",
     "style": "stylelint src/**/*.{css,scss,vue}",
@@ -16,6 +16,9 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
+    "@antv/l7": "^2.11.5",
+    "@antv/l7-maps": "^2.11.5",
     "@floating-ui/dom": "^1.0.0",
     "@iconify-json/carbon": "^1.1.6",
     "@iconify-json/mdi": "^1.1.29",
@@ -24,6 +27,7 @@
     "@vueuse/core": "^8.9.4",
     "@vueuse/integrations": "^8.9.4",
     "axios": "^0.27.2",
+    "echarts": "^5.4.0",
     "element-plus": "^2.2.8",
     "inquirer": "^8.2.5",
     "lodash-es": "^4.17.21",

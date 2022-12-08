@@ -47,7 +47,6 @@ const instanceMap: InstanceMap = {
   }).instance, // 完整的url请求
   business: null, // 后台接口请求
 }
-
 // 初始化默认实例
 export const initAxiosInstance = (config: AxiosConfig) => {
   if (!config) return
@@ -239,7 +238,6 @@ export const DELETE = <T>(
   }
   return del<T>(instanceMap.base, url, serviceName, data, options)
 }
-
 export const HEAD = <T>(
   url: string,
   serviceName?: string,
