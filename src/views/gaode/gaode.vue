@@ -158,8 +158,8 @@
 </script>
 
 <style scoped lang="scss">
-  ::v-deep .amap-copyright,
-  ::v-deep .amap-logo {
+  :deep(.amap-copyright),
+  :deep(.amap-logo) {
     display: none !important;
     opacity: 0 !important;
     pointer-events: none;

@@ -6,8 +6,14 @@
 -->
 <template>
   <div class="file">
-    <button @click="clickEvent">选取文件</button>
-    <button @click="download">下载</button>
+    <el-button @click="clickEvent">选取文件</el-button>
+    <div class="file-list">
+      <div v-for="i in fileList" :key="i.downloadPath">
+        <div>{{ i.filename }}</div>
+        <el-button @click="download(i.downloadPath)">下载</el-button>
+      </div>
+    </div>
+
     <input
       ref="fileRef"
       style="display: none"
@@ -26,12 +32,13 @@
     mergeChunk,
     downloadFile,
     headDownload,
+    FileItem,
   } from '@/api/file'
   import { saveAs } from '@/utils'
   const fileRef = ref()
   const CHUNK_SIZE = 10 * 1024 * 1024
   const slice = File.prototype.slice
-
+  const fileList = ref<FileItem[]>([])
   async function changeEvent(evt: any) {
     const files = evt?.target?.files
     const length = files.length
@@ -48,12 +55,13 @@
     // 全部文件块
     const chunks = getFileChunks(file.size)
     // 已上传的文件块索引
-    const uploadChunks: number[] | boolean = await getChunks({
+    const uploadChunks: number[] | FileItem = await getChunks({
       md5: md5,
       filename: file.name,
     })
     // 秒传
-    if (typeof uploadChunks === 'boolean') {
+    if (!Array.isArray(uploadChunks)) {
+      fileList.value.push(uploadChunks)
       return []
     }
     return chunks.filter((chunk, index) => {
@@ -93,10 +101,11 @@
   async function notifyCombine(file: File, md5: string) {
     const chunks = await getUploadChunks(file, md5)
     if (chunks.length === 0) {
-      await mergeChunk({
+      const res = await mergeChunk({
         md5: md5,
         filename: file.name,
       })
+      fileList.value.push(res)
     } else {
       uploadParallel(file, chunks, md5)
     }
@@ -142,15 +151,14 @@
     })
   }
 
-  async function download() {
-    const filepath = '34ffeb6eac2cc74423421538b2b35d68.zip'
+  async function download(filepath: string) {
     const res = await headDownload({
       filepath: filepath,
     })
     const length = res?.['content-length'] as number
-    const filename = getFileName(res?.['content-disposition'] as string)
+    const name = getFileName(res?.['content-disposition'] as string)
     const chunks = getFileChunks(+length)
-    retryDownload(filepath, filename, chunks, [])
+    retryDownload(filepath, name, chunks, [])
   }
 
   function retryDownload(
@@ -227,3 +235,27 @@
     return result
   }
 </script>
+
+<style lang="scss" scoped>
+  .file {
+    padding: 16px;
+
+    &-list {
+      display: flex;
+      flex-direction: column;
+      margin-top: 16px;
+
+      & > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        width: 70%;
+      }
+
+      & > div:hover {
+        background: rgba($color: #000, $alpha: 30%);
+      }
+    }
+  }
+</style>

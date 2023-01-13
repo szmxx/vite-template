@@ -10,7 +10,7 @@
     <el-select
       v-bind="$attrs"
       v-model="value"
-      :placeholder="$attrs.placeholder || '请选择'"
+      :placeholder="$attrs.placeholder as string || '请选择'"
       :placement="
         typeof $attrs.placement === 'string'
           ? $attrs.placement || 'bottom-start'
@@ -31,7 +31,7 @@
   import { PropType } from 'vue'
   interface SelectItem {
     label: string
-    value: unknown
+    value: string | number
   }
   const props = defineProps({
     modelValue: {

@@ -6,64 +6,83 @@
 -->
 <template>
   <div id="map" class="relative w-full h-full"></div>
-  <div class='absolute left-4 bottom-4'>
-    <button @click='toggleLayer("world")'>全球</button>
-    <button @click='toggleLayer("china")'>全国</button>
-    <button @click='locateByCode("china","")'>中国-</button>
-    <button @click='locateByCode("world","")'>全球-</button>
+  <div class="absolute left-4 bottom-4">
+    <button @click="toggleLayer('world')">全球</button>
+    <button @click="toggleLayer('china')">全国</button>
+    <button @click="locateByCode('china', '')">中国-</button>
+    <button @click="locateByCode('world', '')">全球-</button>
   </div>
 </template>
 
 <script setup>
-  import china from './data/china.json'
   import chinaLabel from './data/chinaLabel.json'
   import worldLabel from './data/worldLabel.json'
-  import chinaLine from "./data/chinaLine.json"
+  import china from './data/china.json'
   import world from './data/world.json'
-  import { Scene, PolygonLayer, LineLayer, PointLayer, Zoom } from '@antv/l7'
-  import { Mapbox } from '@antv/l7-maps'
+  import worldOther from './data/worldOther.json'
+  import {
+    Scene,
+    PolygonLayer,
+    LineLayer,
+    PointLayer,
+    Zoom,
+    Popup,
+  } from '@antv/l7'
+  import { Map } from '@antv/l7-maps'
   const selectStyle = 'rgba(20, 120, 230, 0.3)'
   const strokeStyle = 'rgba(93,112,146,1)'
-  const fillStyle = 'rgba(0, 0, 0, 0.6)'
+  const fillStyle = '#eee'
   const textStyle = 'rgba(0,0,255,0.8)'
   const hoverStyle = 'rgba(20, 120, 230, 0.1)'
+  const colors = [
+    'rgb(255,255,217)',
+    'rgb(237,248,177)',
+    'rgb(199,233,180)',
+    'rgb(127,205,187)',
+    'rgb(65,182,196)',
+    'rgb(29,145,192)',
+    'rgb(34,94,168)',
+    'rgb(12,44,132)',
+  ]
   onMounted(() => {
     initMap()
   })
   let scene
+  const popup = new Popup({
+    offsets: [0, 0],
+    closeButton: false,
+  })
   function initMap() {
     scene = new Scene({
       id: 'map',
-      map: new Mapbox({
+      map: new Map({
         pitch: 0,
         style: 'blank',
         center: [116.368652, 39.93866],
         zoom: 10,
         rotateEnable: false,
-        // maxZoom: 5,
+        maxZoom: 8,
       }),
       logoVisible: false,
     })
     scene.on('loaded', () => {
       const zoom = new Zoom()
       scene.addControl(zoom)
-      const hightLayer = addHightLayer(scene)
+      scene.addPopup(popup)
+      addHightLayer(scene)
       const worldLayer = addWorldLayer(scene)
-      worldLayer.on('click', (feature) => {
-        console.log(feature.feature)
-        hightLayer.setData({
-          type: 'FeatureCollection',
-          features: [feature.feature],
-        })
+      const worldOtherLayer = scene.getLayerByName('world_other_layer')
+      worldLayer.on('click', (evt) => {
+        locateByCode('world', evt.feature.properties.code)
+      })
+      worldOtherLayer.on('click', (evt) => {
+        locateByCode('world', evt.feature.properties.code)
       })
       const chinaLayer = addChinaLayer(scene)
-      chinaLayer.on('click', (feature) => {
-        hightLayer.setData({
-          type: 'FeatureCollection',
-          features: [feature.feature],
-        })
+      chinaLayer.on('click', (evt) => {
+        locateByCode('china', evt.feature.properties.adcode)
       })
-      toggleLayer("world")
+      toggleLayer('world')
     })
   }
   function addHightLayer(scene, options) {
@@ -83,8 +102,9 @@
   }
   function addWorldLayer(scene, options) {
     const worldLayer = new PolygonLayer({
-      name: "world_layer",
+      name: 'world_layer',
       autoFit: true,
+      blend: 'normal',
     }).source(world)
 
     worldLayer
@@ -92,13 +112,35 @@
       .style({
         opacity: 1,
       })
-      .color(fillStyle)
-      .active({
-        color: hoverStyle
+      .color('code', (code) => {
+        return colors[parseInt(Math.random() * 8)]
       })
-      .select(true)
+      .active({
+        color: hoverStyle,
+      })
+      .select(false)
+
+    const worldOtherLayer = new PolygonLayer({
+      name: 'world_other_layer',
+      autoFit: true,
+      blend: 'normal',
+    }).source(worldOther)
+
+    worldOtherLayer
+      .shape('fill')
+      .style({
+        opacity: 1,
+      })
+      .color('code', (code) => {
+        return colors[parseInt(Math.random() * 8)]
+      })
+      .active({
+        color: hoverStyle,
+      })
+      .select(false)
+
     const labelLayer = new PointLayer({
-      name: "world_label_layer",
+      name: 'world_label_layer',
       zIndex: 5,
     })
       .source(worldLabel, {
@@ -115,7 +157,7 @@
       })
     //  图层边界
     const borderLayer = new LineLayer({
-      name: "world_border_layer",
+      name: 'world_border_layer',
       zIndex: 2,
     })
       .source(world)
@@ -124,36 +166,25 @@
       .style({
         opacity: 1,
       })
-    const guojiexian = new LineLayer({
-      zIndex: 1,
-      name: "world_guojie_layer"
-    })
-      .source(chinaLine)
-      .shape("line")
-      .size(0.8)
-      .color(strokeStyle)
-      .style({
-        opacity: 1
-      });
     scene.addLayer(worldLayer)
+    scene.addLayer(worldOtherLayer)
     scene.addLayer(borderLayer)
     scene.addLayer(labelLayer)
-    scene.addLayer(guojiexian)
     return worldLayer
   }
-  function showLayers(layers){
-    layers?.map(layer => {
+  function showLayers(layers) {
+    layers?.map((layer) => {
       layer?.show?.()
     })
   }
-  function hideLayers(layers){
-    layers?.map(layer => {
+  function hideLayers(layers) {
+    layers?.map((layer) => {
       layer?.hide?.()
     })
   }
   function addChinaLayer(scene, options) {
     const chinaLayer = new PolygonLayer({
-      name: "china_layer",
+      name: 'china_layer',
       autoFit: true,
     }).source(china)
 
@@ -162,14 +193,16 @@
       .style({
         opacity: 1,
       })
-      .color(fillStyle)
-      .active({
-        color: hoverStyle
+      .color('code', () => {
+        return colors[parseInt(Math.random() * 8)]
       })
-      .select(true)
+      .active({
+        color: hoverStyle,
+      })
+      .select(false)
     //  图层边界
     const borderLayer = new LineLayer({
-      name: "china_border_layer",
+      name: 'china_border_layer',
       zIndex: 2,
     })
       .source(china)
@@ -179,7 +212,7 @@
         opacity: 1,
       })
     const labelLayer = new PointLayer({
-      name: "china_label_layer",
+      name: 'china_label_layer',
       zIndex: 5,
     })
       .source(chinaLabel, {
@@ -200,44 +233,77 @@
     return chinaLayer
   }
 
-  function toggleLayer(type){
+  function toggleLayer(type) {
     const layers = scene.getLayers()
     const hightlightLayer = scene.getLayerByName('hightlight')
     hightlightLayer.setData({
       type: 'FeatureCollection',
       features: [],
     })
-    switch(type){
-      case "world":
-        hideLayers(layers.filter(layer=>{
-          return layer.name.startsWith("china")
-        }))
-        showLayers(layers.filter(layer=>{
-          return layer.name.startsWith("world")
-        }))
-        break;
-      case "china":
-        hideLayers(layers.filter(layer=>{
-          return layer.name.startsWith("world")
-        }))
-        showLayers(layers.filter(layer=>{
-          return layer.name.startsWith("china")
-        }))
-        break;
+    popup.setLnglat([0, 0])
+    switch (type) {
+      case 'world':
+        hideLayers(
+          layers.filter((layer) => {
+            return layer.name.startsWith('china')
+          })
+        )
+        showLayers(
+          layers.filter((layer) => {
+            return layer.name.startsWith('world')
+          })
+        )
+        break
+      case 'china':
+        hideLayers(
+          layers.filter((layer) => {
+            return layer.name.startsWith('world')
+          })
+        )
+        showLayers(
+          layers.filter((layer) => {
+            return layer.name.startsWith('china')
+          })
+        )
+        break
     }
   }
 
-  function locateByCode(type, code){
+  function locateByCode(type, code) {
     const hightlightLayer = scene.getLayerByName('hightlight')
-    switch(type){
-      case "world":
+    let feature = null
+    switch (type) {
+      case 'world':
         const worldLayer = scene.getLayerByName('world_layer')
-        console.log(worldLayer)
+        feature = worldLayer.layerSource.originData.features.find((feature) => {
+          return feature.properties.code === code
+        })
+        if (!feature) {
+          const worldOtherLayer = scene.getLayerByName('world_other_layer')
+          feature = worldOtherLayer.layerSource.originData.features.find(
+            (feature) => {
+              return feature.properties.code === code
+            }
+          )
+        }
         break
-      case "china":
+      case 'china':
         const chinaLayer = scene.getLayerByName('china_layer')
-        console.log(chinaLayer)
+        feature = chinaLayer.layerSource.originData.features.find((feature) => {
+          return feature.properties.adcode === code
+        })
         break
+    }
+    if (feature) {
+      console.log(feature.properties.centroid)
+      scene.setCenter(feature.properties.centroid)
+      hightlightLayer.setData({
+        type: 'FeatureCollection',
+        features: [feature],
+      })
+      popup
+        .setLnglat(feature.properties.centroid)
+        .setHTML(`<span>地区: ${feature.properties.name}</span>`)
     }
   }
 </script>

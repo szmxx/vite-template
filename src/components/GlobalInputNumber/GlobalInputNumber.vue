@@ -9,7 +9,7 @@
     <el-input-number
       v-bind="$attrs"
       v-model="value"
-      :placeholder="$attrs.placeholder || ''"
+      :placeholder="$attrs.placeholder as string || ''"
     />
   </div>
 </template>

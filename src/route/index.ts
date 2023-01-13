@@ -4,7 +4,7 @@
  * @LastEditors: cola
  * @Description:
  */
-import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router'
 import HomePage from '@/views/home'
 import LoginPage from '@/views/login'
 import ErrorPage from '@/views/error'
@@ -22,11 +22,6 @@ const ConstantRoutes: RouteRecordRaw[] = [
     component: LoginPage,
   },
   {
-    path: '/:catchAll(.*)',
-    redirect: '/404',
-    name: 'NotFound',
-  },
-  {
     path: '/404',
     name: 'NotExist',
     component: ErrorPage,
@@ -34,7 +29,7 @@ const ConstantRoutes: RouteRecordRaw[] = [
   ...routes,
 ]
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes: ConstantRoutes,
 })
 

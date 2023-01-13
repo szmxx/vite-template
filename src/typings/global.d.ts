@@ -16,4 +16,7 @@ declare global {
   interface File {
     webkitRelativePath: string
   }
+  interface window {
+    getComputedStyle: () => void
+  }
 }

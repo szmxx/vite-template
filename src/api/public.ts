@@ -18,13 +18,13 @@ export interface TodoItem {
   task: string
 }
 export function getAppConfig() {
-  return originGet<AppConfig>('static/appConfig.json')
+  return originGet<AppConfig>('/static/appConfig.json')
 }
 
 export function getTodoList() {
-  return originGet<TodoItem[]>('static/todoList.json')
+  return originGet<TodoItem[]>('/static/todoList.json')
 }
 
 export function getMenuList() {
-  return originGet<TreeItem[]>('static/menuList.json')
+  return originGet<TreeItem[]>('/static/menuList.json')
 }

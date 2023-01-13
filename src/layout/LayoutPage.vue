@@ -6,15 +6,18 @@
 -->
 <template>
   <div class="layout flex flex-nowrap h-full w-full">
-    <div class="w-[220px] bg-darker">
+    <div class="min-w-[220px] bg-darker">
       <LeftMenu></LeftMenu>
     </div>
     <div class="flex flex-col flex-1 border-l border-darker">
-      <div class="flex items-center h-[60px] border-b border-darker">
-        <slot>LAYOUT HEADER</slot>
+      <div
+        class="flex items-center min-h-[60px] border-b border-darker pl-[2rem]"
+      >
+        <slot>DEMO 系统</slot>
       </div>
       <div class="flex-1">
-        <router-view></router-view>
+        <router-view v-if="isSelfRoute"></router-view>
+        <section id="subapp-viewport" class="relative w-full h-full"></section>
       </div>
     </div>
   </div>
@@ -22,4 +25,7 @@
 
 <script setup lang="ts">
   import LeftMenu from './components/LeftMenu.vue'
+  import { isSelfRouteFn } from '@/layout/utils'
+  // 是否是自身路由
+  const isSelfRoute = isSelfRouteFn()
 </script>

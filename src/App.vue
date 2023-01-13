@@ -4,8 +4,19 @@
  * @LastEditors: cola
  * @Description:
 -->
-<script lang="ts" setup></script>
 
 <template>
-  <router-view></router-view>
+  <router-view v-if="isSelfRoute"></router-view>
+  <LayoutPage v-else></LayoutPage>
 </template>
+
+<script lang="ts" setup>
+  import LayoutPage from '@/layout'
+  import { isSelfRouteFn } from '@/layout/utils'
+  // 是否是自身路由
+  const isSelfRoute = isSelfRouteFn()
+  watch(isSelfRoute, (newVal) => {
+    const route = useRoute()
+    console.log(newVal, 'route change', route)
+  })
+</script>
