@@ -15,8 +15,4 @@
   import { isSelfRouteFn } from '@/layout/utils'
   // 是否是自身路由
   const isSelfRoute = isSelfRouteFn()
-  watch(isSelfRoute, (newVal) => {
-    const route = useRoute()
-    console.log(newVal, 'route change', route)
-  })
 </script>

@@ -17,7 +17,13 @@
         closeable
       ></GlobalInput>
       <div class="qa-search-content">
-        <QASearchItem v-for="i in list" :key="i.key" :data="i"></QASearchItem>
+        <QASearchItem
+          v-for="i in list"
+          :key="i.key"
+          :data="i"
+          :input-val="inputVal"
+        ></QASearchItem>
+        <div v-if="list.length === 0">暂无数据</div>
       </div>
       <div class="qa-search-footer flex items-center">
         <KbdItem text="to select" class="mr-[0.8em]">
@@ -62,10 +68,11 @@
   const allList = JSON.parse(localStorage.getItem(QA_KEY) || '[]')
   const list = ref<IQAItem[]>([])
   watch(inputVal, (newVal) => {
-    list.value = allList.find(
+    list.value = allList.filter(
       (item: IQAItem) =>
         item?.name?.indexOf(newVal) > -1 || item?.answer?.indexOf(newVal) > -1
     )
+    console.log(list.value)
   })
 </script>
 

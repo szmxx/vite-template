@@ -14,10 +14,25 @@
 <script setup lang="ts">
   import { PropType } from 'vue'
   import { IQAItem } from '../types'
-  defineProps({
+  const props = defineProps({
     data: {
       type: Object as PropType<IQAItem>,
       default: () => {},
     },
+    inputVal: {
+      type: String,
+      default: '',
+    },
+  })
+  // er '123er23345612345' => 'er'
+  let totalLength = 30
+  computed(() => {
+    totalLength = totalLength - props.inputVal.length
+    const index = props.data.answer.indexOf(props.inputVal)
+    const startIndex = Math.max(index - 10, 0)
+    const endIndex = Math.max(index + 10)
+    if (index !== -1) {
+      return props.data.answer.slice(startIndex - 10, startIndex + 10)
+    }
   })
 </script>

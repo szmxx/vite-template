@@ -20,6 +20,7 @@ const ConstantRoutes: RouteRecordRaw[] = [
     name: 'Login',
     path: '/login',
     component: LoginPage,
+    alias: '/aaa',
   },
   {
     path: '/404',

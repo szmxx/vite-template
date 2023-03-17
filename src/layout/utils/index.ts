@@ -4,28 +4,31 @@
  * @LastEditors: cola
  * @Description:
  */
-
+import { RouteRecordRaw } from 'vue-router'
+function traverse(
+  routes: readonly RouteRecordRaw[] = [],
+  list: RouteRecordRaw[] = []
+) {
+  routes.map((route: RouteRecordRaw) => {
+    list.push(route)
+    if (route?.children?.length) {
+      traverse(route.children, list)
+    }
+  })
+}
 export function isSelfRouteFn() {
   const router = useRouter()
-  let pathname = ''
-  if (location.pathname.startsWith('/')) {
-    pathname = location.pathname.split('/')[1]
-  } else {
-    pathname = location.pathname.split('/')[0]
-  }
+  let pathname = location.pathname.startsWith('/')
+    ? location.pathname.split('/')[1]
+    : location.pathname.split('/')[0]
   pathname = '/' + pathname
-  // 是否是自身路由
-  return computed(() => {
-    console.log(
-      'is',
-      router?.options?.routes?.find?.((route) =>
-        route.path.startsWith(pathname)
-      ) !== void 0
-    )
-    return (
-      router?.options?.routes?.find?.((route) =>
-        route.path.startsWith(pathname)
-      ) !== void 0
-    )
-  })
+  const routes: RouteRecordRaw[] = router.getRoutes()
+
+  for (let i = 0; i < routes.length; i++) {
+    // 路由表路径和本地一致，则是本地路由
+    if (routes[i].path === pathname) {
+      return true
+    }
+  }
+  return false
 }

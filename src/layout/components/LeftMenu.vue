@@ -16,10 +16,6 @@
         :level="1"
       ></GlobalTree>
     </div>
-    <div class="flex">
-      <el-button @click="toggle('star')">星图</el-button>
-      <el-button @click="toggle('other')">其他</el-button>
-    </div>
   </div>
 </template>
 
@@ -28,7 +24,6 @@
   import MenuHeader from './MenuHeader.vue'
   import { useRequest } from 'vue-request'
   import { TreeItem } from '@/components/GlobalTree/types'
-  const router = useRouter()
   function delay(timeout = 3000): Promise<TreeItem[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -45,21 +40,6 @@
     data.value = data.value?.slice(1, 2)
     console.log(data.value)
   }, 4000)
-
-  function toggle(type: string) {
-    switch (type) {
-      case 'star':
-        router.push({
-          path: '/star',
-        })
-        break
-      case 'other':
-        router.push({
-          path: '/ghss',
-        })
-        break
-    }
-  }
 </script>
 
 <style lang="scss" scoped>
