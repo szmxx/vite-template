@@ -21,6 +21,7 @@
     "@antv/l7-maps": "^2.11.5",
     "@floating-ui/dom": "^1.0.0",
     "@iconify-json/carbon": "^1.1.6",
+    "@iconify-json/iconoir": "^1.1.24",
     "@iconify-json/mdi": "^1.1.29",
     "@turf/turf": "^6.5.0",
     "@types/lodash-es": "^4.17.6",
@@ -44,7 +45,8 @@
     "vue": "^3.2.37",
     "vue-grid-layout": "^3.0.0-beta1",
     "vue-request": "^1.2.4",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

@@ -23,6 +23,11 @@ const ConstantRoutes: RouteRecordRaw[] = [
     alias: '/aaa',
   },
   {
+    name: 'LowCode',
+    path: '/lowcode',
+    component: () => import('@/views/lowcode'),
+  },
+  {
     path: '/404',
     name: 'NotExist',
     component: ErrorPage,
