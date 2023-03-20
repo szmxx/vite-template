@@ -1,17 +1,48 @@
+<!--
+ * @Author: cola
+ * @Date: 2023-03-20 20:09:55
+ * @LastEditors: cola
+ * @Description:
+-->
 <template>
-  <el-tabs class="bg-white" v-model="activeName" @tab-click="handleClick">
-    <el-tab-pane v-for="tab in tabs" :label="tab.label" :name="tab.name" :key="tab.name">
+  <el-tabs v-model="activeName" class="bg-white">
+    <el-tab-pane
+      v-for="tab in tabs"
+      :key="tab.name"
+      :label="tab.label"
+      :name="tab.name"
+    >
+      <component :is="tab.component"></component>
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script setup lang="ts">
-const tabs = [{
-  label: "基础配置",
-  name: 'basic'
-}]
-const activeName = ''
-function handleClick() {
-
-}
+  import BasicConfigPanel from '../config/BasicConfigPanel.vue'
+  import GlobalConfigPanel from '../config/GlobalConfigPanel.vue'
+  const tabs = [
+    {
+      label: '基础配置',
+      name: 'basic',
+      component: BasicConfigPanel,
+    },
+    {
+      label: '全局配置',
+      name: 'global',
+      component: GlobalConfigPanel,
+    },
+  ]
+  const activeName = ref('basic')
 </script>
+
+<style lang="scss" scoped>
+  :deep(.el-tabs__header) {
+    padding-left: 8px;
+  }
+
+  :deep(.el-tabs__content) {
+    overflow-y: auto;
+    padding: 0 8px;
+    height: calc(100% - 55px);
+  }
+</style>

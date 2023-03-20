@@ -5,13 +5,18 @@
  * @Description:
 -->
 <template>
-  <el-button>按钮</el-button>
+  <el-button v-bind="$attrs">{{ label }}</el-button>
 </template>
 
 <script setup lang="ts">
-
+  defineProps({
+    label: {
+      type: String,
+      default: '示例文本',
+    },
+  })
+  defineOptions({
+    name: 'CommonButton',
+    inheritAttrs: true,
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

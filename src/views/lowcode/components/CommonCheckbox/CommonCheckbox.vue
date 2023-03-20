@@ -5,13 +5,45 @@
  * @Description:
 -->
 <template>
-  <div></div>
+  <el-checkbox-group v-model="value">
+    <el-checkbox
+      v-for="i in options"
+      :key="i.value"
+      :label="i.value"
+      :disabled="i.disabled"
+      >{{ i.label }}
+    </el-checkbox>
+  </el-checkbox-group>
 </template>
 
 <script setup lang="ts">
-
+  import { PropType } from 'vue'
+  interface CheckItem {
+    label: string
+    value: string | number
+    disabled: boolean
+  }
+  const props = defineProps({
+    modelValue: {
+      type: Array as PropType<string[] | number[]>,
+      default: () => [],
+    },
+    options: {
+      type: Array as PropType<CheckItem[]>,
+      default: () => [],
+    },
+  })
+  defineOptions({
+    name: 'CommonCheckbox',
+    inheritAttrs: true,
+  })
+  const emit = defineEmits(['update:modelValue'])
+  const value = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    },
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

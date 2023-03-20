@@ -5,13 +5,12 @@
  * @Description:
 -->
 <template>
-  <div>CommonCascader</div>
+  <el-cascader v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">
-
+  defineOptions({
+    name: 'CommonCascader',
+    inheritAttrs: true,
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

@@ -6,16 +6,14 @@
 -->
 <template>
   <div class="lowcode w-full h-full flex flex-nowrap">
-    <ComponentPanel class="w-[20rem] h-full"></ComponentPanel>
+    <ComponentPanel class="w-[20rem] h-full overflow-y-auto"></ComponentPanel>
     <RenderPanel class="flex-1"></RenderPanel>
-    <ConfigPanel class="w-[20rem] h-full"></ConfigPanel>
+    <ConfigPanel class="w-[20rem] h-full overflow-hidden"></ConfigPanel>
   </div>
 </template>
 
 <script setup lang="ts">
-import ComponentPanel from './layout/ComponentPanel.vue';
-import RenderPanel from './layout/RenderPanel.vue';
-import ConfigPanel from './layout/ConfigPanel.vue';
+  import ComponentPanel from './layout/ComponentPanel.vue'
+  import RenderPanel from './layout/RenderPanel.vue'
+  import ConfigPanel from './layout/ConfigPanel.vue'
 </script>
-
-

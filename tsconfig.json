@@ -34,6 +34,6 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ],
+, "src/views/lowcode/components/CommonButton/config.ts"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

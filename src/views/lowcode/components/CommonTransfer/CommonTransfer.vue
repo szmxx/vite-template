@@ -5,13 +5,29 @@
  * @Description:
 -->
 <template>
-  <div>CommonTransfer</div>
+  <el-transfer v-model="value" v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">
-
+  const props = defineProps({
+    modelValue: {
+      type: Array,
+      default: () => [],
+    },
+  })
+  defineOptions({
+    name: 'CommonTransfer',
+    inheritAttrs: true,
+  })
+  const emit = defineEmits(['update:modelValue'])
+  const value = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    },
+  })
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

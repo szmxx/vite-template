@@ -5,13 +5,14 @@
  * @Description:
 -->
 <template>
-  <div>CommonDivider</div>
+  <el-divider v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">
-
+  defineOptions({
+    name: 'CommonDivider',
+    inheritAttrs: true,
+  })
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

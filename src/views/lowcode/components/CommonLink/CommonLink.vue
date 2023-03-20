@@ -5,13 +5,18 @@
  * @Description:
 -->
 <template>
-  <div>CommonLink</div>
+  <el-link v-bind="$attrs">{{ label }}</el-link>
 </template>
 
 <script setup lang="ts">
-
+  defineProps({
+    label: {
+      type: String,
+      default: '示例文本',
+    },
+  })
+  defineOptions({
+    name: 'CommonLink',
+    inheritAttrs: true,
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

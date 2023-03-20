@@ -5,61 +5,64 @@
  * @Description:
 -->
 <template>
-  <el-form class="border-dashed min-h-4rem" droppable @dragover="dragOver" @drop="dragEnd" :model="formModel">
-    <el-form-item v-for="i in list" :key="i.id" @click.stop="clickHandler(i)">
+  <el-form
+    class="border-dashed min-h-4rem"
+    droppable
+    :model="formModel"
+    inline
+    @dragover="dragOver"
+    @drop="dragEnd"
+  >
+    <el-form-item
+      v-for="i in list"
+      :key="i.id"
+      :class="{ 'border border-blue': current === i.id }"
+      @click.stop="clickHandler(i)"
+    >
+      <OperateTool
+        v-show="current === i.id"
+        class="absolute right-0 bottom-0"
+        @remove="remove(list, i)"
+        @copy="append(list, JSON.stringify(i))"
+      ></OperateTool>
       <component :is="i.component"></component>
     </el-form-item>
   </el-form>
 </template>
 
 <script setup lang="ts">
-  import { uniqueId } from 'lodash'
+  import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
+  import { append, remove } from '../../utils/operate'
   import useStore from '@/store/lowcode'
   const store = useStore()
   const formModel = reactive({})
-  const list:IComponentPanelItemChild[] = reactive([])
-
-  function dragOver(evt: DragEvent){
-    evt.preventDefault();
-    evt.stopPropagation();
-    if(evt.dataTransfer){
-      evt.dataTransfer.dropEffect = "copy";
+  const list: IComponentPanelItemChild[] = reactive([])
+  const current = computed(() => {
+    return store.current
+  })
+  function dragOver(evt: DragEvent) {
+    evt.preventDefault()
+    evt.stopPropagation()
+    if (evt.dataTransfer) {
+      evt.dataTransfer.dropEffect = 'copy'
     }
   }
 
-  function clickHandler(data) {
-    store.setCurrent(data.id)
-  }
-
-  function dragEnd(evt: DragEvent){
-    evt.preventDefault();
-    evt.stopPropagation();
-    let data = evt?.dataTransfer?.getData("text/plain");
-    append(data)
-  }
-
-  function append(data: IComponentPanelItemChild) {
-    try {
-      data = JSON.parse(data)
-      if(data && typeof data === 'object'){
-        data.id = uniqueId()
-        list.push(data)
-      }
-    } catch {
-      console.log()
+  function clickHandler(data: IComponentPanelItemChild) {
+    if (data.id) {
+      store.setCurrent(data.id)
     }
   }
-  function remove(data: IComponentPanelItemChild) {
-    const index = list.findIndex(item=>{
-      return item.id === data.id
-    })
-    if(index !== -1){
-      list.splice(index, 1)
+
+  function dragEnd(evt: DragEvent) {
+    evt.preventDefault()
+    evt.stopPropagation()
+    const data = evt?.dataTransfer?.getData('text/plain')
+    if (data) {
+      append(list, data)
     }
   }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

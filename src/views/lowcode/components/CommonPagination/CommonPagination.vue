@@ -5,13 +5,27 @@
  * @Description:
 -->
 <template>
-  <div>CommonPagination</div>
+  <el-pagination v-model:current-page="value" v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">
-
+  const props = defineProps({
+    modelValue: {
+      type: Number,
+      default: 1,
+    },
+  })
+  defineOptions({
+    name: 'CommonPagination',
+    inheritAttrs: true,
+  })
+  const emit = defineEmits(['update:modelValue'])
+  const value = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    },
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

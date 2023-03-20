@@ -1,11 +1,37 @@
+<!--
+ * @Author: cola
+ * @Date: 2023-03-20 20:09:55
+ * @LastEditors: cola
+ * @Description:
+-->
 <template>
-  <div>CommonDatePicker</div>
+  <el-date-picker v-model="value" :type="type" />
 </template>
 
 <script setup lang="ts">
-
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: String,
+      default: 'date',
+    },
+  })
+  defineOptions({
+    name: 'CommonDatePicker',
+    inheritAttrs: true,
+  })
+  const emit = defineEmits(['update:modelValue'])
+  const value = computed({
+    get() {
+      return props.modelValue
+    },
+    set(value) {
+      emit('update:modelValue', value)
+    },
+  })
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

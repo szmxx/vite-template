@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonTransfer from "./CommonTransfer.vue"
+import CommonTransfer from './CommonTransfer.vue'
 export default CommonTransfer
