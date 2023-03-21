@@ -5,9 +5,16 @@
  * @Description:
  */
 export default {
+  __INNERKEY__: '', // 唯一键名
   label: '',
   disabled: false,
   size: '',
   checked: false,
   indeterminate: false,
+  options: [
+    {
+      label: '示例数据',
+      value: 0,
+    },
+  ],
 }

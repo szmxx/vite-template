@@ -8,7 +8,32 @@ import { IComponentPanelItemChild } from '../types'
 import { uniqueId } from 'lodash'
 import useStore from '@/store/lowcode'
 const store = useStore()
-export async function append(list: IComponentPanelItemChild[], data: string) {
+
+export function cloneExcludeKeys(obj: Record<string, unknown>, keys: string[]) {
+  const res = Object.create(null)
+  Object.keys(obj).map((key) => {
+    if (!keys.includes(key)) {
+      res[key] = obj[key]
+    }
+  })
+  return res
+}
+
+export function cloneIncludeKeys(obj: Record<string, unknown>, keys: string[]) {
+  const res = Object.create(null)
+  Object.keys(obj).map((key) => {
+    if (keys.includes(key)) {
+      res[key] = obj[key]
+    }
+  })
+  return res
+}
+
+export async function append(
+  list: IComponentPanelItemChild[],
+  data: string,
+  appendItems = {}
+) {
   try {
     const obj = JSON.parse(data)
     if (obj && typeof obj === 'object') {
@@ -16,8 +41,25 @@ export async function append(list: IComponentPanelItemChild[], data: string) {
       list.push(obj)
     }
     if (!store.config[obj.id]) {
-      const config = await import(`../components/${obj.component}/config.ts`)
-      store.setConfig(obj.id, reactive(config.default))
+      let config = {
+        default: {},
+      }
+      if (obj.isGroup) {
+        config = await import(`../containers/${obj.component}/config.ts`)
+      } else {
+        config = await import(`../components/${obj.component}/config.ts`)
+      }
+      const res = cloneExcludeKeys(obj, [
+        'title',
+        'component',
+        'icon',
+        'id',
+        'isGroup',
+      ])
+      store.setConfig(
+        obj.id,
+        reactive(Object.assign({}, config.default, res, appendItems))
+      )
     }
   } catch {
     console.log()
@@ -34,7 +76,7 @@ export async function remove(
   if (index !== -1) {
     list.splice(index, 1)
   }
-  if (data.id && store.config[data.id]) {
-    store.removeId(data.id)
+  if (data.id && store.config[data.id as string]) {
+    store.removeId(data.id as string)
   }
 }

@@ -1,2 +1,2 @@
-import CommonCheckbox from "./CommonCheckbox.vue"
+import CommonCheckbox from './CommonCheckbox.vue'
 export default CommonCheckbox

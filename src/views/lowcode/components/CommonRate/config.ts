@@ -5,6 +5,7 @@
  * @Description:
  */
 export default {
+  __INNERKEY__: '', // 唯一键名
   disabled: false,
   'allow-half': false,
   size: '',

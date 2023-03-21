@@ -10,4 +10,10 @@ export default {
   effect: 'light',
   round: false,
   'disable-transitions': false,
+  options: [
+    {
+      label: '示例数据',
+      type: 'primary',
+    },
+  ],
 }

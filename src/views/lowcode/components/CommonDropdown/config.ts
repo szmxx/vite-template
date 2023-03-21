@@ -11,4 +11,11 @@ export default {
   trigger: 'hover',
   'split-button': false,
   'hide-on-click': true,
+  options: [
+    {
+      label: '示例数据',
+      value: 0,
+    },
+  ],
+  label: '示例数据',
 }

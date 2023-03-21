@@ -28,6 +28,7 @@
             :is="element.component"
             v-model="model[element.id]"
             v-bind="config[element.id]"
+            @vue:mounted="mount"
           ></component>
         </div>
       </template>
@@ -39,6 +40,7 @@
   import vuedraggable from 'vuedraggable'
   import OperateTool from './components/OperateTool.vue'
   import MoveTool from './components/MoveTool.vue'
+  import { useModel, useConfig } from '../composables'
   import { append, remove } from '../utils/operate'
   import { IComponentPanelItemChild } from '../types'
   import useStore from '@/store/lowcode'
@@ -47,14 +49,8 @@
   const current = computed(() => {
     return store.current
   })
-
-  const model = computed(() => {
-    return store.model
-  })
-
-  const config = computed(() => {
-    return store.config
-  })
+  const model = useModel()
+  const config = useConfig()
 
   function dragOver(evt: DragEvent) {
     evt.preventDefault()
@@ -73,7 +69,11 @@
 
   function selectHandler(element: IComponentPanelItemChild) {
     if (element.id) {
-      store.setCurrent(element.id)
+      store.setCurrent(element.id as string)
     }
+  }
+
+  function mount() {
+    console.log('mount')
   }
 </script>

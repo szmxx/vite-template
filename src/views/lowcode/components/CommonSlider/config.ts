@@ -5,6 +5,7 @@
  * @Description:
  */
 export default {
+  __INNERKEY__: '', // 唯一键名
   min: 0,
   max: 100,
   disabled: false,

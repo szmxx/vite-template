@@ -8,6 +8,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import install from '@/register'
 import initConfig from './config'
+import './monaco'
 import './permission'
 const app = createApp(App)
 install(app)

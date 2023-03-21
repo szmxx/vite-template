@@ -5,10 +5,10 @@
  * @Description:
  */
 export interface IComponentPanelItemChild {
-  id?: string
-  title?: string
-  component?: string
-  icon?: string
+  title: string
+  component: string
+  icon: string
+  [key: string]: string | number | boolean
 }
 export interface IComponentPanelItem {
   title: string

@@ -15,7 +15,7 @@
       >
         <div
           v-for="i in item.list"
-          :key="i.id"
+          :key="i.title"
           draggable="true"
           class="flex items-center py-1 w-[calc(50%-8px)] bg-#eee border-dashed"
           @dragstart="dragStart($event, i)"
@@ -41,31 +41,37 @@
           title: '栅格',
           component: 'GridContainer',
           icon: 'i-carbon-grid',
+          isGroup: true,
         },
         {
           title: 'flex',
           component: 'FlexContainer',
           icon: 'i-mdi-format-text-wrapping-overflow',
+          isGroup: true,
         },
         {
           title: '表格',
           component: 'TableContainer',
           icon: 'i-mdi-table-large',
+          isGroup: true,
         },
         {
           title: '标签页',
           component: 'TabContainer',
           icon: 'i-mdi-tab',
+          isGroup: true,
         },
         {
           title: '卡片',
           component: 'CardContainer',
           icon: 'i-mdi-cards',
+          isGroup: true,
         },
         {
           title: '表单',
           component: 'FormContainer',
           icon: 'i-mdi-form-select',
+          isGroup: true,
         },
       ],
     },
@@ -82,6 +88,8 @@
           title: '多行输入',
           component: 'CommonInput',
           icon: 'i-mdi-text',
+          type: 'textarea',
+          rows: 2,
         },
         {
           title: '计数器',
@@ -95,7 +103,7 @@
         },
         {
           title: '多选项',
-          component: 'CommonCheck',
+          component: 'CommonCheckbox',
           icon: 'i-carbon-checkbox-checked-filled',
         },
         {

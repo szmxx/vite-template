@@ -6,11 +6,9 @@
 -->
 <template>
   <el-dropdown v-bind="$attrs">
-    <span class="el-dropdown-link">
+    <span class="inline-flex gap-x-1 items-center">
       {{ label }}
-      <el-icon class="el-icon--right">
-        <arrow-down />
-      </el-icon>
+      <i i-carbon-chevron-down class="mr-1"></i>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -63,5 +61,3 @@
     },
   })
 </script>
-
-<style scoped lang="scss"></style>

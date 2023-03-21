@@ -38,7 +38,6 @@
       default: () => {},
     },
   })
-
   watch(
     () => props.config,
     (newVal) => {
@@ -78,14 +77,6 @@
           })
         }
         formModel.value[keys[i]] = config[keys[i]]
-      }
-      if (!keys.includes('__INNERKEY__')) {
-        list.value.unshift({
-          label: FIELD_MAP['__INNERKEY__'],
-          component: COMPONENT_TYPE_MAP['String'],
-          key: '__INNERKEY__',
-        })
-        formModel.value['__INNERKEY__'] = ''
       }
     }
   }

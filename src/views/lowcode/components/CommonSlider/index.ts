@@ -1,2 +1,2 @@
-import CommonSlider from './CommonSlider.vue';
+import CommonSlider from './CommonSlider.vue'
 export default CommonSlider

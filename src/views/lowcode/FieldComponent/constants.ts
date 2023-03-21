@@ -4,15 +4,15 @@
  * @LastEditors: cola
  * @Description:
  */
+import EditField from './components/EditField.vue'
 export interface BasicItem {
   label: string
   value: unknown
 }
 export interface FieldItem {
   label: string
-  component: string
+  component: string | unknown
   key: string
-  options?: BasicItem[]
 }
 
 export interface SPECIAL_TYPE_ITEM {
@@ -21,12 +21,13 @@ export interface SPECIAL_TYPE_ITEM {
   [key: string]: string | boolean | BasicItem[]
 }
 
-export const COMPONENT_TYPE_MAP: Record<string, string> = {
+export const COMPONENT_TYPE_MAP: Record<string, unknown> = {
   Number: 'CommonInputNumber',
   String: 'CommonInput',
   Boolean: 'CommonSwitch',
-  Object: 'CommonCodeEditor',
-  Array: 'CommonCodeEditor',
+  Object: EditField,
+  Array: EditField,
+  Function: EditField,
   Undefined: 'CommonInput',
   Null: 'CommonInput',
 }
@@ -51,6 +52,24 @@ export const SPECIAL_TYPE: Record<string, SPECIAL_TYPE_ITEM> = {
       {
         label: '小',
         value: 'small',
+      },
+    ],
+    isButton: true,
+  },
+  'label-position': {
+    component: 'CommonRadio',
+    options: [
+      {
+        label: '左侧',
+        value: 'left',
+      },
+      {
+        label: '右侧',
+        value: 'right',
+      },
+      {
+        label: '上方',
+        value: 'top',
       },
     ],
     isButton: true,

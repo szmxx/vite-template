@@ -5,10 +5,17 @@
  * @Description:
  */
 export default {
+  __INNERKEY__: '', // 唯一键名
   multiple: false,
   disabled: false,
   size: '',
   clearable: false,
   'collapse-tags': false,
   placeholder: '',
+  options: [
+    {
+      label: '示例数据',
+      value: 0,
+    },
+  ],
 }

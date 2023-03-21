@@ -5,6 +5,7 @@
  * @Description:
  */
 export default {
+  __INNERKEY__: '', // 唯一键名
   total: 0,
   background: false,
   small: false,
