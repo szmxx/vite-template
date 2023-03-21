@@ -29,11 +29,15 @@
 
 <script setup lang="ts">
   import { toRawType } from '@/utils'
-
+  import parse from 'style-to-js'
   const code = ref('')
   const language = ref('javascript')
   const dialogVisible = ref(false)
   const props = defineProps({
+    __type__: {
+      type: String,
+      default: '',
+    },
     label: {
       type: String,
       default: '',
@@ -43,11 +47,31 @@
       default: () => {},
     },
   })
+  watch(
+    () => props.__type__,
+    (newVal) => {
+      if (newVal === 'style') {
+        language.value = 'css'
+      } else {
+        language.value = 'javascript'
+      }
+    },
+    {
+      immediate: true,
+    }
+  )
   const emit = defineEmits(['update:modelValue'])
   function saveHandler() {
     try {
-      const value = toObject(code.value)
-      emit('update:modelValue', value)
+      if (language.value === 'css') {
+        const value = parse(
+          code.value.replace(/style\s+{/, '').replace('}', '')
+        )
+        emit('update:modelValue', value)
+      } else {
+        const value = toObject(code.value)
+        emit('update:modelValue', value)
+      }
       hide()
     } catch (error) {
       console.error(error)
@@ -64,6 +88,11 @@
       code.value = props.modelValue.toString()
     } else {
       code.value = JSON.stringify(props.modelValue, null, 2)
+    }
+    // 特殊处理 css
+    if (language.value === 'css') {
+      code.value =
+        'style ' + code.value.replaceAll('"', '').replaceAll(',', ';')
     }
     dialogVisible.value = true
   }

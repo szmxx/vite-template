@@ -92,6 +92,11 @@
           rows: 2,
         },
         {
+          title: '分页器',
+          component: 'CommonPagination',
+          icon: 'i-carbon-character-whole-number',
+        },
+        {
           title: '计数器',
           component: 'CommonInputNumber',
           icon: 'i-carbon-character-whole-number',

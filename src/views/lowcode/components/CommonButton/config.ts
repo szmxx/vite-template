@@ -8,4 +8,5 @@ export default {
   circle: false,
   loading: false,
   disabled: false,
+  label: '示例文本',
 }

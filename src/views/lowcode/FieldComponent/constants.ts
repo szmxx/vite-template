@@ -74,4 +74,120 @@ export const SPECIAL_TYPE: Record<string, SPECIAL_TYPE_ITEM> = {
     ],
     isButton: true,
   },
+  'flex-direction': {
+    component: 'CommonSelect',
+    options: [
+      {
+        label: 'row',
+        value: 'row',
+      },
+      {
+        label: 'row-reverse',
+        value: 'row-reverse',
+      },
+      {
+        label: 'column',
+        value: 'column',
+      },
+      {
+        label: 'column-reverse',
+        value: 'column-reverse',
+      },
+    ],
+  },
+  'flex-wrap': {
+    component: 'CommonSelect',
+    options: [
+      {
+        label: 'nowrap',
+        value: 'nowrap',
+      },
+      {
+        label: 'wrap',
+        value: 'wrap',
+      },
+      {
+        label: 'wrap-reverse',
+        value: 'wrap-reverse',
+      },
+    ],
+  },
+  'justify-content': {
+    component: 'CommonSelect',
+    options: [
+      {
+        label: 'flex-start',
+        value: 'flex-start',
+      },
+      {
+        label: 'flex-end',
+        value: 'flex-end',
+      },
+      {
+        label: 'center',
+        value: 'center',
+      },
+      {
+        label: 'space-between',
+        value: 'space-between',
+      },
+      {
+        label: 'space-around',
+        value: 'space-around',
+      },
+    ],
+  },
+  'align-items': {
+    component: 'CommonSelect',
+    options: [
+      {
+        label: 'flex-start',
+        value: 'flex-start',
+      },
+      {
+        label: 'flex-end',
+        value: 'flex-end',
+      },
+      {
+        label: 'center',
+        value: 'center',
+      },
+      {
+        label: 'baseline',
+        value: 'baseline',
+      },
+      {
+        label: 'stretch',
+        value: 'stretch',
+      },
+    ],
+  },
+  'flex-type': {
+    component: 'CommonRadio',
+    options: [
+      {
+        label: 'flex',
+        value: 'flex',
+      },
+      {
+        label: 'inline-flex',
+        value: 'inline-flex',
+      },
+    ],
+    isButton: true,
+  },
+  'grid-type': {
+    component: 'CommonRadio',
+    options: [
+      {
+        label: 'grid',
+        value: 'grid',
+      },
+      {
+        label: 'inline-grid',
+        value: 'inline-grid',
+      },
+    ],
+    isButton: true,
+  },
 }

@@ -4,22 +4,12 @@
  * @LastEditors: cola
  * @Description:
  */
-export default {
-  name: 'table-render',
-  functional: true,
-  props: {
-    render: Function,
-    row: Object,
-    column: Object,
-    $index: Number,
-    columnData: Object,
-  },
-  render: (h, ctx) => {
-    return ctx.props.render(h, {
-      row: ctx.props.row,
-      column: ctx.props.column,
-      index: ctx.props.$index,
-      columnData: ctx.props.columnData,
-    })
-  },
+
+interface PropTypeItem {
+  scope: Record<string, Record<string, unknown>>
+  render: (arg: Record<string, Record<string, unknown>>) => unknown
 }
+export default function TableRender(props: PropTypeItem) {
+  return props.render(props.scope)
+}
+TableRender.props = ['scope', 'render']

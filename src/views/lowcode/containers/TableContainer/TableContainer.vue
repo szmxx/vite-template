@@ -5,13 +5,11 @@
  * @Description:
 -->
 <template>
-  <div></div>
+  <GlobalTable class="w-full overflow-hidden">
+    <template #title="{ row }">
+      <span>{{ row['title'] }}</span>
+    </template>
+  </GlobalTable>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
-<style scoped lang="scss">
-
-</style>
+<script setup lang="ts"></script>

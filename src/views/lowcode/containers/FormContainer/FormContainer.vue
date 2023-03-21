@@ -9,15 +9,14 @@
     class="border-dashed min-h-4rem"
     droppable
     :model="formModel"
-    inline
     @dragover="dragOver"
     @drop="dragEnd"
   >
     <el-form-item
       v-for="i in list"
       :key="i.id as string"
-      v-bind="config[i.id as string]"
-      :class="{ 'border border-blue': current === i.id }"
+      v-bind="formItemConfig[i.id as string]"
+      :class="{ 'relative border border-blue': current === i.id }"
       @click.stop="clickHandler(i)"
     >
       <OperateTool
@@ -51,6 +50,7 @@
 
   const model = useModel()
   const config = useConfig()
+  const formItemConfig = computed(() => store.formItemConfig)
 
   function dragOver(evt: DragEvent) {
     evt.preventDefault()

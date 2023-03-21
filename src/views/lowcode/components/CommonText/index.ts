@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonText from './CommonText.vue';
+import CommonText from './CommonText.vue'
 export default CommonText

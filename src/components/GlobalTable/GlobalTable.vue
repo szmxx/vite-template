@@ -5,8 +5,13 @@
  * @Description:
 -->
 <template>
-  <div ref="root" class="table-container">
-    <el-table :data="data" :max-height="maxTableHeight" v-bind="$attrs">
+  <div ref="root">
+    <el-table
+      :style="{ maxWidth: maxTableWidth + 'px' }"
+      :data="data"
+      :max-height="maxTableHeight"
+      v-bind="$attrs"
+    >
       <el-table-column
         v-for="col in columns"
         v-show="col.show !== false"
@@ -16,13 +21,13 @@
         <template #default="scope">
           <template v-if="'render' in col">
             <table-render
-              v-bind="scope"
+              :scope="scope"
               :render="col.render"
               :column-data="col"
             ></table-render>
           </template>
           <template v-else-if="'isSlot' in col">
-            <table-slot v-bind="scope" :column-data="col"></table-slot>
+            <table-slot :scope="scope" :column-data="col"></table-slot>
           </template>
           <template v-else>{{ scope.row[col.prop] }}</template>
         </template>
@@ -38,7 +43,7 @@
   import { PropType } from 'vue'
   import tableRender from './tableRender'
   import tableSlot from './tableSlot'
-  import { Column } from 'element-plus'
+  import { InstanceKey } from './constants'
   defineOptions({
     name: 'GlobalTable',
     inheritAttrs: false,
@@ -49,20 +54,26 @@
       default: () => [],
     },
     columns: {
-      type: Array as PropType<Column[]>,
+      type: Array as PropType<Record<string, any>[]>,
       default: () => [],
     },
     maxHeight: {
       type: Number,
-      default: 0,
+      default: 400,
     },
   })
   const root = ref<HTMLElement>()
   const maxTableHeight = ref(0)
-  provide('tableRoot', getCurrentInstance())
+  const maxTableWidth = ref(0)
+  provide(InstanceKey, getCurrentInstance())
+  onMounted(() => {
+    resize()
+  })
+  useEventListener('resize', resize)
 
-  useEventListener('resize', () => {
-    let height = root?.value?.parentElement?.getBoundingClientRect?.()?.height
+  function resize() {
+    let { height, width } =
+      root?.value?.parentElement?.getBoundingClientRect?.() || {}
     const { paddingTop, paddingBottom } = getComputedStyle(
       root?.value?.parentElement as HTMLElement
     )
@@ -75,8 +86,9 @@
     }
     if (height && !isNaN(height)) {
       nextTick(() => {
+        maxTableWidth.value = width || 0
         maxTableHeight.value = height || 0
       })
     }
-  })
+  }
 </script>

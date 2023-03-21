@@ -9,4 +9,5 @@ export default {
   size: '',
   tag: 'span',
   type: '',
+  label: '示例文本',
 }

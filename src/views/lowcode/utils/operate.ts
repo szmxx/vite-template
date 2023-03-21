@@ -32,7 +32,7 @@ export function cloneIncludeKeys(obj: Record<string, unknown>, keys: string[]) {
 export async function append(
   list: IComponentPanelItemChild[],
   data: string,
-  appendItems = {}
+  containerData?: Record<string, unknown>
 ) {
   try {
     const obj = JSON.parse(data)
@@ -56,10 +56,16 @@ export async function append(
         'id',
         'isGroup',
       ])
-      store.setConfig(
+      store.setComponentConfig(
         obj.id,
-        reactive(Object.assign({}, config.default, res, appendItems))
+        reactive(Object.assign({}, config.default, res))
       )
+      if (containerData) {
+        store.setFormItemConfig(
+          obj.id,
+          reactive(Object.assign({}, containerData))
+        )
+      }
     }
   } catch {
     console.log()

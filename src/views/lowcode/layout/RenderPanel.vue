@@ -24,6 +24,7 @@
             @remove="remove(list, element)"
             @copy="append(list, JSON.stringify(element))"
           ></OperateTool>
+          <!-- 定义渲染规则 -->
           <component
             :is="element.component"
             v-model="model[element.id]"

@@ -12,7 +12,7 @@ export const DEFAULT_STYLE_CONFIG = {
 export const DEFAULT_STYLE_KEYS = Object.keys(DEFAULT_STYLE_CONFIG)
 
 export const DEFAULT_EVENT_CONFIG = {
-  '@vue:mounted': function mounted() {},
+  'vue:mounted': function mounted() {},
 }
 
 export const DEFAULT_EVENT_KEYS = Object.keys(DEFAULT_EVENT_CONFIG)

@@ -10,4 +10,5 @@ export default {
   disabled: false,
   href: '',
   icon: '',
+  label: '示例文本',
 }

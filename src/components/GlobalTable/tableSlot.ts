@@ -4,30 +4,24 @@
  * @LastEditors: cola
  * @Description:
  */
-export default {
-  name: 'table-slot',
-  functional: true,
-  inject: ['tableRoot'],
-  props: {
-    row: Object,
-    column: Object,
-    $index: Number,
-    columnData: Object,
-  },
-  render: (h, ctx) => {
-    return h(
-      'div',
-      {
-        style: {
-          'white-space': 'nowrap',
-        },
-      },
-      ctx.injections.tableRoot.$scopedSlots[ctx.props.column.property]({
-        row: ctx.props.row,
-        column: ctx.props.column,
-        index: ctx.props.$index,
-        columnData: ctx.props.columnData,
-      })
-    )
-  },
+import { injectStrict } from '@/utils'
+import { InstanceKey } from './constants'
+import { h } from 'vue'
+interface PropTypeItem {
+  scope: Record<string, Record<string, unknown>>
+  columnData: Record<string, string>
 }
+export default function TableSlot(props: PropTypeItem) {
+  const root = injectStrict(InstanceKey)
+  return h(
+    'div',
+    {
+      style: {
+        'white-space': 'nowrap',
+      },
+    },
+    root?.slots?.[props?.columnData?.prop]?.(props.scope)
+  )
+}
+
+TableSlot.props = ['scope', 'columnData']

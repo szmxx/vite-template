@@ -5,15 +5,17 @@
  * @Description:
 -->
 <template>
-  <el-collapse v-model="activeNames" class="pb-16">
+  <el-collapse v-model="activeNames" class="mb-16">
     <el-collapse-item
       v-for="item in list"
+      v-show="item.isShow"
       :key="item.name"
       :name="item.name"
       :title="item.title"
     >
       <component
         :is="item.component"
+        v-if="item.isShow"
         :ref="item.ref"
         :config="item.config"
       ></component>
@@ -33,16 +35,11 @@
   import useStore from '@/store/lowcode'
   import { isEmpty } from 'lodash'
   import FieldComponent from '../FieldComponent'
-  import { cloneExcludeKeys, cloneIncludeKeys } from '../utils/operate'
-  import {
-    DEFAULT_EVENT_CONFIG,
-    DEFAULT_EVENT_KEYS,
-    DEFAULT_STYLE_CONFIG,
-    DEFAULT_STYLE_KEYS,
-  } from './constants'
+  import { DEFAULT_EVENT_CONFIG, DEFAULT_STYLE_CONFIG } from './constants'
   const store = useStore()
   const basicRef = ref()
   const styleRef = ref()
+  const formRef = ref()
   const eventRef = ref()
   const activeNames = ['basic']
   const list = reactive([
@@ -52,6 +49,15 @@
       component: FieldComponent,
       ref: 'basicRef',
       config: {},
+      isShow: true,
+    },
+    {
+      title: '表单属性',
+      name: 'form',
+      component: FieldComponent,
+      ref: 'formRef',
+      config: {},
+      isShow: true,
     },
     {
       title: '样式属性',
@@ -59,6 +65,7 @@
       component: FieldComponent,
       ref: 'styleRef',
       config: {},
+      isShow: true,
     },
     {
       title: '事件属性',
@@ -66,64 +73,75 @@
       component: FieldComponent,
       ref: 'eventRef',
       config: {},
+      isShow: true,
     },
   ])
   const componentConfig = computed(() => {
     if (store.current) {
-      return cloneExcludeKeys(
-        store.config[store.current] || {},
-        DEFAULT_STYLE_KEYS.concat(DEFAULT_EVENT_KEYS)
-      )
+      return store.componentConfig[store.current] || {}
+    }
+    return {}
+  })
+  const formItemConfig = computed(() => {
+    if (store.current) {
+      return store.formItemConfig[store.current] || {}
     }
     return {}
   })
   const styleConfig = computed(() => {
     if (store.current) {
-      return cloneIncludeKeys(
-        store.config[store.current] || {},
-        DEFAULT_STYLE_KEYS
-      )
+      return store.styleConfig[store.current] || {}
     }
     return {}
   })
 
   const eventConfig = computed(() => {
     if (store.current) {
-      return cloneIncludeKeys(
-        store.config[store.current] || {},
-        DEFAULT_EVENT_KEYS
-      )
+      return store.eventConfig[store.current] || {}
     }
     return {}
   })
+
   watch(componentConfig, (newVal) => {
     list[0].config = newVal
   })
-
+  watch(formItemConfig, (newVal) => {
+    if (newVal && Object.keys(newVal)?.length) {
+      list[1].config = newVal
+      list[1].isShow = true
+    } else {
+      list[1].isShow = false
+    }
+  })
   watch(styleConfig, (newVal) => {
-    list[1].config = isEmpty(newVal)
+    list[2].config = isEmpty(newVal)
       ? Object.assign({}, DEFAULT_STYLE_CONFIG)
       : newVal
   })
-
   watch(eventConfig, (newVal) => {
-    list[2].config = isEmpty(newVal)
+    list[3].config = isEmpty(newVal)
       ? Object.assign({}, DEFAULT_EVENT_CONFIG)
       : newVal
   })
-
   async function saveHandler() {
     const component = await basicRef?.value?.[0]?.submit?.()
     if (component) {
-      store.setConfig(store.current, component.value || component)
+      store.setComponentConfig(store.current, component.value || component)
     }
+
+    const form = await formRef?.value?.[0]?.submit?.()
+    if (form) {
+      store.setFormItemConfig(store.current, form.value || form)
+    }
+
     const style = await styleRef?.value?.[0]?.submit?.()
     if (style) {
-      store.setConfig(store.current, style.value || style)
+      store.setStyleConfig(store.current, style.value || style)
     }
+
     const event = await eventRef?.value?.[0]?.submit?.()
     if (event) {
-      store.setConfig(store.current, event.value || event)
+      store.setEventConfig(store.current, event.value || event)
     }
   }
 </script>

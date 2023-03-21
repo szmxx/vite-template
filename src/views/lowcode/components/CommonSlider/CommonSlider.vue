@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-  <el-slider v-model="value" v-bin="$attrs" />
+  <el-slider v-model="value" v-bind="$attrs" />
 </template>
 
 <script setup lang="ts">

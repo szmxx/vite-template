@@ -11,6 +11,7 @@
         v-bind="i"
         :is="i.component"
         v-model="formModel[i.key]"
+        :__type__="i.key"
       ></component>
     </el-form-item>
   </el-form>
@@ -79,6 +80,7 @@
         formModel.value[keys[i]] = config[keys[i]]
       }
     }
+    console.log(list.value)
   }
   function reset() {
     list.value = []
