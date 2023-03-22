@@ -9,10 +9,22 @@ export const DEFAULT_STYLE_CONFIG = {
   class: '',
 }
 
-export const DEFAULT_STYLE_KEYS = Object.keys(DEFAULT_STYLE_CONFIG)
-
 export const DEFAULT_EVENT_CONFIG = {
   'vue:mounted': function mounted() {},
 }
 
-export const DEFAULT_EVENT_KEYS = Object.keys(DEFAULT_EVENT_CONFIG)
+export const DEFAULT_CONFIG_PANEL_STYLE = {
+  size: 'small',
+  disabled: false,
+  readonly: false,
+  'label-width': '',
+  'label-position': '',
+}
+
+export const DEFAULT_GLOBAL_STYLE = {
+  size: '',
+  disabled: false,
+  readonly: false,
+  'label-width': '',
+  'label-position': '',
+}

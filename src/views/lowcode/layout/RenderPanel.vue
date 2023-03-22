@@ -5,7 +5,12 @@
  * @Description:
 -->
 <template>
-  <div droppable @dragover="dragOver" @drop="dragEnd">
+  <div
+    droppable
+    class="overflow-y-auto p-2"
+    @dragover="dragOver"
+    @drop="dragEnd"
+  >
     <vuedraggable :list="list" item-key="id" handle=".handle">
       <template #item="{ element }">
         <div
@@ -20,16 +25,19 @@
           ></MoveTool>
           <OperateTool
             v-show="current === element.id"
-            class="absolute right-0 bottom-0"
+            class="absolute right-1px bottom-1px"
             @remove="remove(list, element)"
             @copy="append(list, JSON.stringify(element))"
+            @cancel="cancel"
+            @up="up(list, element)"
+            @down="down(list, element)"
           ></OperateTool>
           <!-- 定义渲染规则 -->
           <component
             :is="element.component"
             v-model="model[element.id]"
             v-bind="config[element.id]"
-            @vue:mounted="mount"
+            :__children__="element.children"
           ></component>
         </div>
       </template>
@@ -42,11 +50,20 @@
   import OperateTool from './components/OperateTool.vue'
   import MoveTool from './components/MoveTool.vue'
   import { useModel, useConfig } from '../composables'
-  import { append, remove } from '../utils/operate'
+  import { append, remove, cancel, up, down } from '../utils/operate'
   import { IComponentPanelItemChild } from '../types'
   import useStore from '@/store/lowcode'
   const store = useStore()
   const list: IComponentPanelItemChild[] = reactive([])
+
+  watch(
+    list,
+    (newVal) => {
+      store.pushHistoryStack(newVal)
+    },
+    { immediate: true }
+  )
+
   const current = computed(() => {
     return store.current
   })
@@ -72,9 +89,5 @@
     if (element.id) {
       store.setCurrent(element.id as string)
     }
-  }
-
-  function mount() {
-    console.log('mount')
   }
 </script>

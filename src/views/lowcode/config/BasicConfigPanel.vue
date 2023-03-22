@@ -18,6 +18,7 @@
         v-if="item.isShow"
         :ref="item.ref"
         :config="item.config"
+        :styles="panelConfig"
       ></component>
     </el-collapse-item>
   </el-collapse>
@@ -35,7 +36,11 @@
   import useStore from '@/store/lowcode'
   import { isEmpty } from 'lodash'
   import FieldComponent from '../FieldComponent'
-  import { DEFAULT_EVENT_CONFIG, DEFAULT_STYLE_CONFIG } from './constants'
+  import {
+    DEFAULT_EVENT_CONFIG,
+    DEFAULT_STYLE_CONFIG,
+    DEFAULT_CONFIG_PANEL_STYLE,
+  } from './constants'
   const store = useStore()
   const basicRef = ref()
   const styleRef = ref()
@@ -76,6 +81,12 @@
       isShow: true,
     },
   ])
+  const panelConfig = computed(() => {
+    if (store.panelConfig && Object.keys(store.panelConfig)?.length) {
+      return store.panelConfig
+    }
+    return DEFAULT_CONFIG_PANEL_STYLE
+  })
   const componentConfig = computed(() => {
     if (store.current) {
       return store.componentConfig[store.current] || {}

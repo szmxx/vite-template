@@ -38,6 +38,10 @@ export async function append(
     const obj = JSON.parse(data)
     if (obj && typeof obj === 'object') {
       obj.id = uniqueId()
+      // 如果是容器节点，则设置容器
+      if (obj.isGroup) {
+        obj.children = []
+      }
       list.push(obj)
     }
     if (!store.config[obj.id]) {
@@ -85,4 +89,40 @@ export async function remove(
   if (data.id && store.config[data.id as string]) {
     store.removeId(data.id as string)
   }
+}
+
+export function cancel() {
+  store.setCurrent('')
+}
+
+export function up(
+  list: IComponentPanelItemChild[],
+  current: IComponentPanelItemChild
+) {
+  const index = list.findIndex((i) => {
+    return i === current
+  })
+  if (list[index - 1]) {
+    exchange(list, index - 1, index)
+  }
+}
+
+export function down(
+  list: IComponentPanelItemChild[],
+  current: IComponentPanelItemChild
+) {
+  const index = list.findIndex((i) => {
+    return i === current
+  })
+  if (list[index + 1]) {
+    exchange(list, index + 1, index)
+  }
+}
+
+export function exchange(
+  list: IComponentPanelItemChild[],
+  i: number,
+  j: number
+) {
+  ;[list[i], list[j]] = [list[j], list[i]]
 }

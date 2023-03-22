@@ -50,7 +50,7 @@
   watch(
     () => props.__type__,
     (newVal) => {
-      if (newVal === 'style') {
+      if (['style', 'body-style'].includes(newVal)) {
         language.value = 'css'
       } else {
         language.value = 'javascript'

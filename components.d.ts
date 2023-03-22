@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     EditorPage: typeof import('./src/views/editor/EditorPage.vue')['default']
     EditorTree: typeof import('./src/views/editor/components/EditorTree.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']

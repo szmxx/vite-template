@@ -5,9 +5,9 @@
  * @Description:
 -->
 <template>
-  <div
-    class="grid border-dashed min-h-4rem"
+  <el-card
     droppable
+    class="min-h-8rem"
     :style="style"
     @dragover="dragOver"
     @drop="dragEnd"
@@ -23,6 +23,9 @@
         class="absolute right-0 bottom-0"
         @remove="remove(list, i)"
         @copy="append(list, JSON.stringify(i))"
+        @cancel="cancel"
+        @up="up(list, i)"
+        @down="down(list, i)"
       ></OperateTool>
       <component
         :is="i.component"
@@ -30,20 +33,28 @@
         v-bind="config[i.id as string]"
       ></component>
     </div>
-  </div>
+  </el-card>
 </template>
 
 <script setup lang="ts">
   import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
-  import { append, remove } from '../../utils/operate'
+  import { append, remove, cancel, up, down } from '../../utils/operate'
   import useStore from '@/store/lowcode'
   import { useModel, useConfig } from '../../composables'
-  import { StyleValue } from 'vue'
+  import { StyleValue, PropType } from 'vue'
   const store = useStore()
-  const list: IComponentPanelItemChild[] = reactive([])
+
+  const props = defineProps({
+    __children__: {
+      type: Array as PropType<IComponentPanelItemChild[]>,
+      default: () => [],
+    },
+  })
+  const list: IComponentPanelItemChild[] = reactive(props.__children__)
+
   defineOptions({
-    name: 'FlexContainer',
+    name: 'CardContainer',
     inheritAttrs: true,
   })
   const current = computed(() => {
@@ -56,17 +67,6 @@
   const style = computed(() => {
     return attrs as StyleValue
   })
-  watch(
-    () => attrs['row-count'],
-    (newVal) => {
-      if ((newVal as number) > 0) {
-        chunkWidth.value = `calc((100% - ${attrs['row-gap']}) / ${newVal})`
-      }
-    },
-    {
-      immediate: true,
-    }
-  )
 
   function dragOver(evt: DragEvent) {
     evt.preventDefault()

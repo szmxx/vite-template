@@ -5,16 +5,21 @@
  * @Description:
  */
 import { defineStore } from 'pinia'
-import { merge } from 'lodash'
+import { merge, cloneDeep } from 'lodash'
+import { IComponentPanelItemChild } from '@/views/lowcode/types'
 export default defineStore('lowcode', {
   state: () => {
     return {
       _current: '', // 当前选中组件
-      _componentConfig: {} as Record<string, Record<string, unknown>>,
-      _styleConfig: {} as Record<string, Record<string, unknown>>,
-      _eventConfig: {} as Record<string, Record<string, unknown>>,
-      _formItemConfig: {} as Record<string, Record<string, unknown>>,
-      _model: {} as Record<string, unknown>, // 组件的值
+      _componentConfig: {} as Record<string, Record<string, unknown>>, // 组件的基础配置
+      _styleConfig: {} as Record<string, Record<string, unknown>>, // 组件样式的配置
+      _eventConfig: {} as Record<string, Record<string, unknown>>, // 组件事件的配置
+      _formItemConfig: {} as Record<string, Record<string, unknown>>, // 表单项的配置
+      _model: {} as Record<string, unknown>, // 渲染组件的值
+      _panelConfig: {} as Record<string, unknown>, // 配置面板的配置，作用于配置面板
+      _globalConfig: {} as Record<string, unknown>, // 全局组件的配置
+      _historyStack: [] as IComponentPanelItemChild[][], // 历史栈结构
+      _currentStack: 0, // 当前节点
     }
   },
   getters: {
@@ -40,6 +45,12 @@ export default defineStore('lowcode', {
     },
     formItemConfig: (state) => {
       return state._formItemConfig
+    },
+    panelConfig: (state) => {
+      return state._panelConfig
+    },
+    globalConfig: (state) => {
+      return state._globalConfig
     },
     model: (state) => {
       return state._model
@@ -85,6 +96,31 @@ export default defineStore('lowcode', {
         this._formItemConfig[id] = config
       }
     },
+    setPanelConfig(config: Record<string, unknown>) {
+      this._panelConfig = config
+    },
+    setGlobalConfig(config: Record<string, unknown>) {
+      this._globalConfig = config
+    },
+    pushHistoryStack(data: IComponentPanelItemChild[]) {
+      this._historyStack.push(cloneDeep(data))
+      this._currentStack++
+    },
+    redo() {
+      if (this._currentStack < this._historyStack.length) {
+        this._currentStack++
+        return this._historyStack[this._currentStack]
+      }
+      return null
+    },
+    undo() {
+      if (this._currentStack > 0) {
+        this._currentStack--
+        return this._historyStack[this._currentStack]
+      }
+      return null
+    },
+
     removeId(id: string) {
       delete this._eventConfig[id]
       delete this._styleConfig[id]

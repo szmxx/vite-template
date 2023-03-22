@@ -38,6 +38,10 @@
       type: Object as PropType<Record<string, unknown>>,
       default: () => {},
     },
+    styles: {
+      type: Object as PropType<Record<string, unknown>>,
+      default: () => {},
+    },
   })
   watch(
     () => props.config,
@@ -67,6 +71,7 @@
             label: FIELD_MAP[keys[i]] || keys[i],
             key: keys[i],
             ...SPECIAL_TYPE[keys[i]],
+            ...props.styles,
           })
         } else {
           const type = toRawType(config[keys[i]])
@@ -75,6 +80,7 @@
             label: FIELD_MAP[keys[i]] || keys[i],
             component: component,
             key: keys[i],
+            ...props.styles,
           })
         }
         formModel.value[keys[i]] = config[keys[i]]
