@@ -86,7 +86,6 @@
         formModel.value[keys[i]] = config[keys[i]]
       }
     }
-    console.log(list.value)
   }
   function reset() {
     list.value = []

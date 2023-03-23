@@ -13,24 +13,27 @@
     @drop="dragEnd"
   >
     <div
-      v-for="i in list"
+      v-for="i in __children__"
       :key="i.id as string"
-      :class="{ 'relative border border-blue': current === i.id }"
+      :class="{ 'relative border border-blue': current === i.id && !isPreview }"
       @click.stop="clickHandler(i)"
     >
       <OperateTool
         v-show="current === i.id"
+        v-if="!isPreview"
         class="absolute right-0 bottom-0"
-        @remove="remove(list, i)"
-        @copy="append(list, JSON.stringify(i))"
+        @remove="remove(__children__, i)"
+        @copy="copy(__children__, JSON.stringify(i))"
         @cancel="cancel"
-        @up="up(list, i)"
-        @down="down(list, i)"
+        @up="up(__children__, i)"
+        @down="down(__children__, i)"
       ></OperateTool>
       <component
         :is="i.component"
         v-model="model[i.id as string]"
         v-bind="config[i.id as string]"
+        :is-preview="isPreview"
+        :__children__="i.children"
       ></component>
     </div>
   </el-card>
@@ -39,19 +42,23 @@
 <script setup lang="ts">
   import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
-  import { append, remove, cancel, up, down } from '../../utils/operate'
+  import { append, remove, copy, cancel, up, down } from '../../utils/operate'
   import useStore from '@/store/lowcode'
   import { useModel, useConfig } from '../../composables'
   import { StyleValue, PropType } from 'vue'
   const store = useStore()
 
   const props = defineProps({
+    // eslint-disable-next-line vue/prop-name-casing
     __children__: {
       type: Array as PropType<IComponentPanelItemChild[]>,
       default: () => [],
     },
+    isPreview: {
+      type: Boolean,
+      default: false,
+    },
   })
-  const list: IComponentPanelItemChild[] = reactive(props.__children__)
 
   defineOptions({
     name: 'CardContainer',
@@ -71,13 +78,13 @@
   function dragOver(evt: DragEvent) {
     evt.preventDefault()
     evt.stopPropagation()
-    if (evt.dataTransfer) {
+    if (evt.dataTransfer && !props.isPreview) {
       evt.dataTransfer.dropEffect = 'copy'
     }
   }
 
   function clickHandler(data: IComponentPanelItemChild) {
-    if (data.id) {
+    if (data.id && !props.isPreview) {
       store.setCurrent(data.id as string)
     }
   }
@@ -86,8 +93,8 @@
     evt.preventDefault()
     evt.stopPropagation()
     const data = evt?.dataTransfer?.getData('text/plain')
-    if (data) {
-      append(list, data)
+    if (data && !props.isPreview) {
+      append(props.__children__, data)
     }
   }
 </script>

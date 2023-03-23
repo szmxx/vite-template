@@ -27,7 +27,7 @@
             v-show="current === element.id"
             class="absolute right-1px bottom-1px"
             @remove="remove(list, element)"
-            @copy="append(list, JSON.stringify(element))"
+            @copy="copy(list, JSON.stringify(element))"
             @cancel="cancel"
             @up="up(list, element)"
             @down="down(list, element)"
@@ -50,24 +50,20 @@
   import OperateTool from './components/OperateTool.vue'
   import MoveTool from './components/MoveTool.vue'
   import { useModel, useConfig } from '../composables'
-  import { append, remove, cancel, up, down } from '../utils/operate'
+  import { append, remove, copy, cancel, up, down } from '../utils/operate'
   import { IComponentPanelItemChild } from '../types'
   import useStore from '@/store/lowcode'
   const store = useStore()
-  const list: IComponentPanelItemChild[] = reactive([])
-
-  watch(
-    list,
-    (newVal) => {
-      store.pushHistoryStack(newVal)
-    },
-    { immediate: true }
-  )
+  const list = ref<IComponentPanelItemChild[]>(store.componentTree)
 
   const current = computed(() => {
     return store.current
   })
+
   const model = useModel()
+  watch(store._model, (newVal) => {
+    console.log(store._model)
+  })
   const config = useConfig()
 
   function dragOver(evt: DragEvent) {
@@ -81,7 +77,7 @@
     evt.preventDefault()
     const data = evt?.dataTransfer?.getData('text/plain')
     if (data) {
-      append(list, data)
+      append(list.value, data)
     }
   }
 
@@ -90,4 +86,12 @@
       store.setCurrent(element.id as string)
     }
   }
+
+  function refresh(newVal: IComponentPanelItemChild[]) {
+    list.value = reactive(newVal)
+  }
+
+  defineExpose({
+    refresh: refresh,
+  })
 </script>

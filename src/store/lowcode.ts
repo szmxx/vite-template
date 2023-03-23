@@ -1,3 +1,4 @@
+import { IHasChildren } from './../views/lowcode/types'
 /*
  * @Author: cola
  * @Date: 2022-07-05 14:40:02
@@ -7,6 +8,8 @@
 import { defineStore } from 'pinia'
 import { merge, cloneDeep } from 'lodash'
 import { IComponentPanelItemChild } from '@/views/lowcode/types'
+import { recursion, traverse } from '@/views/lowcode/utils/util'
+
 export default defineStore('lowcode', {
   state: () => {
     return {
@@ -18,8 +21,11 @@ export default defineStore('lowcode', {
       _model: {} as Record<string, unknown>, // 渲染组件的值
       _panelConfig: {} as Record<string, unknown>, // 配置面板的配置，作用于配置面板
       _globalConfig: {} as Record<string, unknown>, // 全局组件的配置
-      _historyStack: [] as IComponentPanelItemChild[][], // 历史栈结构
-      _currentStack: 0, // 当前节点
+      _maxLimitStack: 30, // 最大历史栈限制
+      _historyStack: [[]] as IComponentPanelItemChild[][], // 历史栈结构
+      _historyConfigStack: [{}] as Record<string, Record<string, unknown>>[], // 历史配置栈结构
+      _currentStack: 0, // 当前栈
+      _componentTree: [] as IComponentPanelItemChild[],
     }
   },
   getters: {
@@ -51,6 +57,15 @@ export default defineStore('lowcode', {
     },
     globalConfig: (state) => {
       return state._globalConfig
+    },
+    componentTree: (state) => {
+      return state._componentTree
+    },
+    undoDisabled: (state) => {
+      return state._currentStack <= 0
+    },
+    redoDisabled: (state) => {
+      return state._currentStack >= state._historyStack.length - 1
     },
     model: (state) => {
       return state._model
@@ -102,31 +117,67 @@ export default defineStore('lowcode', {
     setGlobalConfig(config: Record<string, unknown>) {
       this._globalConfig = config
     },
-    pushHistoryStack(data: IComponentPanelItemChild[]) {
-      this._historyStack.push(cloneDeep(data))
-      this._currentStack++
+    pushHistoryStack() {
+      // 处于回退状态
+      if (this._currentStack < this._historyStack.length - 1) {
+        this._historyStack.splice(
+          this._currentStack + 1,
+          this._historyStack.length - this._currentStack + 1,
+          cloneDeep(this._componentTree)
+        )
+        this._historyConfigStack.splice(
+          this._currentStack + 1,
+          this._historyConfigStack.length - this._currentStack + 1,
+          cloneDeep(this._componentConfig)
+        )
+      } else {
+        this._historyConfigStack.push(cloneDeep(this._componentConfig))
+        this._historyStack.push(cloneDeep(this._componentTree))
+      }
+      // 超过最大栈限制，需要移出第一项
+      if (this._maxLimitStack < this._historyStack.length) {
+        this._historyStack.shift()
+        this._historyConfigStack.shift()
+      }
+      this._currentStack = this._historyStack.length - 1
     },
     redo() {
-      if (this._currentStack < this._historyStack.length) {
+      if (this._currentStack < this._historyStack.length - 1) {
         this._currentStack++
-        return this._historyStack[this._currentStack]
+        this._componentConfig = cloneDeep(
+          this._historyConfigStack[this._currentStack]
+        )
+        return (this._componentTree = cloneDeep(
+          this._historyStack[this._currentStack]
+        ))
       }
       return null
     },
     undo() {
       if (this._currentStack > 0) {
         this._currentStack--
-        return this._historyStack[this._currentStack]
+        this._componentConfig = cloneDeep(
+          this._historyConfigStack[this._currentStack]
+        )
+        return (this._componentTree = cloneDeep(
+          this._historyStack[this._currentStack]
+        ))
       }
       return null
     },
-
+    clear() {
+      this._componentTree = []
+      this.pushHistoryStack()
+      return []
+    },
     removeId(id: string) {
-      delete this._eventConfig[id]
-      delete this._styleConfig[id]
-      delete this._componentConfig[id]
-      delete this._formItemConfig[id]
-      delete this._model[id]
+      const target = traverse(this._componentTree, id)
+      if (target) {
+        recursion([target], (item: IHasChildren) => {
+          // TODO: 目前历史栈只支持回退组件配置，所以不能删除其他配置
+          delete this._componentConfig[item.id as string]
+        })
+      }
     },
     setModel(key: string, value: unknown) {
       this._model[key] = value

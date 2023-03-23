@@ -14,6 +14,7 @@
       {{ label }} =
     </div>
     <CommonCodeEditor
+      ref="codeRef"
       v-model="code"
       class="min-h-20rem"
       :language="language"
@@ -31,6 +32,7 @@
   import { toRawType } from '@/utils'
   import parse from 'style-to-js'
   const code = ref('')
+  const codeRef = ref()
   const language = ref('javascript')
   const dialogVisible = ref(false)
   const props = defineProps({
@@ -62,17 +64,20 @@
   )
   const emit = defineEmits(['update:modelValue'])
   function saveHandler() {
+    const bool = codeRef?.value?.validate?.()
     try {
-      if (language.value === 'css') {
-        const value = parse(
-          code.value.replace(/style\s+{/, '').replace('}', '')
-        )
-        emit('update:modelValue', value)
-      } else {
-        const value = toObject(code.value)
-        emit('update:modelValue', value)
+      if (bool) {
+        if (language.value === 'css') {
+          const value = parse(
+            code.value.replace(/style\s+{/, '').replace('}', '')
+          )
+          emit('update:modelValue', value)
+        } else {
+          const value = toObject(code.value)
+          emit('update:modelValue', value)
+        }
+        hide()
       }
-      hide()
     } catch (error) {
       console.error(error)
     }

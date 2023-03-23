@@ -60,6 +60,7 @@
           component: 'TabContainer',
           icon: 'i-mdi-tab',
           isGroup: true,
+          isMulti: true,
         },
         {
           title: '卡片',

@@ -17,26 +17,29 @@
       @drop="dragEnd"
     >
       <div
-        v-for="item in componentMap[activeName]"
-        :key="item.id as string"
+        v-for="i in __children__[activeName]"
+        :key="i.id as string"
         :class="{
-          'relative border border-blue': current === item.id,
+          'relative border border-blue': current === i.id && !isPreview,
         }"
-        @click.stop="clickHandler(item)"
+        @click.stop="clickHandler(i)"
       >
         <OperateTool
-          v-show="current === item.id"
+          v-show="current === i.id"
+          v-if="!isPreview"
           class="absolute right-0 bottom-0"
-          @remove="remove(componentMap[activeName], item)"
-          @copy="append(componentMap[activeName], JSON.stringify(item))"
+          @remove="remove(__children__[activeName], i)"
+          @copy="copy(__children__[activeName], JSON.stringify(i))"
           @cancel="cancel"
-          @up="up(componentMap[activeName], item)"
-          @down="down(componentMap[activeName], item)"
+          @up="up(__children__[activeName], i)"
+          @down="down(__children__[activeName], i)"
         ></OperateTool>
         <component
-          :is="item.component"
-          v-model="model[item.id as string]"
-          v-bind="config[item.id as string]"
+          :is="i.component"
+          v-model="model[i.id as string]"
+          v-bind="config[i.id as string]"
+          :is-preview="isPreview"
+          :__children__="i.children"
         ></component>
       </div>
     </el-tab-pane>
@@ -48,7 +51,7 @@
   import type { TabPaneName } from 'element-plus'
   import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
-  import { append, remove, cancel, up, down } from '../../utils/operate'
+  import { append, remove, cancel, copy, up, down } from '../../utils/operate'
   import useStore from '@/store/lowcode'
   import { useModel, useConfig } from '../../composables'
   interface TabItem {
@@ -58,8 +61,7 @@
     closable?: boolean
     lazy?: boolean
   }
-  const activeName = ref<TabPaneName>('')
-  const componentMap: Record<string, IComponentPanelItemChild[]> = reactive({})
+
   const model = useModel()
   const config = useConfig()
   const store = useStore()
@@ -72,25 +74,32 @@
       type: Array as PropType<TabItem[]>,
       default: () => [],
     },
+    // eslint-disable-next-line vue/prop-name-casing
+    __children__: {
+      type: Object as PropType<Record<string, IComponentPanelItemChild[]>>,
+      default: () => [],
+    },
+    isPreview: {
+      type: Boolean,
+      default: false,
+    },
   })
-
+  const activeName = ref<TabPaneName>(props?.options?.[0]?.name)
   watch(
     () => props.options,
     (newVal) => {
       if (newVal?.length && !activeName.value) {
         activeName.value = newVal[0].name
       }
-    },
-    {
-      immediate: true,
     }
   )
 
   watch(
     activeName,
     () => {
-      if (activeName.value && !componentMap[activeName.value]?.length) {
-        componentMap[activeName.value] = []
+      if (activeName.value && !props.__children__[activeName.value]?.length) {
+        // eslint-disable-next-line vue/no-mutating-props
+        props.__children__[activeName.value] = []
       }
     },
     {
@@ -101,13 +110,13 @@
   function dragOver(evt: DragEvent) {
     evt.preventDefault()
     evt.stopPropagation()
-    if (evt.dataTransfer) {
+    if (evt.dataTransfer && !props.isPreview) {
       evt.dataTransfer.dropEffect = 'copy'
     }
   }
 
   function clickHandler(data: IComponentPanelItemChild) {
-    if (data.id) {
+    if (data.id && !props.isPreview) {
       store.setCurrent(data.id as string)
     }
   }
@@ -116,8 +125,8 @@
     evt.preventDefault()
     evt.stopPropagation()
     const data = evt?.dataTransfer?.getData('text/plain')
-    if (data) {
-      append(componentMap[activeName.value], data)
+    if (data && !props.isPreview) {
+      append(props.__children__[activeName.value], data)
     }
   }
 </script>

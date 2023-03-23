@@ -10,7 +10,7 @@ const store = useStore()
 
 export function useModel() {
   return computed(() => {
-    return store.model
+    return store._model
   })
 }
 export function useConfig() {

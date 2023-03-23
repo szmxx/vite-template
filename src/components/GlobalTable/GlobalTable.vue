@@ -7,7 +7,7 @@
 <template>
   <div ref="root">
     <el-table
-      :style="{ maxWidth: maxTableWidth + 'px' }"
+      :style="{ maxWidth: maxTableWidth ? maxTableWidth + 'px' : 'auto' }"
       :data="data"
       :max-height="maxTableHeight"
       v-bind="$attrs"

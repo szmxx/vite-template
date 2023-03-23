@@ -5,29 +5,10 @@
  * @Description:
  */
 import { IComponentPanelItemChild } from '../types'
-import { uniqueId } from 'lodash'
+import { uniqueId, cloneDeep } from 'lodash'
+import { recursion, cloneExcludeKeys } from './util'
 import useStore from '@/store/lowcode'
 const store = useStore()
-
-export function cloneExcludeKeys(obj: Record<string, unknown>, keys: string[]) {
-  const res = Object.create(null)
-  Object.keys(obj).map((key) => {
-    if (!keys.includes(key)) {
-      res[key] = obj[key]
-    }
-  })
-  return res
-}
-
-export function cloneIncludeKeys(obj: Record<string, unknown>, keys: string[]) {
-  const res = Object.create(null)
-  Object.keys(obj).map((key) => {
-    if (keys.includes(key)) {
-      res[key] = obj[key]
-    }
-  })
-  return res
-}
 
 export async function append(
   list: IComponentPanelItemChild[],
@@ -40,7 +21,11 @@ export async function append(
       obj.id = uniqueId()
       // 如果是容器节点，则设置容器
       if (obj.isGroup) {
-        obj.children = []
+        if (obj.isMulti) {
+          obj.children = {}
+        } else {
+          obj.children = []
+        }
       }
       list.push(obj)
     }
@@ -59,11 +44,13 @@ export async function append(
         'icon',
         'id',
         'isGroup',
+        'children',
       ])
       store.setComponentConfig(
         obj.id,
         reactive(Object.assign({}, config.default, res))
       )
+      store.setModel(obj.id, '')
       if (containerData) {
         store.setFormItemConfig(
           obj.id,
@@ -71,6 +58,51 @@ export async function append(
         )
       }
     }
+    // 等配置更新完，再压入栈中
+    store.pushHistoryStack()
+  } catch {
+    console.log()
+  }
+}
+
+export async function copy(
+  list: IComponentPanelItemChild[],
+  data: string,
+  containerData?: Record<string, unknown>
+) {
+  try {
+    const obj = JSON.parse(data)
+    if (obj && typeof obj === 'object') {
+      // 克隆时，重新设置 id
+      recursion([obj], (i) => {
+        if (store.config[i.id as string]) {
+          const newId = uniqueId()
+          store.setComponentConfig(
+            newId,
+            cloneDeep(store._componentConfig[i.id as string])
+          )
+          store.setEventConfig(
+            newId,
+            cloneDeep(store._eventConfig[i.id as string])
+          )
+          store.setStyleConfig(
+            newId,
+            cloneDeep(store._styleConfig[i.id as string])
+          )
+          store.setModel(newId, cloneDeep(store._model[i.id as string]))
+          if (containerData) {
+            store.setFormItemConfig(
+              newId,
+              cloneDeep(store._formItemConfig[i.id as string])
+            )
+          }
+          i.id = newId
+        }
+      })
+      list.push(obj)
+    }
+    // 等配置更新完，再压入栈中
+    store.pushHistoryStack()
   } catch {
     console.log()
   }
@@ -84,17 +116,22 @@ export async function remove(
     return item.id === data.id
   })
   if (index !== -1) {
+    // 需要先删配置
+    if (data.id && store.config[data.id as string]) {
+      store.removeId(data.id as string)
+    }
     list.splice(index, 1)
   }
-  if (data.id && store.config[data.id as string]) {
-    store.removeId(data.id as string)
-  }
+  store.pushHistoryStack()
 }
 
 export function cancel() {
   store.setCurrent('')
 }
 
+export function clear() {
+  store
+}
 export function up(
   list: IComponentPanelItemChild[],
   current: IComponentPanelItemChild
@@ -125,4 +162,5 @@ export function exchange(
   j: number
 ) {
   ;[list[i], list[j]] = [list[j], list[i]]
+  store.pushHistoryStack()
 }

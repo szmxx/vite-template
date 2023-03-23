@@ -4,6 +4,12 @@
  * @LastEditors: cola
  * @Description:
  */
+
+export interface IHasChildren {
+  children?: IHasChildren[]
+  [key: string]: unknown
+}
+
 export interface IComponentPanelItemChild {
   title: string
   component: string

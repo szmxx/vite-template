@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
   import useStore from '@/store/lowcode'
-  import { isEmpty } from 'lodash'
+  import { cloneDeep, isEmpty } from 'lodash'
   import FieldComponent from '../FieldComponent'
   import {
     DEFAULT_EVENT_CONFIG,
@@ -114,11 +114,11 @@
   })
 
   watch(componentConfig, (newVal) => {
-    list[0].config = newVal
+    list[0].config = cloneDeep(newVal)
   })
   watch(formItemConfig, (newVal) => {
     if (newVal && Object.keys(newVal)?.length) {
-      list[1].config = newVal
+      list[1].config = cloneDeep(newVal)
       list[1].isShow = true
     } else {
       list[1].isShow = false
@@ -127,12 +127,12 @@
   watch(styleConfig, (newVal) => {
     list[2].config = isEmpty(newVal)
       ? Object.assign({}, DEFAULT_STYLE_CONFIG)
-      : newVal
+      : cloneDeep(newVal)
   })
   watch(eventConfig, (newVal) => {
     list[3].config = isEmpty(newVal)
       ? Object.assign({}, DEFAULT_EVENT_CONFIG)
-      : newVal
+      : cloneDeep(newVal)
   })
   async function saveHandler() {
     const component = await basicRef?.value?.[0]?.submit?.()

@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CardContainer from './CardContainer.vue';
+import CardContainer from './CardContainer.vue'
 export default CardContainer

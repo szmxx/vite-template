@@ -18,4 +18,5 @@ export default {
     },
   ],
   label: '示例数据',
+  api: function apiGet() {},
 }

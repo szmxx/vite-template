@@ -27,6 +27,10 @@
       type: String,
       default: '',
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Object as PropType<Record<string, unknown>>,
       default: () => {},
@@ -50,6 +54,7 @@
       language: props.language,
       theme: props.theme,
       automaticLayout: true,
+      readOnly: props.readonly,
       ...props.options,
     })
     editor.onDidChangeModelContent(() => {
@@ -93,10 +98,19 @@
     }
   }
 
+  function validate() {
+    const res = monaco.editor.getModelMarkers({})
+    return res.length <= 1
+  }
+
   onMounted(() => {
     init()
   })
   onBeforeUnmount(() => {
     editor.dispose()
+  })
+
+  defineExpose({
+    validate: validate,
   })
 </script>

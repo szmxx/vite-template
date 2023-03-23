@@ -10,8 +10,18 @@
   >
     <div>
       <div class="flex gap-x-2" @click="opHandler">
-        <i i-mdi-arrow-u-left-top class="cursor-pointer" data-type="undo"></i>
-        <i i-mdi-arrow-u-right-top class="cursor-pointer" data-type="redo"></i>
+        <i
+          i-mdi-arrow-u-left-top
+          class="cursor-pointer"
+          data-type="undo"
+          :class="{ 'text-#eee': undoDisabled }"
+        ></i>
+        <i
+          i-mdi-arrow-u-right-top
+          class="cursor-pointer"
+          data-type="redo"
+          :class="{ 'text-#eee': redoDisabled }"
+        ></i>
       </div>
     </div>
     <div class="flex gap-x-2 items-center flex-nowrap" @click="opHandler">
@@ -25,13 +35,15 @@
         <span :data-type="i.value">{{ i.label }}</span>
       </span>
     </div>
+    <ExportConfigDialog ref="exportRef"></ExportConfigDialog>
   </div>
 </template>
 
 <script setup lang="ts">
   import useStore from '@/store/lowcode'
+  import ExportConfigDialog from './components/ExportConfigDialog.vue'
   const store = useStore()
-
+  const exportRef = ref()
   const opList = [
     {
       label: '清空',
@@ -60,28 +72,39 @@
     },
   ]
 
+  const undoDisabled = computed(() => {
+    return store.undoDisabled
+  })
+
+  const redoDisabled = computed(() => {
+    return store.redoDisabled
+  })
+
+  const emit = defineEmits(['redo', 'undo', 'clear', 'preview'])
   function opHandler(evt: MouseEvent) {
     const target = evt.target as HTMLElement
     const type = target?.dataset?.type
     switch (type) {
       case 'clear':
+        emit('clear')
         break
       case 'preview':
-        console.log(store.config)
+        emit('preview')
         break
       case 'import':
         break
       case 'export':
+        exportRef?.value?.show?.()
         break
       case 'sfc':
         break
       // 涉及组件的删除、新增、移动
       case 'undo':
+        emit('undo')
         break
       case 'redo':
+        emit('redo')
         break
     }
   }
 </script>
-
-<style scoped lang="scss"></style>
