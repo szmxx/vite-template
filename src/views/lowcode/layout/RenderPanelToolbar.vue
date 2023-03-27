@@ -36,14 +36,17 @@
       </span>
     </div>
     <ExportConfigDialog ref="exportRef"></ExportConfigDialog>
+    <ExportSFCDialog ref="sfcRef"></ExportSFCDialog>
   </div>
 </template>
 
 <script setup lang="ts">
   import useStore from '@/store/lowcode'
   import ExportConfigDialog from './components/ExportConfigDialog.vue'
+  import ExportSFCDialog from './components/ExportSFCDialog.vue'
   const store = useStore()
   const exportRef = ref()
+  const sfcRef = ref()
   const opList = [
     {
       label: '清空',
@@ -97,6 +100,7 @@
         exportRef?.value?.show?.()
         break
       case 'sfc':
+        sfcRef?.value?.show?.()
         break
       // 涉及组件的删除、新增、移动
       case 'undo':

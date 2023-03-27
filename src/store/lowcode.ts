@@ -147,6 +147,7 @@ export default defineStore('lowcode', {
         this._componentConfig = cloneDeep(
           this._historyConfigStack[this._currentStack]
         )
+        debugger
         return (this._componentTree = cloneDeep(
           this._historyStack[this._currentStack]
         ))
@@ -159,6 +160,7 @@ export default defineStore('lowcode', {
         this._componentConfig = cloneDeep(
           this._historyConfigStack[this._currentStack]
         )
+        debugger
         return (this._componentTree = cloneDeep(
           this._historyStack[this._currentStack]
         ))

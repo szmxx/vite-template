@@ -6,7 +6,14 @@
  */
 import { IComponentPanelItemChild, IHasChildren } from '../types'
 export function importJson() {}
-export function exportJson() {}
+export function exportJson(
+  json: Record<string, unknown> | Record<string, unknown>[],
+  filename: string
+) {
+  const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
+  const blobUrl = URL.createObjectURL(blob)
+  download(blobUrl, filename)
+}
 
 export function download(blobUrl: string, downloadName: string) {
   const a = document.createElement('a')

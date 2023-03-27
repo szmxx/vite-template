@@ -6,7 +6,6 @@
  */
 export default {
   __INNERKEY__: '', // 唯一键名
-  type: 'text',
   'show-word-limit': false,
   placeholder: '',
   clearable: false,

@@ -15,10 +15,16 @@
       >
         <CommonCodeEditor
           v-model="tab.code"
-          class="min-h-20rem"
+          class="min-h-20rem border-b-dashed border-#eee"
           language="json"
           :readonly="true"
         ></CommonCodeEditor>
+        <CommonButton
+          class="mt-4 float-right"
+          label="导出数据"
+          type="primary"
+          @click="exportHandler(tab.name)"
+        ></CommonButton>
       </el-tab-pane>
     </el-tabs>
   </el-dialog>
@@ -27,6 +33,7 @@
 <script setup lang="ts">
   import CommonCodeEditor from '../../components/CommonCodeEditor'
   import useStore from '@/store/lowcode'
+  import { exportJson } from '../../utils/util'
   const store = useStore()
   const activeName = ref('data')
   const tabs = reactive([
@@ -63,6 +70,20 @@
 
   function show() {
     dialogVisible.value = true
+  }
+
+  function exportHandler(name: string) {
+    switch (name) {
+      case 'data':
+        exportJson(store.componentTree, '组件树.json')
+        break
+      case 'config':
+        exportJson(store.componentConfig, '组件配置.json')
+        break
+      case 'model':
+        exportJson(store.model, '组件数据.json')
+        break
+    }
   }
 
   defineExpose({
