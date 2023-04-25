@@ -1,0 +1,54 @@
+$colors: (
+  'white': #fff,
+  'black': #000,
+  'primary': #409eff,
+  'success': #67c23a,
+  'warning': #e6a23c,
+  'error': #f56c6c,
+  'info': #909399,
+);
+$text-color: (
+  'primary': #303133,
+  'regular': #606266,
+  'secondary': #909399,
+  'placeholder': #a8abb2,
+);
+$border-color: (
+  '': #dcdfe6,
+  'light': #e4e7ed,
+  'lighter': #ebeef5,
+  'extra-light': #f2f6fc,
+  'dark': #d4d7de,
+  'darker': #cdd0d6,
+);
+$bg-color: (
+  '': #fff,
+  'page': #f2f3f5,
+  'overlay': #fff,
+);
+$box-shadow: (
+  '': (
+    0 12px 32px 4px rgb(0 0 0 / 4%),
+    0 8px 20px rgb(0 0 0 / 8%),
+  ),
+  'light': (
+    0 0 12px rgb(0 0 0 / 12%),
+  ),
+  'lighter': (
+    0 0 6px rgb(0 0 0 / 12%),
+  ),
+  'dark': (
+    0 16px 48px 16px rgb(0 0 0 / 8%),
+    0 12px 32px rgb(0 0 0 / 12%),
+    0 8px 16px -8px rgb(0 0 0 / 16%),
+  ),
+);
+$fill-color: (
+  '': #f0f2f5,
+  'light': #f5f7fa,
+  'lighter': #fafafa,
+  'extra-light': #fafcff,
+  'dark': #ebedf0,
+  'darker': #e6e8eb,
+  'blank': #fff,
+);

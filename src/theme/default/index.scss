@@ -1,0 +1,16 @@
+@use '@/style/common/mixin' as *;
+@use 'var' as *;
+
+:root[data-theme='default'] {
+  @each $type in $types {
+    @include set-css-color-type($colors, $type);
+  }
+  @include set-css-var-value('border-color-hover', $border-color-hover);
+  @include set-component-css-var('text-color', $text-color);
+  @include set-component-css-var('bg-color', $bg-color);
+  @include set-component-css-var('border-color', $border-color);
+  @include set-component-css-var('box-shadow', $box-shadow);
+  @include set-component-css-var('fill-color', $fill-color);
+
+  color-scheme: light;
+}
