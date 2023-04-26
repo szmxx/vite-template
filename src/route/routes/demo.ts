@@ -14,5 +14,10 @@ export default {
       path: 'index',
       component: () => import('@/views/demo'),
     },
+    {
+      name: 'DemoChild',
+      path: 'child',
+      component: () => import('@/views/demo'),
+    },
   ],
 }

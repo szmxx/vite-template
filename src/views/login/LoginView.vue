@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { login, auth } from "@/api/auth"
+import { login, auth, sso } from "@/api/auth"
 import { setRefreshToken, setToken } from "@/utils/auth"
 const route = useRoute()
 const router = useRouter()
@@ -41,6 +41,19 @@ let formModel = reactive({
   username: '',
   password: ''
 })
+
+onMounted(async () => {
+  const { redirect = '' } = route.query || {}
+  if(!redirect) {
+    const res = await sso()
+    if(res) {
+      router.push({
+        path: '/'
+      })
+    }
+  }
+})
+
 async function submit(){
   const { username, password } = formModel
   const res = await login({
@@ -49,14 +62,14 @@ async function submit(){
   })
   const { redirect = '' } = route.query || {}
   if(res) {
+    const { token, refreshToken } = await auth({
+      code: res.code
+    })
+    setToken(token)
+    setRefreshToken(refreshToken)
     if(redirect){
       redirectUrl(res.code)
     } else {
-      const { token, refreshToken } = await auth({
-        code: res.code
-      })
-      setToken(token)
-      setRefreshToken(refreshToken)
       router.push({
         path: '/'
       })

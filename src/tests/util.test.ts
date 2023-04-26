@@ -4,7 +4,6 @@
  * @LastEditors: cola
  * @Description:
  */
-import { describe, it, assert } from 'vitest'
 describe('test util', () => {
   it('test functional', () => {
     assert.equal(Math.sqrt(4), 2)

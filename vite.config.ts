@@ -20,13 +20,6 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    // cors: {
-    //   origin: 'http://localhost:3000/',
-    //   methods: ['GET', 'PUT', 'POST'],
-    //   credentials: true,
-    //   preflightContinue: true,
-    //   allowedHeaders: ['Content-Type', 'Authorization']
-    // },
     port: 9529
   },
   assetsInclude: ['**/*.JPG'],

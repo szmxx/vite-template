@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2023-04-25 15:26:29
+ * @LastEditTime: 2023-04-26 11:23:41
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -12,12 +12,11 @@ import axios, {
   AxiosError,
   AxiosInstance,
 } from 'axios'
-import { getToken } from "@/utils/auth"
 const CancelToken = axios.CancelToken
 interface HttpParams {
   BASEURL?: string
   TIMEOUT?: number
-  errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => Promise<void>
+  errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => Promise<unknown>
   isCancel?: boolean
 }
 const cancelMap = new Map()
@@ -46,10 +45,6 @@ export default class Http {
               cancelMap.set(key, cancel)
             })
           }
-        }
-        const authToken = getToken()
-        if(authToken){
-          config.headers!['Authorization'] = `Bearer ${authToken}`
         }
         return config
       },

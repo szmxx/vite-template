@@ -30,8 +30,8 @@ interface ILogin{
 export function login(data: ILoginParams) {
   return POST<ILogin>(`/auth/login`, '登录', data)
 }
-export function sso(data: Record<string, unknown>) {
-  return POST<Record<string, string>>(`/auth/sso`, '单点登录', data)
+export function sso() {
+  return POST<Record<string, string>>(`/auth/sso`, '单点登录', {})
 }
 export function getUserInfo(params: ILoginParams){
  return GET<Auth>('/auth/userInfo', '获取用户信息', params)

@@ -14,7 +14,7 @@ export default defineStore('app', {
   },
   getters: {
     config: (state) => state._config,
-    appList: (state) => state?._config?.APP_LIST || [],
+    appList: (state) => (state?._config?.APP_LIST || []) as Record<string, unknown>[],
   },
   actions: {
     setConfig(config: AppConfig) {

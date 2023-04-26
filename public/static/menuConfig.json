@@ -1,0 +1,22 @@
+{
+  "data": {
+    "menus": [
+      {
+        "name": "Demo",
+        "meta": {},
+        "children": [{
+          "name": "DemoChild",
+          "meta": {
+            "c": 123
+          }
+        }]
+      },
+      {
+        "name": "Chart",
+        "meta": {
+          "a": 1
+        }
+      }
+    ]
+  }
+}

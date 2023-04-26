@@ -1,0 +1,25 @@
+// Vitest Snapshot v1
+
+exports[`mount component > mount component 1`] = `
+"<div class=\\"text-default bg-default box-shadow-default text-base text-bold m-large border border-base border-darker border-base rt-base lh-large font-base z-base\\">hello world</div>
+<div class=\\"text-regular bg-primary border-light\\">hello world</div>
+<div class=\\"text-secondary bg-primary-light-3 border-lighter\\">hello world</div>
+<div class=\\"text-placeholder bg-primary-light-5 border-dark\\">hello world</div>
+<div class=\\"text-disabled bg-primary-light-7 border-darker\\">hello world</div>
+<div class=\\"text-primary bg-primary-light-9 border-primary\\">hello world</div>
+<div class=\\"text-primary-light-3 bg-overlay border-primary-light-3\\">hello world</div>
+<div class=\\"text-primary-light-3 bg-fill-default border-primary-light-3\\">hello world</div>
+<div><button>greet</button></div>"
+`;
+
+exports[`mount component > mount component 2`] = `
+"<div class=\\"text-default bg-default box-shadow-default text-base text-bold m-large border border-base border-darker border-base rt-base lh-large font-base z-base\\">greeting</div>
+<div class=\\"text-regular bg-primary border-light\\">greeting</div>
+<div class=\\"text-secondary bg-primary-light-3 border-lighter\\">greeting</div>
+<div class=\\"text-placeholder bg-primary-light-5 border-dark\\">greeting</div>
+<div class=\\"text-disabled bg-primary-light-7 border-darker\\">greeting</div>
+<div class=\\"text-primary bg-primary-light-9 border-primary\\">greeting</div>
+<div class=\\"text-primary-light-3 bg-overlay border-primary-light-3\\">greeting</div>
+<div class=\\"text-primary-light-3 bg-fill-default border-primary-light-3\\">greeting</div>
+<div><button>greet</button></div>"
+`;

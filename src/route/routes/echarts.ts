@@ -8,6 +8,9 @@ export default {
   name: 'Chart',
   path: '/chart',
   redirect: '/chart/index',
+  meta: {
+    "b": 1
+  },
   children: [
     {
       name: 'ChartIndex',
