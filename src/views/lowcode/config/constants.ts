@@ -10,8 +10,12 @@ export const DEFAULT_STYLE_CONFIG = {
 }
 
 export const DEFAULT_EVENT_CONFIG = {
-  'vue:mounted': function mounted() {},
+  'vue:mounted': '',
 }
+
+export const HookRe = /^vue:/
+
+export const EventRe = /^event:/
 
 export const DEFAULT_CONFIG_PANEL_STYLE = {
   size: 'small',

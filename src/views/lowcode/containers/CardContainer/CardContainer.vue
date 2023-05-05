@@ -21,7 +21,6 @@
       <OperateTool
         v-show="current === i.id"
         v-if="!isPreview"
-        class="absolute right-0 bottom-0"
         @remove="remove(__children__, i)"
         @copy="copy(__children__, JSON.stringify(i))"
         @cancel="cancel"

@@ -57,7 +57,6 @@ export function compileTemplate() {
       const temp = await import(`../components/${item.component}/template`)
       const template = compile(temp.default || temp)
       const res = template({ attrs: config[item.id as string] })
-      debugger
       result += res
     } catch (error) {
       console.error(error)

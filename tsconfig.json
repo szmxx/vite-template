@@ -11,6 +11,8 @@
       "unplugin-icons/types/vue",
       "element-plus/global"
     ],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",

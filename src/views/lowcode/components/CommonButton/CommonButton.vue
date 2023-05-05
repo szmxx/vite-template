@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-  <el-button v-bind="$attrs">{{ label }}</el-button>
+  <el-button v-bind="$attrs" :loading="loading">{{ label }}</el-button>
 </template>
 
 <script setup lang="ts">
@@ -15,8 +15,12 @@
       default: '示例文本',
     },
   })
-  defineOptions({
-    name: 'CommonButton',
-    inheritAttrs: true,
-  })
+</script>
+
+<script lang="ts">
+import runtimeMixin from './runtime'
+export default defineComponent({
+  mixins: [runtimeMixin],
+  inheritAttrs: false
+})
 </script>

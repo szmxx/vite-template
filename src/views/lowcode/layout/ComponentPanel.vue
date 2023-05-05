@@ -44,6 +44,12 @@
           isGroup: true,
         },
         {
+          title: '行列容器',
+          component: 'ColRowContainer',
+          icon: 'i-carbon-grid',
+          isGroup: true,
+        },
+        {
           title: 'flex',
           component: 'FlexContainer',
           icon: 'i-mdi-format-text-wrapping-overflow',

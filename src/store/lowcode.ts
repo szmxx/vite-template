@@ -1,10 +1,4 @@
 import { IHasChildren } from './../views/lowcode/types'
-/*
- * @Author: cola
- * @Date: 2022-07-05 14:40:02
- * @LastEditors: cola
- * @Description:
- */
 import { defineStore } from 'pinia'
 import { merge, cloneDeep } from 'lodash'
 import { IComponentPanelItemChild } from '@/views/lowcode/types'

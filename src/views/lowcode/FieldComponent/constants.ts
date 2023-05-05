@@ -13,6 +13,8 @@ export interface FieldItem {
   label: string
   component: string | unknown
   key: string
+  prefix?: string
+  suffix?: string
 }
 
 export interface SPECIAL_TYPE_ITEM {

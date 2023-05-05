@@ -34,7 +34,11 @@ export async function append(
         default: {},
       }
       if (obj.isGroup) {
-        config = await import(`../containers/${obj.component}/config.ts`)
+        if(obj.parent){
+          config = await import(`../containers/${obj.parent}/${obj.component}/config.ts`)
+        } else {
+          config = await import(`../containers/${obj.component}/config.ts`)
+        }
       } else {
         config = await import(`../components/${obj.component}/config.ts`)
       }
@@ -45,6 +49,7 @@ export async function append(
         'id',
         'isGroup',
         'children',
+        'parent'
       ])
       store.setComponentConfig(
         obj.id,
@@ -154,6 +159,32 @@ export function down(
   if (list[index + 1]) {
     exchange(list, index + 1, index)
   }
+}
+
+export function addRow(item: IComponentPanelItemChild){
+  const ROW = {
+    title: '栅格行',
+    component: 'GridRow',
+    isGroup: true,
+    parent: 'ColRowContainer'
+  }
+  if(!item?.children){
+    item.children = []
+  }
+  append(item.children as IComponentPanelItemChild[], JSON.stringify(ROW))
+}
+
+export function addColumn(item: Record<string, unknown>){
+  const COLUMN = {
+    title: '栅格列',
+    component: 'GridColumn',
+    isGroup: true,
+    parent: 'ColRowContainer'
+  }
+  if(!item?.children){
+    item.children = []
+  }
+  append(item.children as IComponentPanelItemChild[], JSON.stringify(COLUMN))
 }
 
 export function exchange(

@@ -14,7 +14,7 @@ export interface IComponentPanelItemChild {
   title: string
   component: string
   icon: string
-  [key: string]: string | number | boolean
+  [key: string]: string | number | boolean | IComponentPanelItemChild[]
 }
 export interface IComponentPanelItem {
   title: string

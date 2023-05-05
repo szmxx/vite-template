@@ -5,12 +5,12 @@
  * @Description:
 -->
 <template>
-  <el-form ref="formRef" :model="formModel" :rules="formRules">
+  <el-form ref="formRef" :model="config" :rules="formRules">
     <el-form-item v-for="i in list" :key="i.key" :label="i.label">
       <component
         v-bind="i"
         :is="i.component"
-        v-model="formModel[i.key]"
+        v-model="config[i.key]"
         :__type__="i.key"
       ></component>
     </el-form-item>
@@ -30,7 +30,6 @@
 
   const list = ref<FieldItem[]>([])
   const formRef = ref<FormInstance>()
-  const formModel = ref<Record<string, unknown>>({})
   const formRules = ref<FormRules>({})
 
   const props = defineProps({
@@ -57,10 +56,6 @@
     }
   )
 
-  defineExpose({
-    submit: submit,
-  })
-
   function transformField(config: Record<string, unknown>) {
     const keys = Object.keys(config)
     if (keys?.length) {
@@ -76,32 +71,43 @@
         } else {
           const type = toRawType(config[keys[i]])
           const component = COMPONENT_TYPE_MAP[type]
+          const { prefix, suffix } = getExtraText(type, keys[i])
           list.value.push({
             label: FIELD_MAP[keys[i]] || keys[i],
             component: component,
             key: keys[i],
+            prefix: prefix,
+            suffix: suffix,
             ...props.styles,
           })
         }
-        formModel.value[keys[i]] = config[keys[i]]
       }
+    }
+  }
+
+  function getExtraText(type: string, key: string) {
+    let prefix = '';
+    let suffix = '';
+    switch(type) {
+      case "Object":
+        prefix = `${key} = `
+        break
+      case "Array":
+        prefix = `${key} = `
+        break
+      case "Function":
+        prefix = `function ${key}() {`
+        suffix = '}'
+        break
+    }
+    return {
+      prefix: prefix,
+      suffix: suffix
     }
   }
   function reset() {
     list.value = []
-    formModel.value = {}
     formRules.value = {}
   }
 
-  function submit() {
-    return new Promise((resolve) => {
-      formRef.value?.validate((bool) => {
-        if (bool) {
-          resolve(formModel)
-        } else {
-          resolve(false)
-        }
-      })
-    })
-  }
 </script>
