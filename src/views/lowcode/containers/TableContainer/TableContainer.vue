@@ -1,15 +1,15 @@
 <!--
  * @Author: cola
- * @Date: 2023-03-20 18:10:06
+ * @Date: 2023-03-20 20:09:55
  * @LastEditors: cola
  * @Description:
 -->
 <template>
-  <GlobalTable class="w-full overflow-hidden">
+  <CommonTable class="w-full overflow-hidden">
     <template #title="{ row }">
       <span>{{ row['title'] }}</span>
     </template>
-  </GlobalTable>
+  </CommonTable>
 </template>
 
 <script setup lang="ts"></script>

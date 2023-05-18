@@ -33,10 +33,7 @@
       default: () => [],
     },
   })
-  defineOptions({
-    name: 'CommonCheckbox',
-    inheritAttrs: true,
-  })
+
   const emit = defineEmits(['update:modelValue'])
   const value = computed({
     get() {
@@ -45,5 +42,14 @@
     set(value) {
       emit('update:modelValue', value)
     },
+  })
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonCheckbox',
+    mixins: [mixin],
+    inheritAttrs: true,
   })
 </script>

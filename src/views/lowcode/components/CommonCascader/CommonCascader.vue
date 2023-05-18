@@ -8,9 +8,13 @@
   <el-cascader v-bind="$attrs" />
 </template>
 
-<script setup lang="ts">
-  defineOptions({
+<script setup lang="ts"></script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
     name: 'CommonCascader',
+    mixins: [mixin],
     inheritAttrs: true,
   })
 </script>

@@ -10,4 +10,9 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="scss"></style>
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    mixins: [mixin],
+  })
+</script>

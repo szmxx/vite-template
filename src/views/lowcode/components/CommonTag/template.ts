@@ -6,8 +6,11 @@
  */
 export default `
   <CommonTag
-    {{#each-in attrs}}
-
+    {{#each-in complexAttrs}}
+      :{{key}}="{{value}}"
+    {{/each-in}}
+    {{#each-in plainAttrs}}
+      {{key}}="{{value}}"
     {{/each-in}}
   >
 

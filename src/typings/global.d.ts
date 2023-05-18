@@ -7,6 +7,9 @@
 declare module 'vue-grid-layout' {
   const install: () => void
 }
+
+declare module 'pretty'
+
 declare global {
   // 低版本的 TS FileList 不是 Iterable 的，自己加一个
   interface FileList {

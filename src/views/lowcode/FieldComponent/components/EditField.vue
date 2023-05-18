@@ -7,11 +7,11 @@
 <template>
   <div class="flex items-center gap-x-1 cursor-pointer" @click="show">
     <i i-mdi-cog-outline></i>
-    <span>配置数据</span>
+    <span>配置{{ label }}</span>
   </div>
-  <el-dialog v-model="dialogVisible" title="配置数据">
-    <div v-show="label" class="bg-#eee mb-1 px-2 border-rounded-1">
-      {{ label }} =
+  <el-dialog v-model="dialogVisible" :title="'配置' + label">
+    <div v-show="__type__" class="bg-#eee mb-1 px-2 border-rounded-1">
+      {{ __type__ }} =
     </div>
     <CommonCodeEditor
       ref="codeRef"

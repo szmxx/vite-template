@@ -25,7 +25,7 @@
         v-if="!isPreview"
         class="absolute right-0 bottom-0"
         @remove="remove(__children__, i)"
-        @copy="copy(__children__, JSON.stringify(i))"
+        @copy="copy(__children__, JSON.stringify(i), {})"
         @cancel="cancel"
         @up="up(__children__, i)"
         @down="down(__children__, i)"

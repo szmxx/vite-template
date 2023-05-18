@@ -1,14 +1,8 @@
 import { IHasChildren } from './../views/lowcode/types'
-/*
- * @Author: cola
- * @Date: 2022-07-05 14:40:02
- * @LastEditors: cola
- * @Description:
- */
 import { defineStore } from 'pinia'
 import { merge, cloneDeep } from 'lodash'
 import { IComponentPanelItemChild } from '@/views/lowcode/types'
-import { recursion, traverse } from '@/views/lowcode/utils/util'
+import { recursion, traverseFind } from '@/views/lowcode/utils/util'
 
 export default defineStore('lowcode', {
   state: () => {
@@ -160,7 +154,6 @@ export default defineStore('lowcode', {
         this._componentConfig = cloneDeep(
           this._historyConfigStack[this._currentStack]
         )
-        debugger
         return (this._componentTree = cloneDeep(
           this._historyStack[this._currentStack]
         ))
@@ -173,7 +166,7 @@ export default defineStore('lowcode', {
       return []
     },
     removeId(id: string) {
-      const target = traverse(this._componentTree, id)
+      const target = traverseFind(this._componentTree, id)
       if (target) {
         recursion([target], (item: IHasChildren) => {
           // TODO: 目前历史栈只支持回退组件配置，所以不能删除其他配置

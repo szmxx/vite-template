@@ -6,9 +6,12 @@
  */
 export default `
   <CommonSwitch
-    v-model="{modelValue}"
-    {{#each-in attrs}}
-
+    v-model="{{modelValue}}"
+    {{#each-in complexAttrs}}
+      :{{key}}="{{value}}"
+    {{/each-in}}
+    {{#each-in plainAttrs}}
+      {{key}}="{{value}}"
     {{/each-in}}
   >
 

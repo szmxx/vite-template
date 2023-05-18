@@ -31,6 +31,10 @@
       type: Boolean,
       default: false,
     },
+    autoFormat: {
+      type: Boolean,
+      default: false,
+    },
     options: {
       type: Object as PropType<Record<string, unknown>>,
       default: () => {},
@@ -62,7 +66,9 @@
       emit('update:modelValue', value)
       emit('change', value)
     })
-    autoFormat()
+    if (props.autoFormat) {
+      format()
+    }
     emit('editor-mounted', editor)
   }
 
@@ -92,7 +98,7 @@
     }
   )
 
-  function autoFormat() {
+  function format() {
     if (editor) {
       editor.trigger('anything', 'editor.action.formatDocument', {})
     }
@@ -112,5 +118,14 @@
 
   defineExpose({
     validate: validate,
+    format: format,
+  })
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonCodeEditor',
+    mixins: [mixin],
   })
 </script>

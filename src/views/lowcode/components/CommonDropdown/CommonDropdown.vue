@@ -47,10 +47,7 @@
       default: '',
     },
   })
-  defineOptions({
-    name: 'CommonRadio',
-    inheritAttrs: true,
-  })
+
   const emit = defineEmits(['update:modelValue'])
   const value = computed({
     get() {
@@ -59,5 +56,14 @@
     set(value) {
       emit('update:modelValue', value)
     },
+  })
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonRadio',
+    mixins: [mixin],
+    inheritAttrs: true,
   })
 </script>

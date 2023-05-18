@@ -15,10 +15,7 @@
       default: 1,
     },
   })
-  defineOptions({
-    name: 'CommonPagination',
-    inheritAttrs: true,
-  })
+
   const emit = defineEmits(['update:modelValue'])
   const value = computed({
     get() {
@@ -27,5 +24,14 @@
     set(value) {
       emit('update:modelValue', value)
     },
+  })
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonPagination',
+    mixins: [mixin],
+    inheritAttrs: true,
   })
 </script>

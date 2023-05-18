@@ -1,3 +1,9 @@
+<!--
+ * @Author: cola
+ * @Date: 2023-03-20 20:09:55
+ * @LastEditors: cola
+ * @Description:
+-->
 <template>
   <el-input
     v-bind="$attrs"
@@ -13,18 +19,22 @@
       default: '',
     },
   })
-  defineOptions({
-    name: 'CommonInput',
-    inheritAttrs: true,
-  })
   const emit = defineEmits(['update:modelValue'])
   const value = computed({
     get() {
       return props.modelValue
     },
     set(value) {
-      console.log(value)
       emit('update:modelValue', value)
     },
+  })
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonInput',
+    mixins: [mixin],
+    inheritAttrs: true,
   })
 </script>

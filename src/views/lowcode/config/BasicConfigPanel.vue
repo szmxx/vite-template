@@ -114,11 +114,11 @@
   })
 
   watch(componentConfig, (newVal) => {
-    list[0].config = cloneDeep(newVal)
+    list[0].config = newVal
   })
   watch(formItemConfig, (newVal) => {
     if (newVal && Object.keys(newVal)?.length) {
-      list[1].config = cloneDeep(newVal)
+      list[1].config = newVal
       list[1].isShow = true
     } else {
       list[1].isShow = false

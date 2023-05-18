@@ -15,10 +15,7 @@
       default: false,
     },
   })
-  defineOptions({
-    name: 'CommonSwitch',
-    inheritAttrs: true,
-  })
+
   const emit = defineEmits(['update:modelValue'])
   const value = computed({
     get() {
@@ -30,4 +27,11 @@
   })
 </script>
 
-<style scoped lang="scss"></style>
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    name: 'CommonSwitch',
+    mixins: [mixin],
+    inheritAttrs: true,
+  })
+</script>

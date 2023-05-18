@@ -7,8 +7,11 @@
 export default `
   <CommonTimePicker
     v-model="{{modelValue}}"
-    {{#each-in attrs}}
-
+    {{#each-in complexAttrs}}
+      :{{key}}="{{value}}"
+    {{/each-in}}
+    {{#each-in plainAttrs}}
+      {{key}}="{{value}}"
     {{/each-in}}
   >
 

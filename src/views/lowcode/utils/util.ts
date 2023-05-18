@@ -1,9 +1,8 @@
-/*
- * @Author: cola
- * @Date: 2023-03-23 21:01:43
- * @LastEditors: cola
- * @Description:
- */
+import {
+  CONTAINER_COMPONENT_MAP,
+  COMPONENT_CONTAINER_MAP,
+} from './../sfc/constants'
+
 import { IComponentPanelItemChild, IHasChildren } from '../types'
 export function importJson() {}
 export function exportJson(
@@ -23,7 +22,28 @@ export function download(blobUrl: string, downloadName: string) {
   URL.revokeObjectURL(blobUrl)
 }
 
-export function traverse(
+export function transformImportComponentTree(tree: Record<string, unknown>[]) {
+  recursion(tree, (item) => {
+    if (item.isGroup) {
+      item.component =
+        COMPONENT_CONTAINER_MAP[
+          item.component as keyof typeof COMPONENT_CONTAINER_MAP
+        ]
+    }
+  })
+}
+export function transformExportComponentTree(tree: Record<string, unknown>[]) {
+  recursion(tree, (item) => {
+    if (item.isGroup) {
+      item.component =
+        CONTAINER_COMPONENT_MAP[
+          item.component as keyof typeof CONTAINER_COMPONENT_MAP
+        ]
+    }
+  })
+}
+
+export function traverseFind(
   list: IComponentPanelItemChild[],
   id: string
 ): IComponentPanelItemChild | null {
@@ -34,7 +54,7 @@ export function traverse(
       break
     }
     if (list[i].children) {
-      target = traverse(
+      target = traverseFind(
         list[i].children as unknown as IComponentPanelItemChild[],
         id
       )
@@ -53,6 +73,14 @@ export function recursion(
       recursion(i.children, callback)
     }
   })
+}
+
+export function findLastNode(arr: IHasChildren[]): IHasChildren {
+  const last = arr[arr.length - 1]
+  if (last && last.children) {
+    return findLastNode(last.children)
+  }
+  return last
 }
 
 export function cloneExcludeKeys(obj: Record<string, unknown>, keys: string[]) {

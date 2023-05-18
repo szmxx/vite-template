@@ -15,8 +15,13 @@
       default: '示例文本',
     },
   })
-  defineOptions({
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
     name: 'CommonText',
+    mixins: [mixin],
     inheritAttrs: true,
   })
 </script>

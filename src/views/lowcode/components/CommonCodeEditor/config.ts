@@ -9,4 +9,5 @@ export default {
   theme: '',
   readonly: false,
   options: {},
+  autoFormat: false,
 }

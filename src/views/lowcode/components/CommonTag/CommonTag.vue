@@ -23,10 +23,13 @@
       default: () => [],
     },
   })
-  defineOptions({
+</script>
+
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
     name: 'CommonTag',
+    mixins: [mixin],
     inheritAttrs: true,
   })
 </script>
-
-<style scoped lang="scss"></style>

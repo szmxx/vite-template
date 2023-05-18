@@ -8,10 +8,11 @@
   <div>CommonTree</div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts"></script>
 
+<script lang="ts">
+  import mixin from '../../mixins/index'
+  defineComponent({
+    mixins: [mixin],
+  })
 </script>
-
-<style scoped lang="scss">
-
-</style>

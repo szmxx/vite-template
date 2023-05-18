@@ -1,3 +1,9 @@
+/*
+ * @Author: cola
+ * @Date: 2023-03-30 00:26:53
+ * @LastEditors: cola
+ * @Description:
+ */
 export default {
   inline: false,
   'label-position': 'right',
@@ -8,6 +14,7 @@ export default {
   'show-message': true,
   'inline-message': false,
   size: '',
+  rules: {},
   disabled: false,
   'scroll-to-error': false,
 }

@@ -10,7 +10,24 @@ export const DEFAULT_STYLE_CONFIG = {
 }
 
 export const DEFAULT_EVENT_CONFIG = {
-  'vue:mounted': function mounted() {},
+  beforeCreate: function beforeCreate() {
+    // code this
+  },
+  created: function created() {
+    // code this
+  },
+  beforeMount: function beforeMount() {
+    // code this
+  },
+  mounted: function mounted() {
+    // code this
+  },
+  beforeDestroy: function beforeDestroy() {
+    // code this
+  },
+  destroyed: function destroyed() {
+    // code this
+  },
 }
 
 export const DEFAULT_CONFIG_PANEL_STYLE = {

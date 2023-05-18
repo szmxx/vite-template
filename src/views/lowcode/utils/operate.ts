@@ -7,6 +7,7 @@
 import { IComponentPanelItemChild } from '../types'
 import { uniqueId, cloneDeep } from 'lodash'
 import { recursion, cloneExcludeKeys } from './util'
+import { UNIQUE_KEY, CONTAINER_COMPONENT_MAP } from '../sfc/constants'
 import useStore from '@/store/lowcode'
 const store = useStore()
 
@@ -34,11 +35,18 @@ export async function append(
         default: {},
       }
       if (obj.isGroup) {
-        config = await import(`../containers/${obj.component}/config.ts`)
+        config = await import(
+          `../components/${
+            CONTAINER_COMPONENT_MAP[
+              obj.component as keyof typeof CONTAINER_COMPONENT_MAP
+            ]
+          }/config.ts`
+        )
       } else {
         config = await import(`../components/${obj.component}/config.ts`)
       }
-      const res = cloneExcludeKeys(obj, [
+
+      let res = cloneExcludeKeys(obj, [
         'title',
         'component',
         'icon',
@@ -46,17 +54,25 @@ export async function append(
         'isGroup',
         'children',
       ])
-      store.setComponentConfig(
-        obj.id,
-        reactive(Object.assign({}, config.default, res))
-      )
-      store.setModel(obj.id, '')
+      // eslint-disable-next-line no-prototype-builtins
+      if (config?.default?.hasOwnProperty?.(UNIQUE_KEY)) {
+        res[UNIQUE_KEY] = obj.component + obj.id
+      }
+      res = Object.assign({}, config.default, res)
       if (containerData) {
+        delete res[UNIQUE_KEY]
         store.setFormItemConfig(
           obj.id,
-          reactive(Object.assign({}, containerData))
+          reactive(
+            Object.assign({}, containerData, {
+              label: obj.title,
+              prop: obj.component + obj.id,
+            })
+          )
         )
       }
+      store.setComponentConfig(obj.id, reactive(res))
+      store.setModel(obj.id, '')
     }
     // 等配置更新完，再压入栈中
     store.pushHistoryStack()
@@ -77,10 +93,23 @@ export async function copy(
       recursion([obj], (i) => {
         if (store.config[i.id as string]) {
           const newId = uniqueId()
-          store.setComponentConfig(
-            newId,
-            cloneDeep(store._componentConfig[i.id as string])
-          )
+          const config = cloneDeep(store._componentConfig[i.id as string])
+          // eslint-disable-next-line no-prototype-builtins
+          if (config?.hasOwnProperty?.(UNIQUE_KEY)) {
+            config[UNIQUE_KEY] = i.component + newId
+          }
+          if (containerData) {
+            delete config[UNIQUE_KEY]
+            store.setFormItemConfig(
+              newId,
+              cloneDeep(
+                Object.assign({}, store._formItemConfig[i.id as string], {
+                  prop: i.component + newId,
+                })
+              )
+            )
+          }
+          store.setComponentConfig(newId, config)
           store.setEventConfig(
             newId,
             cloneDeep(store._eventConfig[i.id as string])
@@ -90,12 +119,6 @@ export async function copy(
             cloneDeep(store._styleConfig[i.id as string])
           )
           store.setModel(newId, cloneDeep(store._model[i.id as string]))
-          if (containerData) {
-            store.setFormItemConfig(
-              newId,
-              cloneDeep(store._formItemConfig[i.id as string])
-            )
-          }
           i.id = newId
         }
       })

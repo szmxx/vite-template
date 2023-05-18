@@ -33,7 +33,8 @@
 <script setup lang="ts">
   import CommonCodeEditor from '../../components/CommonCodeEditor'
   import useStore from '@/store/lowcode'
-  import { exportJson } from '../../utils/util'
+  import { exportJson, transformExportComponentTree } from '../../utils/util'
+  import { cloneDeep } from 'lodash'
   const store = useStore()
   const activeName = ref('data')
   const tabs = reactive([
@@ -53,23 +54,18 @@
       code: '',
     },
   ])
-  watch(store.componentTree, (newVal) => {
-    tabs[0].code = JSON.stringify(newVal, null, 2)
-  })
-  watch(
-    () => store.config,
-    (newVal) => {
-      tabs[1].code = JSON.stringify(newVal, null, 2)
-    }
-  )
-  watch(store.model, (newVal) => {
-    tabs[2].code = JSON.stringify(newVal, null, 2)
-  })
 
   const dialogVisible = ref(false)
 
   function show() {
     dialogVisible.value = true
+    const componentTree = cloneDeep(store.componentTree)
+    transformExportComponentTree(componentTree)
+    tabs[0].code = JSON.stringify(componentTree, null, 2)
+
+    tabs[1].code = JSON.stringify(store.config, null, 2)
+
+    tabs[2].code = JSON.stringify(store.model, null, 2)
   }
 
   function exportHandler(name: string) {

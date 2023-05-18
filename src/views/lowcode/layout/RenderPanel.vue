@@ -61,9 +61,6 @@
   })
 
   const model = useModel()
-  watch(store._model, (newVal) => {
-    console.log(store._model)
-  })
   const config = useConfig()
 
   function dragOver(evt: DragEvent) {
