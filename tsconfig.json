@@ -37,3 +37,44 @@
 , "src/views/lowcode/components/CommonButton/config.ts"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "allowJs": true,
+    "types": [
+      "unplugin-vue-define-options",
+      "vitest/importMeta",
+      "unplugin-icons/types/vue",
+      "element-plus/global"
+    ],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "lib": ["esnext", "dom"],
+    "skipLibCheck": true
+  },
+  "include": [
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+, "src/views/lowcode/components/CommonButton/config.ts"  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

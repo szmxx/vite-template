@@ -21,7 +21,6 @@
       <OperateTool
         v-show="current === i.id"
         v-if="!isPreview"
-        class="absolute right-0 bottom-0"
         @remove="remove(__children__, i)"
         @copy="copy(__children__, JSON.stringify(i))"
         @cancel="cancel"
@@ -43,7 +42,7 @@
   import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
   import { append, remove, copy, cancel, up, down } from '../../utils/operate'
-  import useStore from '@/store/lowcode'
+  import useStore from '@/store/lowcode.ts'
   import { useModel, useConfig } from '../../composables'
   import { StyleValue, PropType } from 'vue'
   const store = useStore()

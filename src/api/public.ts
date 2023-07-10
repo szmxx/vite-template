@@ -5,7 +5,6 @@
  * @Description:
  */
 import type { TreeItem } from '@/components/GlobalTree/types'
-
 import { originGet, AxiosConfig } from './index'
 export interface AppConfig {
   title: string
@@ -20,7 +19,6 @@ export interface TodoItem {
 export function getAppConfig() {
   return originGet<AppConfig>('/static/appConfig.json')
 }
-
 export function getTodoList() {
   return originGet<TodoItem[]>('/static/todoList.json')
 }

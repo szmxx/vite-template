@@ -9,9 +9,9 @@
     ref="formRef"
     class="visual-form"
     :label-width="formConfig.labelWidth"
-    :label-position="formConfig.labelPosition"
+    :label-position="(formConfig.labelPosition as any)"
     :disabled="formConfig.disabled"
-    :size="formConfig.size"
+    :size="(formConfig.size as any)"
   >
     <VisualFormGroup :form-data="formData"></VisualFormGroup>
     <EditComponent
@@ -76,7 +76,7 @@
   function resetFormModel() {
     const defaultModel = getDefaultModel(props.formData, {})
     model.value = cloneDeep(defaultModel)
-    formRef?.resetFields?.()
+    formRef?.value?.resetFields?.()
   }
   function getFormModel() {
     return cloneDeep(model.value)

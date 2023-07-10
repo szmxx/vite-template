@@ -25,8 +25,8 @@ export function getRefreshToken(): string {
   return get(REFRESH_KEY)
 }
 
-export function setRefreshToken() {
-  return get(REFRESH_KEY)
+export function setRefreshToken(value: string) {
+  return set(REFRESH_KEY, value)
 }
 
 export function removeRefreshToken() {

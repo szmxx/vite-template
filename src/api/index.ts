@@ -3,11 +3,18 @@ import Http from '@/utils/Http'
 import { AxiosError, AxiosInstance } from 'axios'
 import { refreshToken } from './auth'
 import { RegistrableApp } from 'qiankun'
+const REFRESH_WHITELIST = ['/auth/refreshToken', '/auth/sso']
+const AUTH_WHITELIST = [
+  '/auth/login',
+  '/auth/refreshToken',
+  '/auth/authenticate',
+]
+
 const errorHandler = async (error: AxiosError, ctx?: AxiosInstance) => {
   // !permission auth fail, but it's not refresh token request
   if (
     error?.response?.status === 401 &&
-    !error?.config?.url?.includes?.('/auth/refreshToken')
+    !REFRESH_WHITELIST.includes(error?.config?.url as string)
   ) {
     const { config } = error
     try {
@@ -16,17 +23,17 @@ const errorHandler = async (error: AxiosError, ctx?: AxiosInstance) => {
         refreshToken: getRefreshToken(),
       })
       setToken(token)
-      config.headers!['Authorization'] = `$token}`
+      config.headers!['Authorization'] = `Bearer ${token}`
       // continue auth
       return ctx?.(config)
     } catch (err) {
-      const router = useRouter()
-      router.push('/login')
-      console.error('登录失效！')
-      return Promise.reject(err)
+      const url = new URL(location.origin)
+      url.searchParams.append('redirect', location.href)
+      location.href = url.toString()
     }
+  } else {
+    return Promise.reject(error)
   }
-  return Promise.reject(error)
 }
 
 interface InstanceMap {
@@ -59,8 +66,6 @@ export const initAxiosInstance = (config: AxiosConfig) => {
     BASEURL: BASEURL,
     errorHandler,
   }).instance
-  // set auth headers
-  instanceMap.base.defaults.headers.common['Authorization'] = `${getToken()}`
 }
 // 初始化后台实例
 export const initBusinessInstance = (config: AxiosConfig) => {
@@ -74,6 +79,19 @@ export const initBusinessInstance = (config: AxiosConfig) => {
     errorHandler,
   }).instance
 }
+const authHeaders = (url: string, options: Record<string, unknown>) => {
+  let headers = {}
+  if (!AUTH_WHITELIST.includes(url)) {
+    const token = getToken()
+    headers = Object.assign(
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      options.headers || {}
+    )
+  }
+  return headers
+}
 // 基础get方法
 const get = <T>(
   instance: AxiosInstance,
@@ -83,11 +101,13 @@ const get = <T>(
   options = {}
 ) => {
   return new Promise<T>((resolve, reject) => {
+    const headers = authHeaders(url, options)
     instance({
       url,
       method: 'get',
       params: params,
       ...options,
+      headers,
     })
       .then((res) => {
         resolve(res?.data ? res.data : res)
@@ -107,11 +127,13 @@ const post = <T>(
   options = {}
 ) => {
   return new Promise<T>((resolve, reject) => {
+    const headers = authHeaders(url, options)
     instance({
       url,
       method: 'post',
       data: data,
       ...options,
+      headers,
     })
       .then((res) => {
         resolve(res?.data ? res.data : res)
@@ -131,11 +153,13 @@ const put = <T>(
   options = {}
 ) => {
   return new Promise<T>((resolve, reject) => {
+    const headers = authHeaders(url, options)
     instance({
       url,
       method: 'put',
       data: data,
       ...options,
+      headers,
     })
       .then((res) => {
         resolve(res?.data ? res.data : res)
@@ -155,11 +179,13 @@ const del = <T>(
   options = {}
 ) => {
   return new Promise<T>((resolve, reject) => {
+    const headers = authHeaders(url, options)
     instance({
       url,
       method: 'delete',
       data: data,
       ...options,
+      headers,
     })
       .then((res) => {
         resolve(res?.data ? res.data : res)

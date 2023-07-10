@@ -56,7 +56,7 @@
       }
     },
     methods: {
-      itemTitle(item) {
+      itemTitle(item: Record<string, unknown>) {
         let result = item.i
         if (item.static) {
           result += ' - Static'

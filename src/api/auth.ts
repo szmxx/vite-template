@@ -1,3 +1,15 @@
+/*
+ * @Author: cola
+ * @Date: 2023-07-10 18:01:42
+ * @LastEditors: cola
+ * @Description:
+ */
+/*
+ * @Author: cola
+ * @Date: 2023-03-27 09:15:48
+ * @LastEditors: cola
+ * @Description:
+ */
 import { GET, POST } from './index'
 
 interface ILoginParams {
@@ -17,8 +29,18 @@ interface Auth {
   refreshToken: string
 }
 
+interface ILogin {
+  code: string
+}
+
 export function login(data: ILoginParams) {
-  return POST<Auth>('/auth/login', '登录', data)
+  return POST<ILogin>(`/auth/login`, '登录', data)
+}
+export function sso() {
+  return POST<Record<string, string>>(`/auth/sso`, '单点登录', {})
+}
+export function getUserInfo(params: ILoginParams) {
+  return GET<Auth>('/auth/userInfo', '获取用户信息', params)
 }
 
 export function refreshToken(data: IRefreshParams) {

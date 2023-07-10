@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-  <el-button v-bind="$attrs">{{ label }}</el-button>
+  <el-button v-bind="$attrs" :loading="loading">{{ label }}</el-button>
 </template>
 
 <script setup lang="ts">
@@ -18,10 +18,9 @@
 </script>
 
 <script lang="ts">
-  import mixin from '../../mixins/index'
-  defineComponent({
-    name: 'CommonButton',
-    mixins: [mixin],
-    inheritAttrs: true,
+  import runtimeMixin from './runtime'
+  export default defineComponent({
+    mixins: [runtimeMixin],
+    inheritAttrs: false,
   })
 </script>

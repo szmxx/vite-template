@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2022-11-30 17:30:54
+ * @LastEditTime: 2023-04-26 11:23:41
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -16,7 +16,7 @@ const CancelToken = axios.CancelToken
 interface HttpParams {
   BASEURL?: string
   TIMEOUT?: number
-  errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => void
+  errorHandler?: (error: AxiosError, ctx?: AxiosInstance) => Promise<unknown>
   isCancel?: boolean
 }
 const cancelMap = new Map()
@@ -25,8 +25,8 @@ export default class Http {
   constructor({
     BASEURL,
     TIMEOUT = 1000 * 60 * 10,
-    errorHandler = () => void 0,
-    isCancel = true,
+    errorHandler = async () => void 0,
+    isCancel = false,
   }: HttpParams) {
     this.instance = axios.create({
       baseURL: BASEURL,
@@ -48,11 +48,21 @@ export default class Http {
         }
         return config
       },
-      (error: AxiosError) => {
-        if (!axios.isCancel(error)) {
-          errorHandler(error, this.instance)
-          return Promise.reject(error)
-        }
+      async (error: AxiosError) => {
+        return new Promise((resolve, reject)=>{
+          if (!axios.isCancel(error)) {
+            errorHandler(error, this.instance).then(
+              (res: unknown) => {
+                resolve(res)
+              },
+              () => {
+                reject(error)
+              }
+            )
+          } else {
+            reject(error)
+          }
+        })
       }
     )
     // 拦截响应
@@ -70,10 +80,20 @@ export default class Http {
         return Promise.resolve(data)
       },
       (error: AxiosError) => {
-        if (!axios.isCancel(error)) {
-          errorHandler(error, this.instance)
-          return Promise.reject(error)
-        }
+        return new Promise((resolve, reject)=>{
+          if (!axios.isCancel(error)) {
+            errorHandler(error, this.instance).then(
+              (res: unknown) => {
+                resolve(res)
+              },
+              () => {
+                reject(error)
+              }
+            )
+          } else {
+            reject(error)
+          }
+        })
       }
     )
   }

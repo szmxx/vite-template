@@ -20,17 +20,19 @@
         >
           <MoveTool
             v-show="current === element.id"
-            class="absolute"
             :title="element.title"
           ></MoveTool>
           <OperateTool
             v-show="current === element.id"
+<<<<<<< HEAD
             class="absolute right-1px bottom-1px"
-            @remove="remove(list, element)"
-            @copy="copy(list, JSON.stringify(element))"
-            @cancel="cancel"
-            @up="up(list, element)"
+=======
+>>>>>>> sso
             @down="down(list, element)"
+<<<<<<< HEAD
+=======
+            @row="addRow(element)"
+>>>>>>> sso
           ></OperateTool>
           <!-- 定义渲染规则 -->
           <component
@@ -38,7 +40,12 @@
             v-model="model[element.id]"
             v-bind="config[element.id]"
             :__children__="element.children"
+<<<<<<< HEAD
           ></component>
+=======
+          >
+          </component>
+>>>>>>> sso
         </div>
       </template>
     </vuedraggable>
@@ -50,7 +57,11 @@
   import OperateTool from './components/OperateTool.vue'
   import MoveTool from './components/MoveTool.vue'
   import { useModel, useConfig } from '../composables'
+<<<<<<< HEAD
   import { append, remove, copy, cancel, up, down } from '../utils/operate'
+=======
+  import { append, remove, copy, cancel, up, down, addRow } from '../utils/operate'
+>>>>>>> sso
   import { IComponentPanelItemChild } from '../types'
   import useStore from '@/store/lowcode'
   const store = useStore()
@@ -61,6 +72,10 @@
   })
 
   const model = useModel()
+<<<<<<< HEAD
+=======
+
+>>>>>>> sso
   const config = useConfig()
 
   function dragOver(evt: DragEvent) {

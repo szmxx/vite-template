@@ -7,7 +7,6 @@
 import { IComponentPanelItemChild } from '../types'
 import { uniqueId, cloneDeep } from 'lodash'
 import { recursion, cloneExcludeKeys } from './util'
-import { UNIQUE_KEY, CONTAINER_COMPONENT_MAP } from '../sfc/constants'
 import useStore from '@/store/lowcode'
 const store = useStore()
 
@@ -35,44 +34,36 @@ export async function append(
         default: {},
       }
       if (obj.isGroup) {
-        config = await import(
-          `../components/${
-            CONTAINER_COMPONENT_MAP[
-              obj.component as keyof typeof CONTAINER_COMPONENT_MAP
-            ]
-          }/config.ts`
-        )
+        if (obj.parent) {
+          config = await import(
+            `../containers/${obj.parent}/${obj.component}/config.ts`
+          )
+        } else {
+          config = await import(`../containers/${obj.component}/config.ts`)
+        }
       } else {
         config = await import(`../components/${obj.component}/config.ts`)
       }
-
-      let res = cloneExcludeKeys(obj, [
+      const res = cloneExcludeKeys(obj, [
         'title',
         'component',
         'icon',
         'id',
         'isGroup',
         'children',
+        'parent',
       ])
-      // eslint-disable-next-line no-prototype-builtins
-      if (config?.default?.hasOwnProperty?.(UNIQUE_KEY)) {
-        res[UNIQUE_KEY] = obj.component + obj.id
-      }
-      res = Object.assign({}, config.default, res)
+      store.setComponentConfig(
+        obj.id,
+        reactive(Object.assign({}, config.default, res))
+      )
+      store.setModel(obj.id, '')
       if (containerData) {
-        delete res[UNIQUE_KEY]
         store.setFormItemConfig(
           obj.id,
-          reactive(
-            Object.assign({}, containerData, {
-              label: obj.title,
-              prop: obj.component + obj.id,
-            })
-          )
+          reactive(Object.assign({}, containerData))
         )
       }
-      store.setComponentConfig(obj.id, reactive(res))
-      store.setModel(obj.id, '')
     }
     // 等配置更新完，再压入栈中
     store.pushHistoryStack()
@@ -93,23 +84,10 @@ export async function copy(
       recursion([obj], (i) => {
         if (store.config[i.id as string]) {
           const newId = uniqueId()
-          const config = cloneDeep(store._componentConfig[i.id as string])
-          // eslint-disable-next-line no-prototype-builtins
-          if (config?.hasOwnProperty?.(UNIQUE_KEY)) {
-            config[UNIQUE_KEY] = i.component + newId
-          }
-          if (containerData) {
-            delete config[UNIQUE_KEY]
-            store.setFormItemConfig(
-              newId,
-              cloneDeep(
-                Object.assign({}, store._formItemConfig[i.id as string], {
-                  prop: i.component + newId,
-                })
-              )
-            )
-          }
-          store.setComponentConfig(newId, config)
+          store.setComponentConfig(
+            newId,
+            cloneDeep(store._componentConfig[i.id as string])
+          )
           store.setEventConfig(
             newId,
             cloneDeep(store._eventConfig[i.id as string])
@@ -119,6 +97,12 @@ export async function copy(
             cloneDeep(store._styleConfig[i.id as string])
           )
           store.setModel(newId, cloneDeep(store._model[i.id as string]))
+          if (containerData) {
+            store.setFormItemConfig(
+              newId,
+              cloneDeep(store._formItemConfig[i.id as string])
+            )
+          }
           i.id = newId
         }
       })
@@ -177,6 +161,32 @@ export function down(
   if (list[index + 1]) {
     exchange(list, index + 1, index)
   }
+}
+
+export function addRow(item: IComponentPanelItemChild) {
+  const ROW = {
+    title: '栅格行',
+    component: 'GridRow',
+    isGroup: true,
+    parent: 'ColRowContainer',
+  }
+  if (!item?.children) {
+    item.children = []
+  }
+  append(item.children as IComponentPanelItemChild[], JSON.stringify(ROW))
+}
+
+export function addColumn(item: Record<string, unknown>) {
+  const COLUMN = {
+    title: '栅格列',
+    component: 'GridColumn',
+    isGroup: true,
+    parent: 'ColRowContainer',
+  }
+  if (!item?.children) {
+    item.children = []
+  }
+  append(item.children as IComponentPanelItemChild[], JSON.stringify(COLUMN))
 }
 
 export function exchange(

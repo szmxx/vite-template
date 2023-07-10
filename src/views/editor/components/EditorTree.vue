@@ -31,7 +31,7 @@
             v-for="(i, index) in operates"
             :key="index"
             size="small"
-            :type="i.type"
+            :type="(i.type as any)"
             :data-type="i.label"
           >
             <i :data-type="i.label" :class="i.icon" />

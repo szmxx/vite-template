@@ -5,14 +5,17 @@
  * @Description:
  */
 export default {
-  name: 'Echarts',
-  path: '/echarts',
-  redirect: '/echarts/index',
+  name: 'Chart',
+  path: '/chart',
+  redirect: '/chart/index',
+  meta: {
+    b: 1,
+  },
   children: [
     {
-      name: 'EchartsIndex',
+      name: 'ChartIndex',
       path: 'index',
-      component: () => import('@/views/echarts'),
+      component: () => import('@/views/chart'),
     },
   ],
 }

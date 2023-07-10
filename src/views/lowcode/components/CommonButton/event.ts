@@ -1,11 +1,9 @@
 /*
  * @Author: cola
- * @Date: 2023-04-10 22:53:03
+ * @Date: 2023-05-04 18:43:09
  * @LastEditors: cola
  * @Description:
  */
 export default {
-  '@click': function handleClick() {
-    // code this
-  },
+  '@change': '',
 }

@@ -8,7 +8,7 @@
   <el-drawer
     v-model="isShowDraw"
     :size="formConfig.panelWidth"
-    :direction="direction"
+    :direction="(direction as any)"
     :show-close="false"
     :before-close="handleClose"
   >

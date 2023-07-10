@@ -5,17 +5,7 @@
  * @Description:
  */
 import { RouteRecordRaw } from 'vue-router'
-function traverse(
-  routes: readonly RouteRecordRaw[] = [],
-  list: RouteRecordRaw[] = []
-) {
-  routes.map((route: RouteRecordRaw) => {
-    list.push(route)
-    if (route?.children?.length) {
-      traverse(route.children, list)
-    }
-  })
-}
+
 export function isSelfRouteFn() {
   const router = useRouter()
   let pathname = location.pathname.startsWith('/')
