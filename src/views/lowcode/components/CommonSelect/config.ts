@@ -18,5 +18,7 @@ export default {
       value: 0,
     },
   ],
-  api: function apiGet() {},
+  api: function apiGet() {
+    // pass
+  },
 }

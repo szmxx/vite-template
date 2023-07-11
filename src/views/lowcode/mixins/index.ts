@@ -15,11 +15,14 @@ export default {
     if (this.beforeCreate) this.beforeCreate.bind(this)
   },
   async created() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     if (this.api) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const res = await this?.api()
       if (res?.data) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.apiData = res.data
       }

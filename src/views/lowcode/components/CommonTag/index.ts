@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonTag from './CommonTag.vue';
+import CommonTag from './CommonTag.vue'
 export default CommonTag

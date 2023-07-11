@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonInputNumber from './CommonInputNumber.vue';
+import CommonInputNumber from './CommonInputNumber.vue'
 export default CommonInputNumber

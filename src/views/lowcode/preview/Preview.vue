@@ -7,7 +7,7 @@
 <template>
   <el-dialog v-model="dialogVisible" title="预览页面">
     <div class="overflow-y-auto p-2 max-h-25rem">
-      <div v-for="item in list" :key="(item.id as string)" class="w-full">
+      <div v-for="item in list" :key="item.id as string" class="w-full">
         <component
           :is="item.component"
           v-model="model[item.id as string]"
@@ -40,4 +40,8 @@
   function hide() {
     dialogVisible.value = false
   }
+
+  defineExpose({
+    hide: hide,
+  })
 </script>

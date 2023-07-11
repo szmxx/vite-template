@@ -17,7 +17,9 @@
   const props = defineProps({
     data: {
       type: Object as PropType<IQAItem>,
-      default: () => {},
+      default: () => {
+        // pass
+      },
     },
     inputVal: {
       type: String,
@@ -31,6 +33,8 @@
     const index = props.data.answer.indexOf(props.inputVal)
     const startIndex = Math.max(index - 10, 0)
     const endIndex = Math.max(index + 10)
+    // eslint-disable-next-line no-console
+    console.info(endIndex)
     if (index !== -1) {
       return props.data.answer.slice(startIndex - 10, startIndex + 10)
     }

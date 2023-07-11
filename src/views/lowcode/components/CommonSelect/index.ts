@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonSelect from './CommonSelect.vue';
+import CommonSelect from './CommonSelect.vue'
 export default CommonSelect

@@ -23,6 +23,7 @@ export default mergeConfig(
       },
       includeSource: ['src/**/*.{js,ts}'],
       coverage: {
+        provider: 'c8',
         reporter: ['text', 'json', 'html'],
       },
     },

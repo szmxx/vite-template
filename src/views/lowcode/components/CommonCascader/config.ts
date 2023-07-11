@@ -14,5 +14,7 @@ export default {
   clearable: false,
   'show-all-levels': true,
   'collapse-tags': false,
-  api: function apiGet() {},
+  api: function apiGet() {
+    // pass
+  },
 }

@@ -29,6 +29,7 @@
     Popup,
   } from '@antv/l7'
   import { Map } from '@antv/l7-maps'
+  import { es } from 'element-plus/es/locale'
   const selectStyle = 'rgba(20, 120, 230, 0.3)'
   const strokeStyle = 'rgba(93,112,146,1)'
   const fillStyle = '#eee'
@@ -274,6 +275,7 @@
     let feature = null
     switch (type) {
       case 'world':
+        // eslint-disable-next-line no-case-declarations
         const worldLayer = scene.getLayerByName('world_layer')
         feature = worldLayer.layerSource.originData.features.find((feature) => {
           return feature.properties.code === code
@@ -288,6 +290,7 @@
         }
         break
       case 'china':
+        // eslint-disable-next-line no-case-declarations
         const chinaLayer = scene.getLayerByName('china_layer')
         feature = chinaLayer.layerSource.originData.features.find((feature) => {
           return feature.properties.adcode === code

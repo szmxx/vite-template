@@ -85,7 +85,7 @@
   const styleConfig = computed(() => {
     if (store.current) {
       const bool = isEmpty(store.styleConfig[store.current])
-      if(bool) {
+      if (bool) {
         store.setStyleConfig(store.current, DEFAULT_STYLE_CONFIG)
       }
       return store.styleConfig[store.current] || {}
@@ -96,7 +96,7 @@
   const eventConfig = computed(() => {
     if (store.current) {
       const bool = isEmpty(store.eventConfig[store.current])
-      if(bool) {
+      if (bool) {
         store.setEventConfig(store.current, DEFAULT_EVENT_CONFIG)
       }
       return store.eventConfig[store.current] || {}

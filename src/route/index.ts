@@ -4,7 +4,12 @@
  * @LastEditors: cola
  * @Description:
  */
-import { createRouter, RouteRecordRaw, createWebHistory, RouteLocationNormalized } from 'vue-router'
+import {
+  createRouter,
+  RouteRecordRaw,
+  createWebHistory,
+  RouteLocationNormalized,
+} from 'vue-router'
 import HomePage from '@/views/home'
 import LoginPage from '@/views/login'
 import ErrorPage from '@/views/error'
@@ -53,31 +58,34 @@ export function resetRouter() {
   store.setMenuList([])
 }
 
-export function addRoutes(routes: RouteRecordRaw[]){
-  routes.forEach(route => {
+export function addRoutes(routes: RouteRecordRaw[]) {
+  routes.forEach((route) => {
     router.addRoute(route)
   })
 }
 
-export function isNotFoundRoute(route: RouteLocationNormalized){
+export function isNotFoundRoute(route: RouteLocationNormalized) {
   let pathname = route.path.startsWith('/')
-      ? location.pathname.split('/')[1]
-      : location.pathname.split('/')[0]
+    ? location.pathname.split('/')[1]
+    : location.pathname.split('/')[0]
   pathname = '/' + pathname
   const store = useAppStore()
 
-  const appRoutes = store.appList.reduce((acc: Record<string, unknown>[], cur) => {
-    let rules = cur.activeRule as string[]
-    if(!Array.isArray(rules)) {
-      rules = [rules]
-    }
-    rules.forEach(rule => {
-      acc.push({
-        path: rule
+  const appRoutes = store.appList.reduce(
+    (acc: Record<string, unknown>[], cur) => {
+      let rules = cur.activeRule as string[]
+      if (!Array.isArray(rules)) {
+        rules = [rules]
+      }
+      rules.forEach((rule) => {
+        acc.push({
+          path: rule,
+        })
       })
-    })
-    return acc
-  }, [])
+      return acc
+    },
+    []
+  )
   const routes = [...router.getRoutes(), ...appRoutes]
   for (let i = 0; i < routes.length; i++) {
     // 路由表路径和本地一致，则是本地路由

@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import GridColumn from "./GridColumn.vue"
+import GridColumn from './GridColumn.vue'
 export default GridColumn

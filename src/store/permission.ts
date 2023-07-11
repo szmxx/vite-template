@@ -26,6 +26,6 @@ export default defineStore('permission', {
       const routes = buildPermissionTree(res.menus)
       this.setMenuList(routes)
       return routes
-    }
+    },
   },
 })

@@ -34,7 +34,9 @@
   const props = defineProps({
     data: {
       type: Object as PropType<IQAItem>,
-      default: () => {},
+      default: () => {
+        // pass
+      },
     },
   })
   const createTime = computed(() =>

@@ -3,7 +3,7 @@
  * @LastEditors: cola
  * @Description:
  * @Date: 2021-12-12 22:03:11
- * @LastEditTime: 2023-04-26 11:23:41
+ * @LastEditTime: 2023-07-11 19:51:10
  * @FilePath: \vite-project\src\utils\Http.js
  */
 import axios, {
@@ -49,7 +49,7 @@ export default class Http {
         return config
       },
       async (error: AxiosError) => {
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
           if (!axios.isCancel(error)) {
             errorHandler(error, this.instance).then(
               (res: unknown) => {
@@ -80,7 +80,7 @@ export default class Http {
         return Promise.resolve(data)
       },
       (error: AxiosError) => {
-        return new Promise((resolve, reject)=>{
+        return new Promise((resolve, reject) => {
           if (!axios.isCancel(error)) {
             errorHandler(error, this.instance).then(
               (res: unknown) => {

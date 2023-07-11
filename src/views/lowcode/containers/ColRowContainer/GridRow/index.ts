@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import GridRow from "./GridRow.vue"
+import GridRow from './GridRow.vue'
 export default GridRow

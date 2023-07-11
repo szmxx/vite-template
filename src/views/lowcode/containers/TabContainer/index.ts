@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import TabContainer from './TabContainer.vue';
+import TabContainer from './TabContainer.vue'
 export default TabContainer

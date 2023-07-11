@@ -17,7 +17,9 @@
   defineProps({
     data: {
       type: Object as PropType<FormItem>,
-      default: () => {},
+      default: () => {
+        // pass
+      },
     },
   })
 </script>

@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonPagination from './CommonPagination.vue';
+import CommonPagination from './CommonPagination.vue'
 export default CommonPagination

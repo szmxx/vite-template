@@ -36,11 +36,15 @@
   const props = defineProps({
     config: {
       type: Object as PropType<Record<string, unknown>>,
-      default: () => {},
+      default: () => {
+        // pass
+      },
     },
     styles: {
       type: Object as PropType<Record<string, unknown>>,
-      default: () => {},
+      default: () => {
+        // pass
+      },
     },
   })
   watch(

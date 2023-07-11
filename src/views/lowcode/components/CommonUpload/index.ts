@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonUpload from './CommonUpload.vue';
+import CommonUpload from './CommonUpload.vue'
 export default CommonUpload

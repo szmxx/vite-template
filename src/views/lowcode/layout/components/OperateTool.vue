@@ -25,7 +25,14 @@
 </template>
 
 <script setup lang="ts">
-  type IOperateEvent = 'cancel' | 'down' | 'up' | 'remove' | 'copy' | 'column' | 'row'
+  type IOperateEvent =
+    | 'cancel'
+    | 'down'
+    | 'up'
+    | 'remove'
+    | 'copy'
+    | 'column'
+    | 'row'
   defineProps({
     isRow: {
       type: Boolean,

@@ -9,7 +9,7 @@ export function importJson() {
 }
 export function exportJson(
   json: Record<string, unknown> | Record<string, unknown>[],
-  filename: string,
+  filename: string
 ) {
   const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
   const blobUrl = URL.createObjectURL(blob)
@@ -47,7 +47,7 @@ export function transformExportComponentTree(tree: Record<string, unknown>[]) {
 
 export function traverseFind(
   list: IComponentPanelItemChild[],
-  id: string,
+  id: string
 ): IComponentPanelItemChild | null {
   let target = null
   for (let i = 0; i < list.length; i++) {
@@ -58,7 +58,7 @@ export function traverseFind(
     if (list[i].children) {
       target = traverseFind(
         list[i].children as unknown as IComponentPanelItemChild[],
-        id,
+        id
       )
     }
   }
@@ -67,7 +67,7 @@ export function traverseFind(
 
 export function recursion(
   arr: IHasChildren[],
-  callback: (arg: IHasChildren) => void,
+  callback: (arg: IHasChildren) => void
 ) {
   arr.map((i: IHasChildren) => {
     callback(i)

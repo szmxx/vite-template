@@ -2,8 +2,10 @@
   "css.validate": true,
   "scss.validate": false,
   "less.validate": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": true,
+    "source.fixAll.eslint": true
   },
   "eslint.probe": [
     "javascript",
@@ -14,6 +16,7 @@
     "json",
     "jsonc"
   ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -23,6 +26,7 @@
     "json",
     "jsonc"
   ],
+  "eslint.quiet": true, // 不显示警告信息
   "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -53,7 +57,5 @@
   },
   "[sass]": {
     "editor.defaultFormatter": "stylelint.vscode-stylelint"
-  },
-  "testing.automaticallyOpenPeekView": "never",
-  "commentTranslate.multiLineMerge": false
+  }
 }

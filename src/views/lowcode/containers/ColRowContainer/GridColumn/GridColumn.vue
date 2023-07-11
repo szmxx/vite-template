@@ -9,27 +9,29 @@
     class="min-h-4rem border-dashed"
     droppable
     @dragover.prevent.stop="dragOver"
-    @drop.prevent.stop="dragEnd">
-      <div
-        v-for="i in __children__"
-        :key="i.id as string"
-        :class="{ 'relative border border-blue': current === i.id }">
-        <OperateTool
-          v-show="current === i.id"
-          @remove="remove(__children__, i)"
-          @copy="copy(__children__, JSON.stringify(i))"
-          @cancel="cancel"
-          @up="up(__children__, i)"
-          @down="down(__children__, i)"
-        ></OperateTool>
-        <component
-          :is="i.component"
-          v-model="model[i.id as string]"
-          v-bind="config[i.id as string]"
-          :__children__="i.children"
-        ></component>
-      </div>
-      <slot></slot>
+    @drop.prevent.stop="dragEnd"
+  >
+    <div
+      v-for="i in __children__"
+      :key="i.id as string"
+      :class="{ 'relative border border-blue': current === i.id }"
+    >
+      <OperateTool
+        v-show="current === i.id"
+        @remove="remove(__children__, i)"
+        @copy="copy(__children__, JSON.stringify(i))"
+        @cancel="cancel"
+        @up="up(__children__, i)"
+        @down="down(__children__, i)"
+      ></OperateTool>
+      <component
+        :is="i.component"
+        v-model="model[i.id as string]"
+        v-bind="config[i.id as string]"
+        :__children__="i.children"
+      ></component>
+    </div>
+    <slot></slot>
   </el-col>
 </template>
 
@@ -67,5 +69,3 @@
     }
   }
 </script>
-
-

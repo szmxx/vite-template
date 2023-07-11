@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonTimePicker from "./CommonTimePicker.vue"
+import CommonTimePicker from './CommonTimePicker.vue'
 export default CommonTimePicker

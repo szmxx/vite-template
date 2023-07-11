@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonCascader from "./CommonCascader.vue"
+import CommonCascader from './CommonCascader.vue'
 export default CommonCascader

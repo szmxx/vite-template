@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import CommonRadio from './CommonRadio.vue';
+import CommonRadio from './CommonRadio.vue'
 export default CommonRadio

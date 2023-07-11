@@ -8,10 +8,11 @@
   <el-tab-pane
     droppable
     class="min-h-4rem"
-    @dragover="dragOver"
     :label="label"
     :name="name"
-    @drop="dragEnd">
+    @dragover="dragOver"
+    @drop="dragEnd"
+  >
     <div
       v-for="i in __children__"
       :key="i.id as string"
@@ -65,6 +66,7 @@
     // eslint-disable-next-line vue/prop-name-casing
     __children__: {
       type: Object as PropType<IComponentPanelItemChild[]>,
+      // eslint-disable-next-line vue/require-valid-default-prop
       default: () => [],
     },
   })
@@ -92,4 +94,3 @@
     }
   }
 </script>
-

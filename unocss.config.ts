@@ -29,7 +29,8 @@ export default defineConfig({
         carbon: () =>
           import('@iconify-json/carbon').then((i) => i.icons as any),
         mdi: () => import('@iconify-json/mdi').then((i) => i.icons as any),
-        iconoir: () => import('@iconify-json/iconoir').then((i) => i.icons as any),
+        iconoir: () =>
+          import('@iconify-json/iconoir').then((i) => i.icons as any),
         custom: FileSystemIconLoader('./src/icon/svg', (svg) => {
           svg.replace(/(width|height)=['"](\w+)['"]/g, '')
           if ((svg?.match(/fill=/g)?.length || 0) <= 1) {
