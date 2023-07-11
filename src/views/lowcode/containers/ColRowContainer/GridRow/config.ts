@@ -5,8 +5,8 @@
  * @Description:
  */
 export default {
-  'gutter': 0,
-  'justify': 'start',
-  'align': 'top',
-  'tag': 'div'
+  gutter: 0,
+  justify: 'start',
+  align: 'top',
+  tag: 'div',
 }

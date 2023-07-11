@@ -29,7 +29,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonSwitch',
     mixins: [mixin],
     inheritAttrs: true,

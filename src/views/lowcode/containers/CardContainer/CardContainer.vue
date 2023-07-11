@@ -42,7 +42,7 @@
   import OperateTool from '../../layout/components/OperateTool.vue'
   import { IComponentPanelItemChild } from '../../types'
   import { append, remove, copy, cancel, up, down } from '../../utils/operate'
-  import useStore from '@/store/lowcode.ts'
+  import useStore from '@/store/lowcode'
   import { useModel, useConfig } from '../../composables'
   import { StyleValue, PropType } from 'vue'
   const store = useStore()

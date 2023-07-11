@@ -1,15 +1,3 @@
-<!--
- * @Author: cola
- * @Date: 2023-07-10 18:01:42
- * @LastEditors: cola
- * @Description:
--->
-<!--
- * @Author: cola
- * @Date: 2023-03-20 16:07:24
- * @LastEditors: cola
- * @Description:
--->
 <template>
   <el-select v-model="value" v-bind="$attrs">
     <el-option
@@ -53,7 +41,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonSelect',
     mixins: [mixin],
     inheritAttrs: true,

@@ -14,7 +14,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonTab',
     mixins: [mixin],
     inheritAttrs: true,

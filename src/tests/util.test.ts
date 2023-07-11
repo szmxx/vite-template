@@ -9,3 +9,5 @@ describe('test util', () => {
     assert.equal(Math.sqrt(4), 2)
   })
 })
+
+export {}

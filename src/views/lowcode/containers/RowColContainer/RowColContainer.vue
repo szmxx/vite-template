@@ -81,7 +81,7 @@
     evt.stopPropagation()
     const data = evt?.dataTransfer?.getData('text/plain')
     if (data && !props.isPreview) {
-      append(props.__children__, data, DEFAULT_FORMITEM_CONFIG)
+      append(props.__children__, data)
     }
   }
 </script>

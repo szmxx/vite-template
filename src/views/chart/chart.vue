@@ -5,11 +5,11 @@
  * @Description:
 -->
 <template>
-  <div class="w-full h-full" ref="mapView"></div>
+  <div ref="mapView" class="w-full h-full"></div>
 </template>
 
 <script setup lang="ts">
-  import { registerMap, init } from 'echarts';
+  import { registerMap, init, EChartOption } from 'echarts'
   import chinaJson from './data/china.json'
   import worldJson from './data/world.json'
   registerMap('CHINA', chinaJson as any)
@@ -20,7 +20,7 @@
   })
   function initMap() {
     const myChart = init(mapView.value)
-    const option = {
+    const option: EChartOption = {
       tooltip: {
         trigger: 'item',
         showDelay: 0,
@@ -97,6 +97,6 @@
         },
       ],
     }
-    myChart.setOption(option as Record<string, unknown>)
+    myChart.setOption(option)
   }
 </script>

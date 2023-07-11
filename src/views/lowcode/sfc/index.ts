@@ -4,7 +4,6 @@ import pretty from 'pretty'
 const store = useStore()
 import handlebars, { compile } from 'handlebars'
 import { toRawType } from '@/utils'
-import { stringify as telejson } from 'telejson'
 import {
   INVALID_VALUE,
   STYLE_KEYS,

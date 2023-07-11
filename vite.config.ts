@@ -6,6 +6,7 @@
  */
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import checker from 'vite-plugin-checker'
 import { resolve } from 'path'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import Unocss from 'unocss/vite'
@@ -17,6 +18,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   assetsInclude: ['**/*.JPG'],
@@ -85,6 +87,17 @@ export default defineConfig({
       iconCustomizer(collection, icon, props) {
         props.width = '1.2em'
         props.height = '1.2em'
+      },
+    }),
+    checker({
+      vueTsc: true,
+      eslint: {
+        // for example, lint .ts and .tsx
+        lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
+      },
+      stylelint: {
+        // for example, lint .css and .vue
+        lintCommand: 'stylelint ./src/**/*.{css,vue}',
       },
     }),
     Inspect(),

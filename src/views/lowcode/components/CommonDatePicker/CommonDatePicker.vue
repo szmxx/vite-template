@@ -5,7 +5,7 @@
  * @Description:
 -->
 <template>
-  <el-date-picker v-model="value" :type="type" />
+  <el-date-picker v-model="value" :type="type as any" />
 </template>
 
 <script setup lang="ts">
@@ -33,7 +33,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonDatePicker',
     mixins: [mixin],
     inheritAttrs: true,

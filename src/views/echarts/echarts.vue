@@ -5,22 +5,22 @@
  * @Description:
 -->
 <template>
-  <div class="w-full h-full" ref="mapView"></div>
+  <div ref="mapView" class="w-full h-full"></div>
 </template>
 
 <script setup lang="ts">
   import chinaJson from './data/china.json'
   import worldJson from './data/world.json'
-  import * as echarts from 'echarts';
-  echarts.registerMap('CHINA', chinaJson)
-  echarts.registerMap('WORLD', worldJson)
+  import { EChartOption, registerMap } from 'echarts'
+  registerMap('CHINA', chinaJson)
+  registerMap('WORLD', worldJson)
   const mapView = ref()
   onMounted(() => {
     initMap()
   })
   function initMap() {
     const myChart = echarts.init(mapView.value)
-    const option = {
+    const option: EChartOption = {
       tooltip: {
         trigger: 'item',
         showDelay: 0,

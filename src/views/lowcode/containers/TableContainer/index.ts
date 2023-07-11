@@ -4,5 +4,5 @@
  * @LastEditors: cola
  * @Description:
  */
-import TableContainer from './TableContainer.vue';
+import TableContainer from './TableContainer.vue'
 export default TableContainer

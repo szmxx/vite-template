@@ -29,7 +29,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonPagination',
     mixins: [mixin],
     inheritAttrs: true,

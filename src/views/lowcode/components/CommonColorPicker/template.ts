@@ -1,6 +1,13 @@
-/*
- * @Author: cola
- * @Date: 2023-07-10 18:01:42
- * @LastEditors: cola
- * @Description:
- */
+export default `
+  <CommonColorPicker
+    v-model="{{modelValue}}"
+    {{#each-in complexAttrs}}
+      :{{key}}="{{value}}"
+    {{/each-in}}
+    {{#each-in plainAttrs}}
+      {{key}}="{{value}}"
+    {{/each-in}}
+  >
+
+  </CommonColorPicker>
+`

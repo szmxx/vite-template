@@ -1,6 +1,6 @@
 /*
  * @Author: cola
- * @Date: 2023-04-06 23:51:57
+ * @Date: 2023-07-10 18:00:15
  * @LastEditors: cola
  * @Description:
  */
@@ -15,10 +15,12 @@ export default {
     if (this.beforeCreate) this.beforeCreate.bind(this)
   },
   async created() {
+    // @ts-ignore
     if (this.api) {
+      // @ts-ignore
       const res = await this?.api()
-      console.log(res)
       if (res?.data) {
+        // @ts-ignore
         this.apiData = res.data
       }
     }

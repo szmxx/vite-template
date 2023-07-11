@@ -20,11 +20,7 @@
       >
         <template #default="scope">
           <template v-if="'render' in col">
-            <table-render
-              :scope="scope"
-              :render="col.render"
-              :column-data="col"
-            ></table-render>
+            <table-render :scope="scope" :render="col.render"></table-render>
           </template>
           <template v-else-if="'isSlot' in col">
             <table-slot :scope="scope" :column-data="col"></table-slot>
@@ -65,7 +61,7 @@
   const root = ref<HTMLElement>()
   const maxTableHeight = ref(0)
   const maxTableWidth = ref(0)
-  provide(InstanceKey, getCurrentInstance())
+  provide(InstanceKey, getCurrentInstance()!)
   onMounted(() => {
     resize()
   })

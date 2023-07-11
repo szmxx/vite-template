@@ -23,7 +23,7 @@
           class="mt-4 float-right"
           label="导出数据"
           type="primary"
-          @click="exportHandler(tab.code as string)"
+          @click="exportHandler"
         ></CommonButton>
       </el-tab-pane>
     </el-tabs>

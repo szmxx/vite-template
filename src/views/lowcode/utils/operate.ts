@@ -67,8 +67,8 @@ export async function append(
     }
     // 等配置更新完，再压入栈中
     store.pushHistoryStack()
-  } catch {
-    console.log()
+  } catch (error) {
+    console.error(error)
   }
 }
 
@@ -110,8 +110,8 @@ export async function copy(
     }
     // 等配置更新完，再压入栈中
     store.pushHistoryStack()
-  } catch {
-    console.log()
+  } catch (error) {
+    console.error(error)
   }
 }
 

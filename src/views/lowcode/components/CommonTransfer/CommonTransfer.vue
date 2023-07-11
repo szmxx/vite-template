@@ -4,38 +4,16 @@
  * @LastEditors: cola
  * @Description:
 -->
-<!--
- * @Author: cola
- * @Date: 2023-03-20 16:03:40
- * @LastEditors: cola
- * @Description:
--->
+<!-- eslint-disable vue/valid-v-model -->
 <template>
-  <el-transfer v-model="value" v-bind="$attrs" />
+  <el-transfer v-bind="$attrs" />
 </template>
 
-<script setup lang="ts">
-  const props = defineProps({
-    modelValue: {
-      type: Array,
-      default: () => [],
-    },
-  })
-
-  const emit = defineEmits(['update:modelValue'])
-  const value = computed({
-    get() {
-      return props.modelValue
-    },
-    set(value) {
-      emit('update:modelValue', value)
-    },
-  })
-</script>
+<script setup lang="ts"></script>
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonTransfer',
     mixins: [mixin],
     inheritAttrs: true,

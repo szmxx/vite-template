@@ -66,7 +66,7 @@
   const root = ref<HTMLElement>()
   const maxTableHeight = ref(0)
   const maxTableWidth = ref(0)
-  provide(InstanceKey, getCurrentInstance())
+  provide(InstanceKey, getCurrentInstance()!)
   onMounted(() => {
     resize()
   })
@@ -98,7 +98,7 @@
 
 <script lang="ts">
   import mixin from '../../mixins/index'
-  defineComponent({
+  export default defineComponent({
     name: 'CommonTable',
     mixins: [mixin],
     inheritAttrs: false,

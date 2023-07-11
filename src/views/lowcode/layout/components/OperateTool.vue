@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-  // type IOperateEvent = 'cancel' | 'down' | 'up' | 'remove' | 'copy' | 'column' | 'row'
+  type IOperateEvent = 'cancel' | 'down' | 'up' | 'remove' | 'copy' | 'column' | 'row'
   defineProps({
     isRow: {
       type: Boolean,
@@ -47,6 +47,6 @@
   ])
   function opHandler(evt: MouseEvent) {
     const type = (evt.target as HTMLElement).dataset.type
-    emit(type)
+    emit(type as IOperateEvent)
   }
 </script>
