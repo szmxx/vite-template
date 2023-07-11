@@ -29,7 +29,6 @@
     Popup,
   } from '@antv/l7'
   import { Map } from '@antv/l7-maps'
-  import { es } from 'element-plus/es/locale'
   const selectStyle = 'rgba(20, 120, 230, 0.3)'
   const strokeStyle = 'rgba(93,112,146,1)'
   const fillStyle = '#eee'

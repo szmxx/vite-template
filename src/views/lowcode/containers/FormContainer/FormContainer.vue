@@ -4,12 +4,6 @@
  * @LastEditors: cola
  * @Description:
 -->
-<!--
- * @Author: cola
- * @Date: 2023-03-20 18:07:30
- * @LastEditors: cola
- * @Description:
--->
 <template>
   <el-form
     class="min-h-4rem border-dashed"

@@ -7,10 +7,3 @@
 <template>
   <el-divider v-bind="$attrs" />
 </template>
-
-<script setup lang="ts">
-  defineOptions({
-    name: 'CommonDivider',
-    inheritAttrs: true,
-  })
-</script>

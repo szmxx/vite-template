@@ -4,12 +4,6 @@
  * @LastEditors: cola
  * @Description:
 -->
-<!--
- * @Author: cola
- * @Date: 2023-03-20 20:09:55
- * @LastEditors: cola
- * @Description:
--->
 <template>
   <el-time-picker v-model="value" v-bind="$attrs" />
 </template>
@@ -30,14 +24,5 @@
     set(value) {
       emit('update:modelValue', value)
     },
-  })
-</script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonTimePicker',
-    mixins: [mixin],
-    inheritAttrs: true,
   })
 </script>

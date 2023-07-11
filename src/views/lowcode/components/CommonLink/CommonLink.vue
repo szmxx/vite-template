@@ -1,3 +1,9 @@
+<!--
+ * @Author: cola
+ * @Date: 2023-07-10 18:01:42
+ * @LastEditors: cola
+ * @Description:
+-->
 <template>
   <el-link v-bind="$attrs">{{ label }}</el-link>
 </template>
@@ -8,14 +14,5 @@
       type: String,
       default: '示例文本',
     },
-  })
-</script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonLink',
-    mixins: [mixin],
-    inheritAttrs: true,
   })
 </script>

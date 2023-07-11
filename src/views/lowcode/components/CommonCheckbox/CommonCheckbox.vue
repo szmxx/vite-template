@@ -44,12 +44,3 @@
     },
   })
 </script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonCheckbox',
-    mixins: [mixin],
-    inheritAttrs: true,
-  })
-</script>

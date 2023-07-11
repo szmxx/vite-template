@@ -37,11 +37,7 @@
     dialogVisible.value = true
   }
 
-  function hide() {
-    dialogVisible.value = false
-  }
-
-  defineExpose({
-    hide: hide,
-  })
+  // function hide() {
+  //   dialogVisible.value = false
+  // }
 </script>

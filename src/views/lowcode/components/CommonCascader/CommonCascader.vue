@@ -9,12 +9,3 @@
 </template>
 
 <script setup lang="ts"></script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonCascader',
-    mixins: [mixin],
-    inheritAttrs: true,
-  })
-</script>

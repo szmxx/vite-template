@@ -63,12 +63,3 @@
     },
   })
 </script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonRadio',
-    mixins: [mixin],
-    inheritAttrs: true,
-  })
-</script>

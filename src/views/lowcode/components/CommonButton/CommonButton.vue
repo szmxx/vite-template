@@ -15,12 +15,5 @@
       default: '示例文本',
     },
   })
-</script>
-
-<script lang="ts">
-  import runtimeMixin from './runtime'
-  export default defineComponent({
-    mixins: [runtimeMixin],
-    inheritAttrs: false,
-  })
+  const loading = ref(false)
 </script>

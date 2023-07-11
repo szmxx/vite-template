@@ -95,12 +95,3 @@
     }
   }
 </script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonTable',
-    mixins: [mixin],
-    inheritAttrs: false,
-  })
-</script>

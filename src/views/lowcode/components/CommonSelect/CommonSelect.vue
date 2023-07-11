@@ -1,3 +1,9 @@
+<!--
+ * @Author: cola
+ * @Date: 2023-07-10 18:01:42
+ * @LastEditors: cola
+ * @Description:
+-->
 <template>
   <el-select v-model="value" v-bind="$attrs">
     <el-option
@@ -36,14 +42,5 @@
     set(value) {
       emit('update:modelValue', value)
     },
-  })
-</script>
-
-<script lang="ts">
-  import mixin from '../../mixins/index'
-  export default defineComponent({
-    name: 'CommonSelect',
-    mixins: [mixin],
-    inheritAttrs: true,
   })
 </script>
