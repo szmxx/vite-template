@@ -80,7 +80,7 @@ export default defineConfig({
         custom: FileSystemIconLoader('./src/icon/svg', (svg) =>
           svg
             .replace(/(width|height)=['"](\w+)['"]/g, '')
-            .replace(/^<svg /, '<svg fill="currentColor"')
+            .replace(/^<svg /, '<svg fill="currentColor"'),
         ),
       },
       iconCustomizer(collection, icon, props) {

@@ -188,7 +188,11 @@ export default defineConfig({
       },
     ],
   ],
-  include: [`${__dirname}/**/*`],
-  exclude: [`${__dirname}/node_modules/**/*`],
+  content: {
+    pipeline: {
+      include: [`${__dirname}/**/*`],
+      exclude: [`${__dirname}/node_modules/**/*`],
+    },
+  },
   transformers: [transformerDirectives(), transformerVariantGroup()],
 })

@@ -9,10 +9,10 @@
     "plugin:vue/vue3-recommended",
     "eslint:recommended",
     "@vue/typescript/recommended",
-    // Add other rules
     "@vue/prettier",
     "./.eslintrc-auto-import.json"
   ],
+  "plugins": ["vue"],
   "settings": {
     "import/resolver": {
       "node": { "extensions": [".js", ".mjs", ".ts", ".d.ts", ".tsx"] }
@@ -65,7 +65,6 @@
     }
   ],
   "rules": {
-    "prettier/prettier": "error",
     "no-console": ["warn", { "allow": ["error"] }],
     "no-debugger": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",

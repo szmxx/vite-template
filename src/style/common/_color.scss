@@ -6,10 +6,11 @@
 }
 
 // rgba color above solid color
-@function mixOverlayColor($upper, $lower){
+@function mixOverlayColor($upper, $lower) {
   $opacity: color.alpha($upper);
   $red: color.red($upper) * $opacity + color.red($lower) * (1 - $opacity);
   $green: color.green($upper) * $opacity + color.green($lower) * (1 - $opacity);
   $blue: color.blue($upper) * $opacity + color.blue($lower) * (1 - $opacity);
+
   @return rgb2hex(rgb($red, $green, $blue));
 }

@@ -104,5 +104,6 @@
 <style lang="scss">
   .float-btn {
     transform: translate(calc(100vw - 4rem), calc(100vh - 4rem));
+    width: 200px;
   }
 </style>

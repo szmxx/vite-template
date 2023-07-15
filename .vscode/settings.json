@@ -27,7 +27,7 @@
     "jsonc"
   ],
   "eslint.quiet": true, // 不显示警告信息
-  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "sass", "vue"],
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
